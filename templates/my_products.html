@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Products</h2>
+<ul>
+  {% for product in products %}
+    <li>
+      <strong>{{ product.name }}</strong> -
+      {% if product.buyer_id %}
+        <span style="color: green;">Purchased</span>
+      {% else %}
+        <span style="color: red;">Available</span>
+      {% endif %}
+    </li>
+  {% else %}
+    <p>No products added yet.</p>
+  {% endfor %}
+</ul>
+{% endblock %}

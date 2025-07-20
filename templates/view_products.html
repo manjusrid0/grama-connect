@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Available Products</h2>
+
+{% if products %}
+    <div style="display: flex; flex-wrap: wrap;">
+        {% for product in products %}
+        <div style="border: 1px solid #ccc; padding: 10px; margin: 10px; width: 200px;">
+            <img src="{{ url_for('static', filename='uploads/' + product[4]) }}" alt="{{ product[1] }}" style="width: 100%; height: 150px; object-fit: cover;">
+            <h3>{{ product[1] }}</h3>
+            <p><strong>₹{{ product[3] }}</strong></p>
+            <p>{{ product[2] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No products available yet.</p>
+{% endif %}
+{% endblock %}

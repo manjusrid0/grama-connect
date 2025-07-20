@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Sell a Product</h2>
+<form method="POST" enctype="multipart/form-data">
+
+    <label for="product_name">Product Name:</label><br>
+    <input type="text" name="product_name" placeholder="e.g., Organic Vegetables" required><br><br>
+
+    <label for="product_desc">Product Description:</label><br>
+    <textarea name="product_desc" rows="4" placeholder="e.g., Fresh organic tomatoes grown in our village." required></textarea><br><br>
+
+    <label for="product_image">Upload Product Image:</label><br>
+    <input type="file" name="product_image" accept="image/*" required><br><br>
+
+    <button type="submit">Post Product</button>
+
+</form>
+
+{% if product_name %}
+    <hr>
+    <h3>Preview:</h3>
+    <p><strong>Name:</strong> {{ product_name }}</p>
+    <p><strong>Description:</strong> {{ product_desc }}</p>
+    <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Product Image" width="300">
+{% endif %}
+
+{% endblock %}
