@@ -1,6 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-     <h1> Grama Connect is Live!</h1>
-    <p>Welcome to your online portal.</p>
+<!-- Hidden images used as sources for background slider -->
+<div class="hidden-slides">
+  <img class="slide" src="{{ url_for('static', filename='uploads/farmer3.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/craft2.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/parai.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/nesavu.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/puppet.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/therukuuthu.jpg') }}">
+   <img class="slide" src="{{ url_for('static', filename='uploads/wooden-handicrafts2.jpg') }}">
+    <img class="slide" src="{{ url_for('static', filename='uploads/pot_making.jpg') }}">
+     <img class="slide" src="{{ url_for('static', filename='uploads/farmer.jpg') }}">
+      <img class="slide" src="{{ url_for('static', filename='uploads/weaving.jpg') }}">
+       <img class="slide" src="{{ url_for('static', filename='uploads/gombeyata-tradition-puppet.jpg') }}">
+</div>
+
+<div class="center-marquee">
+  Grama Connect is Live – Empowering Villages with Innovation!
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let index = 0;
+
+  function showSlide() {
+    const body = document.body;
+    if (slides[index]) {
+      body.style.backgroundImage = `url(${slides[index].src})`;
+    }
+    index = (index + 1) % slides.length;
+  }
+
+  showSlide();
+  setInterval(showSlide, 4000);
+</script>
 {% endblock %}
