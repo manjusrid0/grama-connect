@@ -4,6 +4,15 @@
 <h2>Available Products</h2>
 
 {% if products %}
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='images/craft3.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+</style>
     <div style="display: flex; flex-wrap: wrap;">
         {% for product in products %}
         <div style="border: 1px solid #ccc; padding: 10px; margin: 10px; width: 200px;">

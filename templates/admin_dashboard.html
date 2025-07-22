@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome, Admin!</h2>
+
+<ul>
+  <li><a href="{{ url_for('add_jobs') }}">Add New Job</a></li>
+  <li><a href="{{ url_for('view_jobs') }}">View All Jobs</a></li>
+  <li><a href="{{ url_for('view_all_uploads') }}">View All Uploads</a></li>
+  <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
+</ul>
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+</style>
+{% endblock %}

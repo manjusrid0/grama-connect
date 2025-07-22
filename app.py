@@ -48,29 +48,106 @@ class Product(db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-# ------------------- ADMIN LOGIN -------------------
-ADMIN_EMAIL = "admin@gmail.com"
+# ---------------- ADMIN CREDENTIAL -------------------
+ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
 
+
+# Hardcoded admin credentials
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "admin123"
+
+# Home route
 @app.route('/')
 def home():
     return render_template("home.html")
 
-@app.route('/about')
-def about():
-    return render_template("about.html")
-
-@app.route('/admin', methods=['GET', 'POST'])
-def admin_login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
-            return render_template("admin_dashboard.html")
-        else:
-            flash("Invalid admin credentials.")
+# Admin login page (GET)
+@app.route("/admin", methods=["GET"])
+def admin_login_page():
     return render_template("admin_login.html")
+
+# Admin login form POST handler
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == 'GET':
+        return redirect(url_for('admin_login_page'))
+
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+        session['admin_logged_in'] = True
+        return redirect(url_for('admin_dashboard'))
+    else:
+        flash("Invalid admin credentials")
+        return redirect(url_for('admin_login_page'))
+
+# Admin dashboard
+@app.route("/admin/dashboard")
+def admin_dashboard():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login_page'))
+    return render_template("admin_dashboard.html")
+
+# Admin logout
+@app.route("/admin/logout")
+def admin_logout():
+    session.pop('admin_logged_in', None)
+    return redirect(url_for('admin_login_page'))
+
+@app.route("/admin/add_jobs", methods=["GET", "POST"])
+def add_job():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login_page'))
+
+    if request.method == "POST":
+        title = request.form['title']
+        location = request.form['location']
+
+        con = sqlite3.connect("database/grama.db")
+        cur = con.cursor()
+        cur.execute("INSERT INTO jobs (title, location) VALUES (?, ?)", (title, location))
+        con.commit()
+        con.close()
+
+        flash("Job added successfully")
+        return redirect(url_for('view_jobs'))
+
+    return render_template("add_job.html")
+
+
+@app.route("/admin/view_jobs")
+def view_jobs():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login_page'))
+
+    con = sqlite3.connect("database/grama.db")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM jobs")
+    jobs = cur.fetchall()
+    con.close()
+
+    return render_template("view_jobs.html", jobs=jobs)
+@app.route("/admin/view_uploads")
+def view_all_uploads():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login_page'))
+
+    con = sqlite3.connect("database/grama.db")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM videos")
+    videos = cur.fetchall()
+
+    cur.execute("SELECT * FROM classes")
+    classes = cur.fetchall()
+
+    cur.execute("SELECT * FROM products")
+    products = cur.fetchall()
+
+    con.close()
+
+    return render_template("view_all_uploads.html", videos=videos, classes=classes, products=products)
 
 # ------------------- USER LOGIN/REGISTER -------------------
 @app.route('/register', methods=['GET', 'POST'])
@@ -200,4 +277,4 @@ def jobs():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+        app.run(debug=True)

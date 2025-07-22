@@ -90,12 +90,12 @@ h1 {
   <div class="header-container">
     <h1>Grama Connect</h1>
     <nav>
-      <ul>
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('user_login') }}">Login</a></li>
-        <li><a href="{{ url_for('admin_login') }}">Admin</a></li>
-        <li><a href="{{ url_for('about') }}">About Us</a></li>
-      </ul>
+    <a href="{{ url_for('home') }}">Home</a> |
+    <a href="{{ url_for('user_login') }}">Login</a> |
+    <a href="{{ url_for('register') }}">Register</a> |
+    <a href="{{ url_for('admin_login') }}">Admin</a> |
+    <a href="{{ url_for('dashboard') }}">Dashboard</a> |
+    <a href="{{ url_for('logout') }}">Logout</a>
     </nav>
   </div>
 </header>

@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Login</h2>
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='images/craft3.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+</style>
 <form method="POST">
     <input name="username" placeholder="Username" required>
     <input name="password" type="password" placeholder="Password" required>

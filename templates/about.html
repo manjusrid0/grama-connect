@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+</style>
     <h2>About Grama Connect</h2>
     <p>Grama Connect is a web platform designed to bridge the gap between rural talents and job opportunities.</p>
     <p>We aim to empower individuals in villages by providing access to employment, skill development, and resources.</p>

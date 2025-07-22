@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+</style>
 <h2>My Products</h2>
 <ul>
   {% for product in products %}
