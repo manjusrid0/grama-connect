@@ -1,10 +1,82 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>All Jobs</h2>
-<ul>
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Container */
+.jobs-container {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c035a;
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+/* Heading */
+.jobs-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Job list */
+.jobs-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.jobs-container li {
+  background: #f1f1f1;
+  color: #0c035a;
+  padding: 15px 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 16px;
+}
+
+/* Back link */
+.jobs-container .back-link {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.jobs-container .back-link a {
+  background-color: #0c035a;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.jobs-container .back-link a:hover {
+  background-color: #130371;
+}
+</style>
+
+<div class="jobs-container">
+  <h2>All Jobs</h2>
+  <ul>
     {% for job in jobs %}
-        <li>{{ job[1] }} - {{ job[2] }}</li>
+      <li><strong>{{ job[1] }}</strong> – {{ job[2] }}</li>
+    {% else %}
+      <li>No jobs posted yet.</li>
     {% endfor %}
-</ul>
-<a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a>
+  </ul>
+
+  <div class="back-link">
+    <a href="{{ url_for('admin_dashboard') }}">⬅ Back to Dashboard</a>
+  </div>
+</div>
 {% endblock %}

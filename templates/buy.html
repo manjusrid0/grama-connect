@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <style>
 body {
@@ -7,13 +8,86 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   color: white;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  margin-top: 40px;
+  color: #fff;
+}
+
+/* Product grid */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* Individual product card */
+.product-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c035a;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin: 15px;
+  width: 260px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Product image */
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* Product text */
+.product-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.product-card p {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Buy button */
+.product-card button {
+  background-color: #0c035a;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.product-card button:hover {
+  background-color: #140477;
 }
 </style>
+
 <h2>Buy Products</h2>
-<div style="display: flex; flex-wrap: wrap;">
+
+<div class="products-container">
   {% for product in products %}
-    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px; width: 250px;">
-      <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}" width="200">
+    <div class="product-card">
+      <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}" alt="{{ product.name }}">
       <h3>{{ product.name }}</h3>
       <p>{{ product.description }}</p>
       <form method="POST">
@@ -22,7 +96,7 @@ body {
       </form>
     </div>
   {% else %}
-    <p>No products available.</p>
+    <p style="text-align:center; width: 100%; color: #fff;">No products available.</p>
   {% endfor %}
 </div>
 {% endblock %}

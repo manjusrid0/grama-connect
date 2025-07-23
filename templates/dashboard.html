@@ -3,11 +3,11 @@
 {% block content %}
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-image: url("{{ url_for('static', filename='uploads/giphy--8-.gif.gif') }}");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: white;
+  color: rgb(247, 242, 242);
 }
 </style>
 <h2>Welcome, {{ current_user.username }}!</h2>
@@ -61,9 +61,9 @@ body {
     margin-top: 30px;
 }
 .card {
-    border: 1px solid #ccc;
+    border: 1px solid #0f075c;
     padding: 20px;
-    background: #f9f9f9;
+    background: #72b5ec;
     border-radius: 10px;
     text-align: center;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
@@ -74,13 +74,13 @@ body {
 .btn {
     display: inline-block;
     padding: 10px 15px;
-    background: #007bff;
-    color: white;
+    background: #3c0fdf;
+    color: rgb(246, 246, 248);
     text-decoration: none;
     border-radius: 5px;
 }
 .btn:hover {
-    background: #0056b3;
+    background: #26025f;
 }
 </style>
 {% endblock %}

@@ -1,20 +1,58 @@
 {% extends "base.html" %}
-{% block content %}
-<h2>Welcome, Admin!</h2>
 
-<ul>
-  <li><a href="{{ url_for('add_jobs') }}">Add New Job</a></li>
-  <li><a href="{{ url_for('view_jobs') }}">View All Jobs</a></li>
-  <li><a href="{{ url_for('view_all_uploads') }}">View All Uploads</a></li>
-  <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
-</ul>
+{% block content %}
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white;
+  background-image: url("{{ url_for('static', filename='uploads/giphy.gif') }}");
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-container {
+  max-width: 600px;
+  margin: 60px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.dashboard-container h2 {
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.menu-buttons a {
+  display: block;
+  padding: 12px;
+  background-color: #f1e869;
+  color: rgb(68, 3, 3);
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.menu-buttons a:hover {
+  background-color: #f5dd09;
 }
 </style>
+
+<div class="dashboard-container">
+  <h2>Welcome, Admin!</h2>
+  <div class="menu-buttons">
+    <a href="{{ url_for('add_job') }}">Add New Job</a>
+    <a href="{{ url_for('view_job') }}">View All Jobs</a>
+    <a href="{{ url_for('view_all_uploads') }}">View All Uploads</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</div>
 {% endblock %}

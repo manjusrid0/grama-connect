@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Grama Connect</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <style>
     body {
       margin: 0;
@@ -35,10 +35,12 @@ nav ul {
   gap: 25px;
   padding: 0;
   margin: 0;
+  color: white;
 }
 
 nav ul li {
   display: inline;
+  color: white;
 }
 
 nav ul li a {
@@ -50,6 +52,7 @@ nav ul li a {
 
 nav ul li a:hover {
   text-decoration: underline;
+  color: white;
 }
 
 h1 {
@@ -67,7 +70,7 @@ h1 {
       font-size: 28px;
       font-weight: bold;
       color: white;
-      text-shadow: 2px 2px 5px #000;
+      text-shadow: 2px 2px 5px #3e99d6;
       animation: scrollUp 10s linear infinite;
       z-index: 5;
     }
@@ -94,7 +97,6 @@ h1 {
     <a href="{{ url_for('user_login') }}">Login</a> |
     <a href="{{ url_for('register') }}">Register</a> |
     <a href="{{ url_for('admin_login') }}">Admin</a> |
-    <a href="{{ url_for('dashboard') }}">Dashboard</a> |
     <a href="{{ url_for('logout') }}">Logout</a>
     </nav>
   </div>

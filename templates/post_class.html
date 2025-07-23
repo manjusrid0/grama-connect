@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block content %}
 <style>
 body {
@@ -7,14 +8,72 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Container */
+.post-class-container {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c035a;
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading */
+.post-class-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Labels and inputs */
+.post-class-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.post-class-container input,
+.post-class-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Button */
+.post-class-container button {
+  width: 100%;
+  background-color: #0c035a;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.post-class-container button:hover {
+  background-color: #130371;
 }
 </style>
-<h2>Post a Class</h2>
-<form method="POST">
-    <label>Class Title:</label>
-    <input type="text" name="title"><br><br>
-    <label>Description:</label>
-    <textarea name="description"></textarea><br><br>
-    <button type="submit">Post</button>
-</form>
+
+<div class="post-class-container">
+  <h2>Post a Class</h2>
+  <form method="POST">
+      <label>Class Title:</label>
+      <input type="text" name="title" required>
+
+      <label>Description:</label>
+      <textarea name="description" rows="5" required></textarea>
+
+      <button type="submit">Post</button>
+  </form>
+</div>
 {% endblock %}

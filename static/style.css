@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background: #2d8f8c;
+    background: #eef5f5;
     color: white;
     padding: 15px;
     text-align: center;
@@ -61,14 +61,14 @@ input, button {
 }
 
 button {
-    background: #2d8f8c;
-    color: white;
+    background: #f3f3f5;
+    color: rgb(11, 4, 105);
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background: #217472;
+    background: #d6f3f3;
 }
 /* Fullscreen slider */
 .slider-container {
@@ -113,8 +113,8 @@ header {
   text-align: center;
   font-size: 26px;
   font-weight: bold;
-  color: white;
-  text-shadow: 2px 2px 4px #000;
+  color: rgb(251, 247, 253);
+  text-shadow: 2px 2px 4px #eb0e0e;
   animation: marquee 15s linear infinite;
 }
 
@@ -124,8 +124,41 @@ header {
   75% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-100px); opacity: 0; }
 }
+/* Navbar background and layout */
+.navbar {
+  background-color: #f9fcf8; /* dark teal background */
+  padding: 12px 20px;
+}
+
+/* Navbar menu list */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar menu items */
+.navbar li {
+  margin: 0 15px;
+}
+
+/* Navbar links */
+.navbar a {
+  color: white;             /* Text color */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect */
+.navbar a:hover {
+  color: #ffcc00;           /* Change text color on hover */
+}
 
 
 .success { background: #d4edda; color: #155724; }
 .danger { background: #f8d7da; color: #721c24; }
-.info { background: #d1ecf1; color: #0c5460; }
+.info { background: #d1ecf1; color: #34699e; }

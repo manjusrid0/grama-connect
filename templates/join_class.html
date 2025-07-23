@@ -3,17 +3,79 @@
 {% block content %}
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-image: url("{{ url_for('static', filename='uploads/bg.jpg') }}");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Container */
+.join-class-container {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c035a;
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading */
+.join-class-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Labels and inputs */
+.join-class-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.join-class-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Submit button */
+.join-class-container button {
+  width: 100%;
+  background-color: #0c035a;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.join-class-container button:hover {
+  background-color: #130371;
 }
 </style>
-<h2>Join a Class</h2>
-<form method="POST">
-    <label for="class_code">Enter Class Code:</label><br>
-    <input type="text" id="class_code" name="class_code" required><br><br>
-    <button type="submit">Join</button>
-</form>
+
+<div class="join-class-container">
+  <h2>Join a Class</h2>
+  <form method="POST">
+      <label for="class_code">Class Code:</label>
+      <input type="text" id="class_code" name="class_code" required>
+
+      <label for="your_name">Your Name:</label>
+      <input type="text" id="your_name" name="your_name" required>
+
+      <label for="contact">Contact (Email or Phone):</label>
+      <input type="text" id="contact" name="contact" required>
+
+      <button type="submit">Join</button>
+  </form>
+</div>
 {% endblock %}

@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Available Products</h2>
-
-{% if products %}
 <style>
 body {
   background-image: url("{{ url_for('static', filename='images/craft3.jpg') }}");
@@ -11,19 +8,76 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Section heading */
+h2 {
+  text-align: center;
+  margin-top: 40px;
+  color: #fff;
+}
+
+/* Product grid */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* Product card */
+.product-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c035a;
+  width: 230px;
+  margin: 15px;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Product image */
+.product-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Product name & price */
+.product-card h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.product-card p {
+  font-size: 14px;
+  margin-bottom: 8px;
 }
 </style>
-    <div style="display: flex; flex-wrap: wrap;">
-        {% for product in products %}
-        <div style="border: 1px solid #ccc; padding: 10px; margin: 10px; width: 200px;">
-            <img src="{{ url_for('static', filename='uploads/' + product[4]) }}" alt="{{ product[1] }}" style="width: 100%; height: 150px; object-fit: cover;">
-            <h3>{{ product[1] }}</h3>
-            <p><strong>₹{{ product[3] }}</strong></p>
-            <p>{{ product[2] }}</p>
-        </div>
-        {% endfor %}
+
+<h2>Available Products</h2>
+
+{% if products %}
+<div class="products-container">
+  {% for product in products %}
+    <div class="product-card">
+      <img src="{{ url_for('static', filename='uploads/' + product[4]) }}" alt="{{ product[1] }}">
+      <h3>{{ product[1] }}</h3>
+      <p><strong>₹{{ product[3] }}</strong></p>
+      <p>{{ product[2] }}</p>
     </div>
+  {% endfor %}
+</div>
 {% else %}
-    <p>No products available yet.</p>
+<p style="text-align: center; margin-top: 40px;">No products available yet.</p>
 {% endif %}
 {% endblock %}

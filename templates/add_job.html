@@ -3,27 +3,83 @@
 {% block content %}
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-image: url("{{ url_for('static', filename='uploads/bg3.jpg') }}");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  color: #0c035a;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Centered form container */
+.job-form-container {
+  background: rgba(255, 255, 255, 0.9);
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 13px 27px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Form header */
+.job-form-container h2 {
+  text-align: center;
+  color: #0c035a;
+  margin-bottom: 15px;
+}
+
+/* Form labels and inputs */
+.job-form-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.job-form-container input,
+.job-form-container textarea {
+  width: 100%;
+  padding: 7px;
+  margin-bottom: 18px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Submit button */
+.job-form-container button {
+  width: 100%;
+  background-color: #0c035a;
   color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.job-form-container button:hover {
+  background-color: #130371;
 }
 </style>
-<h2>Post a New Job</h2>
-<form method="POST" action="/add-job">
-    <label for="title">Job Title:</label><br>
-    <input type="text" name="title" required><br><br>
 
-    <label for="description">Job Description:</label><br>
-    <textarea name="description" rows="4" required></textarea><br><br>
+<div class="job-form-container">
+  <h2>Post a New Job</h2>
+  <form method="POST" action="/add-job">
+      <label for="title">Job Title:</label>
+      <input type="text" name="title" required>
 
-    <label for="location">Location:</label><br>
-    <input type="text" name="location" required><br><br>
+      <label for="description">Job Description:</label>
+      <textarea name="description" rows="4" required></textarea>
 
-    <label for="contact">Contact Info:</label><br>
-    <input type="text" name="contact" required><br><br>
+      <label for="location">Location:</label>
+      <input type="text" name="location" required>
 
-    <button type="submit">Post Job</button>
-</form>
+      <label for="contact">Contact Info:</label>
+      <input type="text" name="contact" required>
+
+      <button type="submit">Post Job</button>
+  </form>
+</div>
 {% endblock %}

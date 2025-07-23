@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block content %}
 <style>
 body {
@@ -7,10 +8,74 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Profile container */
+.profile-container {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c035a;
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+/* Welcome text */
+.profile-container h2 {
+  margin-bottom: 15px;
+}
+
+/* Profile info box */
+.profile-details {
+  text-align: left;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+.profile-details p {
+  margin-bottom: 10px;
+}
+
+/* Button links */
+.profile-actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.profile-actions a {
+  background-color: #0c035a;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.profile-actions a:hover {
+  background-color: #130371;
 }
 </style>
-<h2>Welcome, {{ user.username }}!</h2>
-<p>This is your profile page.</p>
-<a href="{{ url_for('jobs') }}">Post or View Jobs</a> |
-<a href="{{ url_for('logout') }}">Logout</a>
+
+<div class="profile-container">
+  <h2>Welcome, {{ user.username }}!</h2>
+  <p>This is your profile dashboard.</p>
+
+  <div class="profile-details">
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <!-- Add more fields here if available, like joined date or mobile -->
+  </div>
+
+  <div class="profile-actions">
+    <a href="{{ url_for('jobs') }}">Post / View Jobs</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</div>
 {% endblock %}
