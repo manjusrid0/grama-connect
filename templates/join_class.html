@@ -2,6 +2,25 @@
 
 {% block content %}
 <style>
+  /* Force vertical scrollbar */
+body {
+  overflow-y: scroll;
+}
+
+/* Optional: Customize scrollbar appearance */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
 body {
   background-image: url("{{ url_for('static', filename='uploads/bg.jpg') }}");
   background-size: cover;

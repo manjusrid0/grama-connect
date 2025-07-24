@@ -44,13 +44,32 @@ body {
 .menu-buttons a:hover {
   background-color: #f5dd09;
 }
+/* Force vertical scrollbar */
+body {
+  overflow-y: scroll;
+}
+
+/* Optional: Customize scrollbar appearance */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
 </style>
 
 <div class="dashboard-container">
   <h2>Welcome, Admin!</h2>
   <div class="menu-buttons">
     <a href="{{ url_for('add_job') }}">Add New Job</a>
-    <a href="{{ url_for('view_job') }}">View All Jobs</a>
+    <a href="{{ url_for('view_jobs') }}">View All Jobs</a>
     <a href="{{ url_for('view_all_uploads') }}">View All Uploads</a>
     <a href="{{ url_for('logout') }}">Logout</a>
   </div>

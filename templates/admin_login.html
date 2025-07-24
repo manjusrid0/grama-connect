@@ -23,5 +23,33 @@
         <input type="password" name="password" placeholder="Password" required><br><br>
         <input type="submit" value="Login">
     </form>
+    <style>
+body {
+  background-image: url("{{ url_for('static', filename='uploads/craft2.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+/* Force vertical scrollbar */
+body {
+  overflow-y: scroll;
+}
+
+/* Optional: Customize scrollbar appearance */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+</style>
 </body>
 </html>

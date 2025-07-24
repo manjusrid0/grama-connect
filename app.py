@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 import os
 from werkzeug.utils import secure_filename
+import sqlite3
+import os
+
 
 
 def allowed_file(filename):
@@ -20,6 +23,37 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'user_login'
+if not os.path.exists("database"):
+    os.makedirs("database")
+
+# Connect to the database
+conn = sqlite3.connect("database/grama.db")
+cursor = conn.cursor()
+
+# Create the jobs table
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS jobs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    location TEXT NOT NULL
+)
+''')
+
+# Insert sample jobs (optional)
+sample_jobs = [
+    ("Teacher", "Theni"),
+    ("Electrician", "Madurai"),
+    ("Handloom Weaver", "Kanchipuram"),
+    ("Agri Consultant", "Trichy")
+]
+
+cursor.executemany("INSERT INTO jobs (title, location) VALUES (?, ?)", sample_jobs)
+
+# Commit and close
+conn.commit()
+conn.close()
+
+print("✅ grama.db created with sample job data.")
 
 # ------------------- MODELS -------------------
 
@@ -129,6 +163,7 @@ def view_jobs():
     con.close()
 
     return render_template("view_jobs.html", jobs=jobs)
+
 @app.route("/admin/view_uploads")
 def view_all_uploads():
     if not session.get('admin_logged_in'):
@@ -217,6 +252,16 @@ def sell():
             return redirect(url_for('dashboard'))
 
     return render_template('sell.html')
+@app.route('/debug/jobs')
+def debug_jobs():
+    import sqlite3
+    con = sqlite3.connect("database/grama.db")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM jobs")
+    data = cur.fetchall()
+    con.close()
+    return "<br>".join([f"{d[0]} - {d[1]} - {d[2]}" for d in data])
+
 
 
 @app.route('/buy', methods=['GET', 'POST'])
@@ -275,6 +320,8 @@ def jobs():
 
 # ------------------- MAIN -------------------
 if __name__ == '__main__':
+    if not os.path.exists('database'):
+        os.makedirs('database')
     with app.app_context():
         db.create_all()
-        
+    app.run(debug=True)
