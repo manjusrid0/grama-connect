@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+
+/* Force vertical scrollbar */
 <style>
 body {
   background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
@@ -9,7 +11,6 @@ body {
   color: white;
 }
 </style>
-/* Force vertical scrollbar */
 body {
   overflow-y: scroll;
 }

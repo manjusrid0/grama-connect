@@ -38,6 +38,25 @@ CREATE TABLE IF NOT EXISTS jobs (
     location TEXT NOT NULL
 )
 ''')
+# Mentorship Request Table
+# -------------------------------
+class MentorshipRequest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+    need = db.Column(db.Text)
+
+# -------------------------------
+# Skill Badge Activity Table (for future use if you want dynamic badge)
+# -------------------------------
+class UserActivity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    videos_uploaded = db.Column(db.Integer, default=0)
+    classes_joined = db.Column(db.Integer, default=0)
+    jobs_posted = db.Column(db.Integer, default=0)
+
 
 # Insert sample jobs (optional)
 sample_jobs = [
@@ -228,6 +247,23 @@ def logout():
 @login_required
 def profile():
     return render_template('profile.html', user=current_user)
+
+    # Fetch activity record
+    activity = UserActivity.query.filter_by(user_id=current_user.id).first()
+    badge = None
+
+    if activity:
+        score = activity.videos_uploaded + activity.classes_joined + activity.jobs_posted
+
+        if score >= 5:
+            badge = "Gold Contributor"
+        elif score >= 3:
+            badge = "Silver Contributor"
+        elif score >= 1:
+            badge = "Bronze Contributor"
+
+    return render_template('profile.html', badge=badge)
+
 @app.route('/sell', methods=['GET', 'POST'])
 @login_required
 def sell():
@@ -316,6 +352,106 @@ def jobs():
     all_jobs = Job.query.all()
     return render_template('jobs.html', jobs=all_jobs)
 
+@app.route('/income_estimator', methods=['GET', 'POST'])
+def income_estimator():
+    estimated_income = None
+    if request.method == 'POST':
+        skill = request.form['skill']
+        hours = int(request.form['hours'])
+        days = int(request.form['days'])
+
+        # Base income estimation table (in INR/hour)
+        income_rates = {
+            'Tailoring': 60,
+            'Farming': 40,
+            'Masonry': 80,
+            'Welding': 100,
+            'Tutoring': 50
+        }
+
+        if skill in income_rates:
+            rate = income_rates[skill]
+            weekly_income = rate * hours * days
+            estimated_income = weekly_income * 4  # Approx. monthly
+
+    return render_template('income_estimator.html', estimated_income=estimated_income)
+
+@app.route('/self_employment_board')
+def self_employment_board():
+    ideas = [
+        {
+            'title': 'Goat Farming',
+            'description': 'Start with 2 goats, sell milk, manure, and kids. Can earn ₹8,000–₹12,000/month.',
+            'link': 'https://youtu.be/1RwPCtSAr-4'
+        },
+        {
+            'title': 'Home-based Pickle Business',
+            'description': 'Use local ingredients, low investment. Package and sell to neighbors or online.',
+            'link': 'https://www.skillindiadigital.gov.in/home'
+        },
+        {
+            'title': 'Paper Bag Making',
+            'description': 'Eco-friendly product idea. Sell to small shops, markets, and schools.',
+            'link': 'https://youtu.be/mnY1x2vIp58'
+        },
+        {
+            'title': 'Basic Tailoring Service',
+            'description': 'Use one sewing machine and offer mending/alterations for daily income.',
+            'link': ''
+        },
+        {
+            'title': 'Mobile Recharge & UPI Agent',
+            'description': 'Provide digital services in rural area with a smartphone. No huge setup needed.',
+            'link': 'https://youtu.be/xnmsbBqbsQU'
+        }
+    ]
+    return render_template('self_employment_board.html', ideas=ideas)
+
+@app.route('/free_courses')
+def free_courses():
+    courses = [
+        {
+            'title': 'Skill India Digital – Free Govt Courses',
+            'description': 'Thousands of certified courses for self-employment, from tailoring to tech.',
+            'link': 'https://www.skillindiadigital.gov.in/home'
+        },
+        {
+            'title': 'NPTEL – Free Engineering & Vocational Training',
+            'description': 'IIT-level learning with certification. Great for youth and students.',
+            'link': 'https://onlinecourses.nptel.ac.in/'
+        },
+        {
+            'title': 'eSkillIndia Platform',
+            'description': 'Free digital literacy, retail, agriculture, and soft skills.',
+            'link': 'https://eskillindia.org/'
+        },
+        {
+            'title': 'PMKVY – Government Training Centres',
+            'description': 'Visit PMKVY centres nearby to learn offline & get job-ready.',
+            'link': 'https://www.pmkvyofficial.org/'
+        },
+        {
+            'title': 'YouTube – Hand Skill Tutorials',
+            'description': 'Thousands of free tutorials on tailoring, craft, farming & more.',
+            'link': 'https://www.youtube.com/results?search_query=rural+skills+training'
+        }
+    ]
+    return render_template('free_courses.html', courses=courses)
+@app.route('/request_mentorship', methods=['GET', 'POST'])
+def request_mentorship():
+    success = False
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+        need = request.form['need']
+
+        new_request = MentorshipRequest(name=name, email=email, phone=phone, need=need)
+        db.session.add(new_request)
+        db.session.commit()
+        success = True
+
+    return render_template('request_mentorship.html', success=success)
 
 
 # ------------------- MAIN -------------------

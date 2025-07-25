@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='uploads/craft8.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Section heading */
+h2 {
+  text-align: center;
+  margin-top: 40px;
+  color: #fff;
+}
+
+/* Product grid */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* Product card */
+.product-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c035a;
+  width: 230px;
+  margin: 15px;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Product image */
+.product-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Product name & price */
+.product-card h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.product-card p {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+/* Force vertical scrollbar */
+
+</style>
+
+
+<div class="container mt-4">
+  <h2 class="mb-4">Income Estimator</h2>
+  <form method="POST" action="">
+    <div class="mb-3">
+      <label for="skill" class="form-label">Select Your Skill</label>
+      <select class="form-select" name="skill" required>
+        <option value="">-- Choose Skill --</option>
+        <option value="Tailoring">Tailoring</option>
+        <option value="Farming">Farming</option>
+        <option value="Masonry">Masonry</option>
+        <option value="Welding">Welding</option>
+        <option value="Tutoring">Tutoring</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="hours" class="form-label">Hours per Day</label>
+      <input type="number" class="form-control" name="hours" min="1" max="12" required>
+    </div>
+    <div class="mb-3">
+      <label for="days" class="form-label">Days per Week</label>
+      <input type="number" class="form-control" name="days" min="1" max="7" required>
+    </div>
+    <button type="submit" class="btn btn-success">Estimate Income</button>
+  </form>
+
+  {% if estimated_income %}
+    <div class="alert alert-info mt-4">
+      <h5>Estimated Monthly Income:</h5>
+      <strong>₹{{ estimated_income }}</strong>
+      <p>Based on your selected skill and effort.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

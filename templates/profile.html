@@ -97,4 +97,23 @@ body::-webkit-scrollbar-thumb:hover {
     <a href="{{ url_for('logout') }}">Logout</a>
   </div>
 </div>
+<div class="container mt-4">
+  <h2 class="mb-3">Welcome, {{ current_user.name }}</h2>
+
+  <div class="card shadow rounded-4 p-3 mb-4">
+    <h4>Your Skill Badge</h4>
+    <p>Based on your activity on Grama Connect</p>
+
+    {% if badge %}
+      <div class="alert alert-success">
+        <h5>🏅 {{ badge }}</h5>
+      </div>
+    {% else %}
+      <div class="alert alert-warning">
+        <strong>No badge earned yet.</strong><br>
+        Start joining classes, uploading videos, or posting jobs.
+      </div>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

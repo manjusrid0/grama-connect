@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='uploads/craft8.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-y: scroll;
+}
+
+
+/* Make the form card styled like others */
+.mentor-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #000;
+  border-radius: 3px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  padding: 2px;
+}
+</style>
+
+<div class="container mt-0">
+  <div class="row justify-content-center">
+    <div class="col-md-0 d-flex align-items-stretch">
+      <div class="mentor-card w-20">
+        <h2 class="text-center mb-4 text-primary">Request Guidance / Mentorship</h2>
+        <form method="POST">
+          <div class="mb-0">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control" name="name" required>
+          </div>
+          <div class="mb-0">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" required>
+          </div>
+          <div class="mb-0">
+            <label for="phone" class="form-label">Phone Number (Optional)</label>
+            <input type="text" class="form-control" name="phone">
+          </div>
+          <div class="mb-0">
+            <label for="need" class="form-label">What help do you need?</label>
+            <textarea class="form-control" name="need" rows="4" required></textarea>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success">Submit Request</button>
+          </div>
+        </form>
+        {% if success %}
+        <div class="alert alert-success mt-4">
+          Your request has been sent successfully! Our team will contact you soon.
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
