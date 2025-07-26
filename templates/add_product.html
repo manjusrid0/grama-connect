@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
 <style>
@@ -12,32 +12,31 @@ body {
 }
 
 /* Form container */
-.product-form-container {
-  background: rgba(255, 255, 255, 0.9);
-  max-width: 500px;
+.sell-product-container {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c035a;
+  max-width: 600px;
   margin: 80px auto;
   padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  color: #0c035a;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Form heading */
-.product-form-container h2 {
+/* Heading */
+.sell-product-container h2 {
   text-align: center;
-  color: #0c035a;
   margin-bottom: 25px;
 }
 
-/* Form elements */
-.product-form-container label {
+/* Labels and inputs */
+.sell-product-container label {
   display: block;
   margin-bottom: 6px;
   font-weight: 600;
 }
 
-.product-form-container input,
-.product-form-container textarea {
+.sell-product-container input,
+.sell-product-container textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 18px;
@@ -47,12 +46,12 @@ body {
   box-sizing: border-box;
 }
 
-.product-form-container input[type="file"] {
-  padding: 5px;
+.sell-product-container input[type="file"] {
+  padding: 6px;
 }
 
-/* Button styling */
-.product-form-container button {
+/* Submit button */
+.sell-product-container button {
   width: 100%;
   background-color: #0c035a;
   color: white;
@@ -64,8 +63,27 @@ body {
   transition: background 0.3s ease;
 }
 
-.product-form-container button:hover {
+.sell-product-container button:hover {
   background-color: #130371;
+}
+
+/* Preview section */
+.preview-section {
+  background: rgba(255, 255, 255, 0.85);
+  color: #0c035a;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.preview-section img {
+  margin-top: 15px;
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 /* Force vertical scrollbar */
 body {
@@ -88,22 +106,31 @@ body::-webkit-scrollbar-thumb:hover {
 
 </style>
 
-<div class="product-form-container">
-  <h2>Add a New Product</h2>
-  <form method="POST" action="/add-product" enctype="multipart/form-data">
+<div class="sell-product-container">
+  <h2>Sell a Product</h2>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+       <div style="background:#e0ffe0; color:#0c035a; padding: 10px; border-radius: 8px; margin-bottom: 20px;">
+     Product posted successfully!<br>
+    <em>"Your product is live! May it find the right hands and bring you success."</em>
+  </div>
+    {% endif %}
+  {% endwith %}
+  <form method="POST" enctype="multipart/form-data">
       <label for="name">Product Name:</label>
-      <input type="text" name="name" required>
+      <input type="text" name="name" placeholder="e.g., Handmade Basket" required>
 
-      <label for="description">Description:</label>
-      <textarea name="description" rows="4" required></textarea>
+      <label for="description">Product Description:</label>
+      <textarea name="description" rows="4" placeholder="e.g., Made from natural palm leaves." required></textarea>
 
-      <label for="price">Price (₹):</label>
-      <input type="text" name="price" required>
+      <label for="price">Cost (₹):</label>
+      <input type="text" name="price" placeholder="e.g., 250" required>
 
-      <label for="image">Product Image:</label>
+      <label for="image">Upload Product Image:</label>
       <input type="file" name="image" accept="image/*" required>
 
-      <button type="submit">Add Product</button>
+      <button type="submit">Post Product</button>
   </form>
 </div>
 {% endblock %}

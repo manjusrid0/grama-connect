@@ -5,8 +5,7 @@ import os
 from werkzeug.utils import secure_filename
 import sqlite3
 import os
-
-
+from datetime import datetime
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -17,7 +16,8 @@ UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///grama_main.db'
+
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
@@ -93,8 +93,12 @@ class Product(db.Model):
     name = db.Column(db.String(100))
     description = db.Column(db.String(300))
     image_filename = db.Column(db.String(100))
+    price = db.Column(db.String(20))  
     seller_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    seller = db.relationship("User", foreign_keys=[seller_id])
+
+
 
 
 # ------------------- LOGIN MANAGER -------------------
@@ -270,6 +274,7 @@ def sell():
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
+        price = request.form['price']
         image = request.files['image']
 
         if image and allowed_file(image.filename):
@@ -279,15 +284,20 @@ def sell():
             product = Product(
                 name=name,
                 description=description,
-                image=filename,
+                image_filename=filename,
+                price=price,
                 seller_id=current_user.id
             )
             db.session.add(product)
             db.session.commit()
-            flash("Product posted successfully!")
-            return redirect(url_for('dashboard'))
 
-    return render_template('sell.html')
+            # ✅ Redirect with success flag
+            return redirect(url_for('sell', success='1'))
+
+    # ✅ Get flash message only if redirected with ?success=1
+    success = request.args.get('success') == '1'
+    return render_template('add_product.html', success=success)
+
 @app.route('/debug/jobs')
 def debug_jobs():
     import sqlite3
@@ -309,11 +319,12 @@ def buy():
         if product and not product.buyer_id:
             product.buyer_id = current_user.id
             db.session.commit()
-            flash('Product purchased successfully! The seller has been notified.')
-        else:
-            flash('This product is already purchased.')
-    products = Product.query.filter_by(buyer_id=None).all()
-    return render_template('buy.html', products=products)
+            flash('Product purchased successfully!')
+
+    available_products = Product.query.filter_by(buyer_id=None).all()
+    purchased_products = Product.query.filter_by(buyer_id=current_user.id).all()
+    return render_template('buy.html', products=available_products, purchased=purchased_products)
+
 @app.route('/my-products')
 @login_required
 def my_products():
