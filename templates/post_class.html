@@ -1,98 +1,147 @@
-{% extends "base.html" %}
+<!-- post_class.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Class - Grama Connect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        .actions button {
+            margin-right: 10px;
+            background-color: #28a745;
+        }
+        .actions .delete {
+            background-color: #dc3545;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Post a New Class</h2>
+    <form action="/post_class" method="POST" enctype="multipart/form-data">
+        <label for="title">Class Title</label>
+        <input type="text" id="title" name="title" required>
 
-{% block content %}
-<style>
-body {
-  background-image: url("{{ url_for('static', filename='uploads/bg4.jpg') }}");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white;
-  font-family: 'Segoe UI', sans-serif;
-}
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required></textarea>
 
-/* Container */
-.post-class-container {
-  background: rgba(255, 255, 255, 0.95);
-  color: #0c035a;
-  max-width: 500px;
-  margin: 80px auto;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-}
+        <label for="delivery_mode">Delivery Mode</label>
+        <select id="delivery_mode" name="delivery_mode" onchange="showInputField()" required>
+            <option value="">-- Select Mode --</option>
+            <option value="video_link">Video Link (YouTube/DIKSHA)</option>
+            <option value="upload_video">Upload Video File</option>
+            <option value="offline">Offline / Live Class</option>
+        </select>
 
-/* Heading */
-.post-class-container h2 {
-  text-align: center;
-  margin-bottom: 25px;
-}
+        <div id="video_link_div" class="hidden">
+            <label for="video_link">Enter Video Link (Only YouTube or DIKSHA)</label>
+            <input type="url" id="video_link" name="video_link" placeholder="https://...">
+        </div>
 
-/* Labels and inputs */
-.post-class-container label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 600;
-}
+        <div id="video_file_div" class="hidden">
+            <label for="video_file">Upload Video File</label>
+            <input type="file" id="video_file" name="video_file" accept="video/*">
+        </div>
 
-.post-class-container input,
-.post-class-container textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 18px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  box-sizing: border-box;
-}
+        <div id="offline_details_div" class="hidden">
+            <label for="offline_details">Offline Class Details</label>
+            <textarea id="offline_details" name="offline_details" placeholder="Location, Date, Time, etc."></textarea>
+        </div>
 
-/* Button */
-.post-class-container button {
-  width: 100%;
-  background-color: #0c035a;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
+        <button type="submit">Post Class</button>
+    </form>
 
-.post-class-container button:hover {
-  background-color: #130371;
-}
-/* Force vertical scrollbar */
-body {
-  overflow-y: scroll;
-}
-
-/* Optional: Customize scrollbar appearance */
-body::-webkit-scrollbar {
-  width: 10px;
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 6px;
-}
-
-body::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-</style>
-
-<div class="post-class-container">
-  <h2>Post a Class</h2>
-  <form method="POST">
-      <label>Class Title:</label>
-      <input type="text" name="title" required>
-
-      <label>Description:</label>
-      <textarea name="description" rows="5" required></textarea>
-
-      <button type="submit">Post</button>
-  </form>
+    <h2>Posted Class History</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Mode</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cls in classes %}
+        <tr>
+            <td>{{ cls.title }}</td>
+            <td>{{ cls.delivery_mode }}</td>
+            <td>{{ cls.description }}</td>
+            <td class="actions">
+    <a href="{{ url_for('edit_class', class_id=cls.id) }}">
+        <button><i class="fas fa-edit"></i> Edit</button>
+    </a>
+    <a href="{{ url_for('delete_class', class_id=cls.id) }}" onclick="return confirm('Are you sure?');">
+        <button class="delete"><i class="fas fa-trash"></i> Delete</button>
+    </a>
+</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
-{% endblock %}
+
+<script>
+function showInputField() {
+    const mode = document.getElementById('delivery_mode').value;
+    document.getElementById('video_link_div').classList.add('hidden');
+    document.getElementById('video_file_div').classList.add('hidden');
+    document.getElementById('offline_details_div').classList.add('hidden');
+
+    if (mode === 'video_link') {
+        document.getElementById('video_link_div').classList.remove('hidden');
+    } else if (mode === 'upload_video') {
+        document.getElementById('video_file_div').classList.remove('hidden');
+    } else if (mode === 'offline') {
+        document.getElementById('offline_details_div').classList.remove('hidden');
+    }
+}
+</script>
+</body>
+</html>

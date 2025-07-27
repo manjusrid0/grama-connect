@@ -2,44 +2,95 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 import os
-from werkzeug.utils import secure_filename
 import sqlite3
-import os
+from werkzeug.utils import secure_filename
+
 from datetime import datetime
+import random
+import string
+from flask_migrate import Migrate
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
+# --------------- Flask App Setup ------------------
 app = Flask(__name__)
 app.secret_key = 'secretkey'
 UPLOAD_FOLDER = 'static/uploads'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///grama_main.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
+# --------------- Database + Migrate Init ------------------# --------------- Flask-Login ------------------
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'user_login'
-if not os.path.exists("database"):
-    os.makedirs("database")
 
-# Connect to the database
-conn = sqlite3.connect("database/grama.db")
-cursor = conn.cursor()
+# --------------- Helper ------------------
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# Create the jobs table
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS jobs (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    location TEXT NOT NULL
-)
-''')
-# Mentorship Request Table
-# -------------------------------
+# ------------------- MODELS -------------------
+
+# ---------- User Table ----------
+class User(UserMixin, db.Model):
+ 
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
+
+# ---------- Product Table ----------
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    description = db.Column(db.String(300))
+    image_filename = db.Column(db.String(100))
+    price = db.Column(db.String(20))
+    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    seller = db.relationship("User", foreign_keys=[seller_id])
+
+# ---------- Job Table ----------
+class Job(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    description = db.Column(db.String(300))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+# ---------- Class Posting ----------
+class ClassPost(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    class_type = db.Column(db.String(20), nullable=False)
+    
+    # For Video Link
+    video_url = db.Column(db.String(500))
+    
+    # For Uploaded Video
+    video_filename = db.Column(db.String(200))
+    
+    # For Offline/Live Class
+    location = db.Column(db.String(100))
+    date = db.Column(db.String(20))
+    time = db.Column(db.String(20))
+
+# ---------- Class Joining ----------
+# ---------- Class Joining ----------
+class JoinedClass(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+    class_ref = db.Column(db.Integer, db.ForeignKey('class_post.id'))  # Link to ClassPost
+    
+    joined_class = db.relationship('ClassPost', backref='joined_users')
+
+# ---------- Mentorship Request ----------
 class MentorshipRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
@@ -47,9 +98,7 @@ class MentorshipRequest(db.Model):
     phone = db.Column(db.String(20))
     need = db.Column(db.Text)
 
-# -------------------------------
-# Skill Badge Activity Table (for future use if you want dynamic badge)
-# -------------------------------
+# ---------- Skill Badge System ----------
 class UserActivity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -57,48 +106,25 @@ class UserActivity(db.Model):
     classes_joined = db.Column(db.Integer, default=0)
     jobs_posted = db.Column(db.Integer, default=0)
 
+# Create all tables before altering anything
+with app.app_context():
+    db.create_all()
 
-# Insert sample jobs (optional)
-sample_jobs = [
-    ("Teacher", "Theni"),
-    ("Electrician", "Madurai"),
-    ("Handloom Weaver", "Kanchipuram"),
-    ("Agri Consultant", "Trichy")
-]
+# THEN try to add columns
+def safe_add_column(table, column, col_type):
+    db_path = os.path.join(os.getcwd(), 'grama_main.db')  # or use instance path if needed
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute(f"PRAGMA table_info({table})")
+    columns = [info[1] for info in cursor.fetchall()]
+    if column not in columns:
+        cursor.execute(f"ALTER TABLE {table} ADD COLUMN {column} {col_type}")
+        print(f"✅ Column '{column}' added to '{table}'")
+    else:
+        print(f"ℹ️ Column '{column}' already exists in '{table}'")
+    conn.close()
 
-cursor.executemany("INSERT INTO jobs (title, location) VALUES (?, ?)", sample_jobs)
-
-# Commit and close
-conn.commit()
-conn.close()
-
-print("✅ grama.db created with sample job data.")
-
-# ------------------- MODELS -------------------
-
-class User(UserMixin, db.Model):
-    __table_args__ = {'extend_existing': True}
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
-
-class Job(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200))
-    description = db.Column(db.String(300))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    description = db.Column(db.String(300))
-    image_filename = db.Column(db.String(100))
-    price = db.Column(db.String(20))  
-    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
-    seller = db.relationship("User", foreign_keys=[seller_id])
-
-
+# Now run this AFTER tables are created
 
 
 # ------------------- LOGIN MANAGER -------------------
@@ -325,29 +351,150 @@ def buy():
     purchased_products = Product.query.filter_by(buyer_id=current_user.id).all()
     return render_template('buy.html', products=available_products, purchased=purchased_products)
 
-@app.route('/my-products')
-@login_required
-def my_products():
-    products = Product.query.filter_by(seller_id=current_user.id).all()
-    return render_template('my_products.html', products=products)
+
+
 
 @app.route('/post_class', methods=['GET', 'POST'])
-@login_required
+
+@app.route('/post_class', methods=['GET', 'POST'])
+
 def post_class():
     if request.method == 'POST':
-        # Add logic for storing class data
-        flash("Class posted successfully!")
-        return redirect(url_for('dashboard'))
-    return render_template('post_class.html')
-@app.route('/join_class', methods=['GET', 'POST'])
-@login_required
+        title = request.form['title']
+        description = request.form['description']
+        delivery_mode = request.form['delivery_mode']  # ✅ was class_type
+
+        video_url = None
+        video_filename = None
+        location = None
+        date = None
+        time = None
+
+        if delivery_mode == 'video_link':
+            video_url = request.form.get('video_link')
+
+        elif delivery_mode == 'upload_video':
+            video_file = request.files['video_file']
+            if video_file:
+                filename = secure_filename(video_file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                video_file.save(filepath)
+                video_filename = filename
+
+        elif delivery_mode == 'offline':
+            location = request.form.get('offline_details')
+            # If you're collecting date/time separately, uncomment below:
+            # date = request.form.get('date')
+            # time = request.form.get('time')
+
+        new_class = ClassPost(
+            title=title,
+            description=description,
+            class_type=delivery_mode,  # save it into DB field `class_type`
+            video_url=video_url,
+            video_filename=video_filename,
+            location=location,
+            date=date,
+            time=time
+        )
+
+        db.session.add(new_class)
+        db.session.commit()
+        return redirect(url_for('post_class'))
+
+    classes = ClassPost.query.all()
+    return render_template("post_class.html", classes=classes)
+
+# Step 1: Show all available classes
+@app.route('/join_class')
 def join_class():
+    classes = ClassPost.query.all()
+    return render_template('join_class.html', step='list', classes=classes)
+
+# Step 2: Confirm Join
+@app.route('/confirm_join/<int:class_id>', methods=['GET', 'POST'])
+def confirm_join(class_id):
+    selected_class = ClassPost.query.get_or_404(class_id)
+
     if request.method == 'POST':
-        class_code = request.form.get('class_code')
-        # You can validate class_code if needed
-        flash(f'You have joined the class with code: {class_code}', 'success')
-        return redirect(url_for('dashboard'))
-    return render_template('join_class.html')
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+
+        joined = JoinedClass(
+            user_name=name,
+            email=email,
+            phone=phone,
+            class_ref=class_id
+        )
+        db.session.add(joined)
+       
+
+        return redirect(url_for('show_class_content', class_id=class_id))
+
+    return render_template('join_class.html', step='confirm', selected_class=selected_class)
+
+# Step 3: Show Content
+@app.route('/show_class/<int:class_id>')
+def show_class_content(class_id):
+    selected_class = ClassPost.query.get_or_404(class_id)
+
+    if selected_class.class_type == 'video_link':
+
+        return redirect(selected_class.video_url)
+
+    elif selected_class.class_type == 'upload_video':
+        return render_template('join_class.html', step='video', video_file=selected_class.video_filename)
+
+    elif selected_class.class_type == 'offline_class':
+        return render_template('join_class.html', step='offline', class_info=selected_class)
+
+    return "Invalid class type."
+@app.route('/edit_class/<int:class_id>', methods=['GET', 'POST'])
+def edit_class(class_id):
+    cls = ClassPost.query.get_or_404(class_id)
+
+    if request.method == 'POST':
+        cls.title = request.form['title']
+        cls.description = request.form['description']
+        cls.class_type = request.form['delivery_mode']
+
+        cls.video_url = None
+        cls.video_filename = None
+        cls.location = None
+
+        if cls.class_type == 'video_link':
+            cls.video_url = request.form.get('video_link')
+
+        elif cls.class_type == 'upload_video':
+            video_file = request.files.get('video_file')
+            if video_file and video_file.filename != '':
+                filename = secure_filename(video_file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                video_file.save(filepath)
+                cls.video_filename = filename
+
+        elif cls.class_type == 'offline':
+            cls.location = request.form.get('offline_details')
+
+        db.session.commit()
+        return redirect(url_for('post_class'))
+
+    return render_template('edit_class.html', cls=cls)
+
+@app.route('/delete_class/<int:class_id>')
+def delete_class(class_id):
+    cls = ClassPost.query.get_or_404(class_id)
+    db.session.delete(cls)
+    db.session.commit()
+    return redirect(url_for('post_class'))
+
+
+@app.route('/video/<filename>')
+def uploaded_video(filename):
+    return render_template('video_page.html', filename=filename)
+
+
 @app.route('/jobs', methods=['GET', 'POST'])
 @login_required
 def jobs():
