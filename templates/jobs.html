@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<style>
-    /* Force vertical scrollbar */
-body {
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post a Job - Grama Connect</title>
+    <style>
+        body {
   overflow-y: scroll;
 }
 
@@ -22,31 +22,79 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 body {
-  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-image: url("{{ url_for('static', filename='uploads/gif9.gif') }}");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: white;
+  background: rgb(255, 152, 169);
+  color: rgb(5, 7, 97);
 }
-</style>
-<h2>Post a Job</h2>
+        form {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 8px #ccc;
+            max-width: 500px;
+            margin: auto;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #28a745;
+            border: none;
+            padding: 12px 25px;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .success {
+            color: green;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Post a Job</h2>
+
+{% if message %}
+    <p class="success">{{ message }}</p>
+{% endif %}
+
 <form method="POST">
-    <label>Job Title:</label><br>
-    <input type="text" name="title" required><br><br>
-    <label>Description:</label><br>
-    <textarea name="description" required></textarea><br><br>
+    <label>Job Title:</label>
+    <input type="text" name="title" placeholder="e.g. Tailoring Assistant" required>
+
+    <label>Description:</label>
+    <textarea name="description" rows="5" placeholder="Describe the job, skills needed..." required></textarea>
+
+    <label>Location:</label>
+    <input type="text" name="location" placeholder="e.g. Villupuram" required>
+
+    <label>Salary:</label>
+    <input type="text" name="salary" placeholder="e.g. ₹6,000/month or ₹300/day" required>
+
+    <label>Contact Info:</label>
+    <input type="text" name="contact" placeholder="e.g. 9876543210" required>
+
+    <label>Job Type:</label>
+    <input type="text" name="job_type" placeholder="e.g. Part-Time, Full-Time, Commission" required>
+
     <button type="submit">Post Job</button>
 </form>
 
-<hr>
-
-<h2>Available Jobs</h2>
-{% for job in jobs %}
-    <div style="border:1px solid #aaa; padding:10px; margin-bottom:10px;">
-        <h3>{{ job.title }}</h3>
-        <p>{{ job.description }}</p>
-    </div>
-{% else %}
-    <p>No jobs posted yet.</p>
-{% endfor %}
-{% endblock %}
+</body>
+</html>

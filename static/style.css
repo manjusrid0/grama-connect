@@ -18,7 +18,16 @@ header {
     padding: 15px;
     text-align: center;
 }
-
+/* Centered form container */
+.job-form-container {
+  background: rgba(112, 23, 23, 0.9);
+  color: blue;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 13px 27px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
 nav a {
     color: white;
     margin: 0 10px;

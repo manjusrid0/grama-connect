@@ -60,6 +60,12 @@ class Job(db.Model):
     title = db.Column(db.String(200))
     description = db.Column(db.String(300))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+class JoinedJob(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+    job_ref = db.Column(db.Integer, db.ForeignKey('job.id'))
 
 # ---------- Class Posting ----------
 class ClassPost(db.Model):
@@ -186,18 +192,18 @@ def add_job():
 
     if request.method == "POST":
         title = request.form['title']
-        location = request.form['location']
+        description = request.form['description']
 
-        con = sqlite3.connect("database/grama.db")
+        con = sqlite3.connect("instance/grama_main.db")
         cur = con.cursor()
-        cur.execute("INSERT INTO jobs (title, location) VALUES (?, ?)", (title, location))
+        cur.execute("INSERT INTO job (title, description) VALUES (?, ?)", (title, description))
         con.commit()
         con.close()
 
         flash("Job added successfully")
-        return redirect(url_for('view_jobs'))
+        return redirect(url_for('jobs'))
 
-    return render_template("add_job.html")
+    return render_template("jobs.html")
 
 
 @app.route("/admin/view_jobs")
@@ -205,13 +211,30 @@ def view_jobs():
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin_login_page'))
 
-    con = sqlite3.connect("database/grama.db")
+    con = sqlite3.connect("instance/grama_main")
     cur = con.cursor()
-    cur.execute("SELECT * FROM jobs")
-    jobs = cur.fetchall()
-    con.close()
+    
+    jobs = Job.query.all()
+    message = None
 
-    return render_template("view_jobs.html", jobs=jobs)
+    if request.method == 'POST':
+        job_id = int(request.form['job_id'])
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+
+        joined = JoinedJob(
+            user_name=name,
+            email=email,
+            phone=phone,
+            job_ref=job_id
+        )
+        db.session.add(joined)
+        db.session.commit()
+
+        message = "Successfully joined the job! The employer will contact you."
+
+    return render_template('join_job.html', jobs=jobs, message=message)
 
 @app.route("/admin/view_uploads")
 def view_all_uploads():
@@ -327,7 +350,7 @@ def sell():
 @app.route('/debug/jobs')
 def debug_jobs():
     import sqlite3
-    con = sqlite3.connect("database/grama.db")
+    con = sqlite3.connect("instance/grama_main.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM jobs")
     data = cur.fetchall()
@@ -354,7 +377,7 @@ def buy():
 
 
 
-@app.route('/post_class', methods=['GET', 'POST'])
+
 
 @app.route('/post_class', methods=['GET', 'POST'])
 
@@ -501,6 +524,10 @@ def jobs():
     if request.method == 'POST':
         title = request.form['title']
         description = request.form['description']
+        location = request.form['location']
+        salary = request.form['salary']
+        contact = request.form['contact']
+        job_type = request.form['job_type']
         new_job = Job(title=title, description=description, user_id=current_user.id)
         db.session.add(new_job)
         db.session.commit()
@@ -509,6 +536,29 @@ def jobs():
 
     all_jobs = Job.query.all()
     return render_template('jobs.html', jobs=all_jobs)
+@app.route('/join-job', methods=['GET', 'POST'])
+def join_job():
+    jobs = Job.query.all()
+    message = None
+
+    if request.method == 'POST':
+        job_id = int(request.form['job_id'])
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+
+        joined = JoinedJob(
+            user_name=name,
+            email=email,
+            phone=phone,
+            job_ref=job_id
+        )
+        db.session.add(joined)
+        db.session.commit()
+
+        message = "Successfully joined the job! The employer will contact you."
+
+    return render_template('join_job.html', jobs=jobs, message=message)
 
 @app.route('/income_estimator', methods=['GET', 'POST'])
 def income_estimator():

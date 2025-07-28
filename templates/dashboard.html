@@ -3,7 +3,7 @@
 {% block content %}
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='uploads/gif7.gif') }}");
+  background-image: url("{{ url_for('static', filename='uploads/gifff.gif') }}");
   background-size: cover;
   background-color: rgb(14, 137, 209);
   background-position: center;
@@ -105,8 +105,14 @@ body::-webkit-scrollbar-thumb:hover {
   <!-- Jobs -->
   <div class="card">
     <h3>💼 Jobs</h3>
-    <p>Explore or post local job opportunities.</p>
-    <a href="{{ url_for('jobs') }}" class="btn">Go to Jobs</a>
+    <p> post local job opportunities.</p>
+    <a href="{{ url_for('jobs') }}" class="btn">Post Jobs</a>
+  </div>
+  <div class="card">
+    <h3>apply jobs</h3>
+    <p>Explore local job opportunities.</p>
+    <a href="{{ url_for('join_job') }}" class="btn">Apply job</a>
+   
   </div>
 
   <!-- Income Estimator -->

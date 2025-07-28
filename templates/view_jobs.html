@@ -88,7 +88,17 @@ body::-webkit-scrollbar-thumb:hover {
   <h2>All Jobs</h2>
   <ul>
     {% for job in jobs %}
+    <div class="card">
+    <h3>{{ job.title }}</h3>
+    <p>{{ job.description }}</p>
+    <p> <b>Location:</b>{{ job.location }}</p>
+    <p><b>Salary:</b> {{ job.salary }}</p>
+    <p><b>Contact:</b> {{ job.contact }}</p>
+    <p><b>Type:</b> {{ job.job_type }}</p>
+
+    
       <li><strong>{{ job[1] }}</strong> – {{ job[2] }}</li>
+
     {% else %}
       <li>No jobs posted yet.</li>
     {% endfor %}
