@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import random
 import string
-from flask_migrate import Migrate
+
 
 # --------------- Flask App Setup ------------------
 app = Flask(__name__)
@@ -23,7 +23,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+
 
 # --------------- Database + Migrate Init ------------------# --------------- Flask-Login ------------------
 login_manager = LoginManager()
@@ -155,7 +155,9 @@ def home():
 @app.route("/admin", methods=["GET"])
 def admin_login_page():
     return render_template("admin_login.html")
-
+@app.route("/about", methods=["GET"])
+def about():
+    return render_template("about.html")
 # Admin login form POST handler
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():

@@ -3,6 +3,53 @@
 <head>
     <title>Admin Login</title>
 </head>
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='uploads/yellow.gif') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.login-form {
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.login-form input,
+.login-form button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+}
+
+.login-form input {
+  background-color: #fff;
+  color: #000;
+}
+
+.login-form button {
+  background-color: #28a745;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #218838;
+}
+
+.login-form a {
+  color: #00f;
+  text-decoration: underline;
+}
+</style>
 <body>
     <h2>Admin Login</h2>
 
@@ -23,33 +70,6 @@
         <input type="password" name="password" placeholder="Password" required><br><br>
         <input type="submit" value="Login">
     </form>
-    <style>
-body {
-  background-image: url("{{ url_for('static', filename='uploads/yellow.gif') }}");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white;
-}
-/* Force vertical scrollbar */
-body {
-  overflow-y: scroll;
-}
 
-/* Optional: Customize scrollbar appearance */
-body::-webkit-scrollbar {
-  width: 10px;
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 6px;
-}
-
-body::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-</style>
 </body>
 </html>
