@@ -6,7 +6,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  color: white;
+  color: rgb(24, 9, 9);
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -67,35 +67,35 @@ h2 {
 
 
 <div class="container mt-4">
-  <h2 class="mb-4">Income Estimator</h2>
+  <h2 class="mb-4">{{_("Income Estimator")}}</h2>
   <form method="POST" action="">
     <div class="mb-3">
-      <label for="skill" class="form-label">Select Your Skill</label>
+      <label for="skill" class="form-label">{{_("Select Your Skill")}}</label>
       <select class="form-select" name="skill" required>
-        <option value="">-- Choose Skill --</option>
-        <option value="Tailoring">Tailoring</option>
-        <option value="Farming">Farming</option>
-        <option value="Masonry">Masonry</option>
-        <option value="Welding">Welding</option>
-        <option value="Tutoring">Tutoring</option>
+        <option value="">{{_("-- Choose Skill --")}}</option>
+        <option value="Tailoring">{{_("Tailoring")}}</option>
+        <option value="Farming">{{_("Farming")}}</option>
+        <option value="Masonry">{{_("Masonry")}}</option>
+        <option value="Welding">{{_("Welding")}}</option>
+        <option value="Tutoring">{{_("Tutoring")}}</option>
       </select>
     </div>
     <div class="mb-3">
-      <label for="hours" class="form-label">Hours per Day</label>
+      <label for="hours" class="form-label">{{_("Hours per Day")}}</label>
       <input type="number" class="form-control" name="hours" min="1" max="12" required>
     </div>
     <div class="mb-3">
-      <label for="days" class="form-label">Days per Week</label>
+      <label for="days" class="form-label">{{_("Days per Week")}}</label>
       <input type="number" class="form-control" name="days" min="1" max="7" required>
     </div>
-    <button type="submit" class="btn btn-success">Estimate Income</button>
+    <button type="submit" class="btn btn-success">{{_("Estimate Income")}}</button>
   </form>
 
   {% if estimated_income %}
     <div class="alert alert-info mt-4">
-      <h5>Estimated Monthly Income:</h5>
-      <strong>₹{{ estimated_income }}</strong>
-      <p>Based on your selected skill and effort.</p>
+      <h5>{{_("Estimated Monthly Income:")}}</h5>
+      <strong>{{_("₹{{ estimated_income }}")}}</strong>
+      <p>{{_("Based on your selected skill and effort.")}}</p>
     </div>
   {% endif %}
 </div>

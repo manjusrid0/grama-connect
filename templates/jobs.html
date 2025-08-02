@@ -75,25 +75,25 @@ body {
 {% endif %}
 
 <form method="POST">
-    <label>Job Title:</label>
+    <label>{{_("Job Title:")}}</label>
     <input type="text" name="title" placeholder="e.g. Tailoring Assistant" required>
 
-    <label>Description:</label>
+    <label>{{_("Description:")}}</label>
     <textarea name="description" rows="5" placeholder="Describe the job, skills needed..." required></textarea>
 
-    <label>Location:</label>
+    <label>{{_("Location:")}}</label>
     <input type="text" name="location" placeholder="e.g. Villupuram" required>
 
-    <label>Salary:</label>
+    <label>{{_("Salary:")}}</label>
     <input type="text" name="salary" placeholder="e.g. ₹6,000/month or ₹300/day" required>
 
-    <label>Contact Info:</label>
+    <label>{{_("Contact Info:")}}</label>
     <input type="text" name="contact" placeholder="e.g. 9876543210" required>
 
-    <label>Job Type:</label>
+    <label>{{_("Job Type:")}}</label>
     <input type="text" name="job_type" placeholder="e.g. Part-Time, Full-Time, Commission" required>
 
-    <button type="submit">Post Job</button>
+    <button type="submit">{{_("Post Job")}}</button>
 </form>
 
 </body>

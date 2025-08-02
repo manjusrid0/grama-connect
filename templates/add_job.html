@@ -85,21 +85,21 @@ body::-webkit-scrollbar-thumb:hover {
 </style>
 
 <div class="job-form-container">
-  <h2>Post a New Job</h2>
+  <h2>{{_("Post a New Job")}}</h2>
   <form method="POST" action="/add-job">
-      <label for="title">Job Title:</label>
+      <label for="title">{{_("Job Title:")}}</label>
       <input type="text" name="title" required>
 
-      <label for="description">Job Description:</label>
+      <label for="description">{{_("Job Description:")}}</label>
       <textarea name="description" rows="4" required></textarea>
 
-      <label for="location">Location:</label>
+      <label for="location">{{_("Location:")}}</label>
       <input type="text" name="location" required>
 
-      <label for="contact">Contact Info:</label>
+      <label for="contact">{{_("Contact Info:")}}</label>
       <input type="text" name="contact" required>
 
-      <button type="submit">Post Job</button>
+      <button type="submit">{{_("Post Job")}}</button>
   </form>
 </div>
 {% endblock %}

@@ -26,7 +26,7 @@ Grama Connect is a web-based platform built using **Flask** and **SQLite** to br
 
 📸 Screenshots
 
-![Homepage Screenshot](uploads/screenshot59.png)
+![Homepage Screenshot](uploads/screenshot(59).png)
 ![loginpage Screenshot](uploads/screenshot60.png)
 ![adminpage Screenshot](uploads/screenshot61.png)
 ![aboutuspage Screenshot](uploads/screenshot62.png)

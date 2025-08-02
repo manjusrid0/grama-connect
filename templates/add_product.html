@@ -107,30 +107,30 @@ body::-webkit-scrollbar-thumb:hover {
 </style>
 
 <div class="sell-product-container">
-  <h2>Sell a Product</h2>
+  <h2>{{_("Sell a Product")}}</h2>
 
   {% with messages = get_flashed_messages() %}
     {% if messages %}
        <div style="background:#e0ffe0; color:#0c035a; padding: 10px; border-radius: 8px; margin-bottom: 20px;">
-     Product posted successfully!<br>
-    <em>"Your product is live! May it find the right hands and bring you success."</em>
+         {{_("Product posted successfully!")}}<br>
+    <em>{{_(" "Your product is live! May it find the right hands and bring you success."")}}</em>
   </div>
     {% endif %}
   {% endwith %}
   <form method="POST" enctype="multipart/form-data">
-      <label for="name">Product Name:</label>
-      <input type="text" name="name" placeholder="e.g., Handmade Basket" required>
+      <label for="name">{{_("Product Name:")}}</label>
+      <input type="text" name="name" placeholder={{_(""e.g., Handmade Basket"") }} required>
 
-      <label for="description">Product Description:</label>
-      <textarea name="description" rows="4" placeholder="e.g., Made from natural palm leaves." required></textarea>
+      <label for="description">{{_("Product Description:")}}</label>
+      <textarea name="description" rows="4" placeholder={{_(""e.g., Made from natural palm leaves."")}} required></textarea>
 
-      <label for="price">Cost (₹):</label>
-      <input type="text" name="price" placeholder="e.g., 250" required>
+      <label for="price">{{_("Cost (₹):")}}</label>
+      <input type="text" name="price" placeholder={{_(" "e.g., 250"")}} required>
 
-      <label for="image">Upload Product Image:</label>
+      <label for="image">{{_("Upload Product Image:")}}</label>
       <input type="file" name="image" accept="image/*" required>
 
-      <button type="submit">Post Product</button>
+      <button type="submit">{{_("Post Product")}}</button>
   </form>
 </div>
 {% endblock %}

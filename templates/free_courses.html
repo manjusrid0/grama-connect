@@ -84,14 +84,14 @@ body::-webkit-scrollbar-thumb:hover {
 
 
 <div class="container ">
-  <h2 class="mb-0">Free Skill Courses (Govt & Trusted Platforms)</h2>
+  <h2 class="mb-0">{{_("Free Skill Courses (Govt & Trusted Platforms)")}}</h2>
   
     {% for course in courses %}
    
         <div class="card-body">
-          <h5 class="card-title">{{ course.title }}</h5>
-          <p class="card-text">{{ course.description }}</p>
-          <a href="{{ course.link }}" target="_blank" class="btn btn-warning">Visit Course</a>
+          <h5 class="card-title">{{_("{{ course.title }}")}}</h5>
+          <p class="card-text">{{_("{{ course.description }}")}}</p>
+          <a href="{{ course.link }}" target="_blank" class="btn btn-warning">{{_("Visit Course")}}</a>
         </div>
       
     {% endfor %}

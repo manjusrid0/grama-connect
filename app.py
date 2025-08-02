@@ -4,7 +4,8 @@ from flask_login import LoginManager, login_user, logout_user, login_required, U
 import os
 import sqlite3
 from werkzeug.utils import secure_filename
-
+from flask import Flask, render_template, request, session, redirect, url_for
+from flask_babel import Babel, _
 from datetime import datetime
 import random
 import string
@@ -23,6 +24,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 db = SQLAlchemy(app)
+
+app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+app.config['LANGUAGES'] = {
+    'en': 'English',
+    'ta': 'தமிழ்',
+    'hi': 'हिन्दी',
+    'ml': 'മലയാളം',
+    'te': 'తెలుగు'
+}
+babel = Babel(app)
+
 
 
 # --------------- Database + Migrate Init ------------------# --------------- Flask-Login ------------------
@@ -145,11 +157,23 @@ ADMIN_PASSWORD = "admin123"
 # Hardcoded admin credentials
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
+@babel.localeselector
+def get_locale():
+    return session.get('lang', 'en')
+@app.context_processor
+def inject_locale():
+    return dict(get_locale=get_locale)
 
 # Home route
 @app.route('/')
 def home():
     return render_template("home.html")
+
+@app.route('/set_language/<language>')
+def set_language(language):
+    session['lang'] = language
+    return redirect(request.referrer or url_for('home'))
+
 
 # Admin login page (GET)
 @app.route("/admin", methods=["GET"])

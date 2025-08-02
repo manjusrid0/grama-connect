@@ -66,12 +66,12 @@ body::-webkit-scrollbar-thumb:hover {
 </style>
 
 <div class="dashboard-container">
-  <h2>Welcome, Admin!</h2>
+  <h2>{{_("Welcome, Admin!")}}</h2>
   <div class="menu-buttons">
-    <a href="{{ url_for('add_job') }}">Add New Job</a>
-    <a href="{{ url_for('view_jobs') }}">View All Jobs</a>
-    <a href="{{ url_for('view_all_uploads') }}">View All Uploads</a>
-    <a href="{{ url_for('logout') }}">Logout</a>
+    <a href="{{ url_for('add_job') }}">{{_("Add New Job")}}</a>
+    <a href="{{ url_for('view_jobs') }}">{{_("View All Jobs")}}</a>
+    <a href="{{ url_for('view_all_uploads') }}">{{_("View All Uploads")}}</a>
+    <a href="{{ url_for('logout') }}">{{_("Logout")}}</a>
   </div>
 </div>
 {% endblock %}

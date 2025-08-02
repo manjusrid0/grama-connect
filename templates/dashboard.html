@@ -62,85 +62,85 @@ body::-webkit-scrollbar-thumb:hover {
 }
 </style>
 
-<h2>Welcome, {{ current_user.username }}!</h2>
-<p>This is your <strong>Grama Connect</strong> dashboard.</p>
+<h2>{{_("Welcome, {{ current_user.username }}!")}}</h2>
+<p>{{_("This is your ")}}<strong>{{_("Grama Connect")}}</strong> {{_("dashboard.")}}</p>
 
 <div class="dashboard-grid">
 
   <!-- Profile -->
   <div class="card">
-    <h3>👤 Profile</h3>
-    <p>View and manage your profile details.</p>
-    <a href="{{ url_for('profile') }}" class="btn">Go to Profile</a>
+    <h3>{{_("👤 Profile")}}</h3>
+    <p>{{_("View and manage your profile details.")}}</p>
+    <a href="{{ url_for('profile') }}" class="btn">{{_("Go to Profile")}}</a>
   </div>
 
   <!-- Sell Product -->
   <div class="card">
-    <h3>🛒 Sell a Product</h3>
-    <p>Post your handmade or local product for sale.</p>
-    <a href="{{ url_for('sell') }}" class="btn">Sell Now</a>
+    <h3>{{_("🛒 Sell a Product")}}</h3>
+    <p>{{_("Post your handmade or local product for sale.")}}</p>
+    <a href="{{ url_for('sell') }}" class="btn">{{_("Sell Now")}}</a>
   </div>
 
   <!-- Buy Products -->
   <div class="card">
-    <h3>🛍 Buy Products</h3>
-    <p>Browse and buy available local products.</p>
-    <a href="{{ url_for('buy') }}" class="btn">View Products</a>
+    <h3>{{_("🛍 Buy Products")}}</h3>
+    <p>{{_("Browse and buy available local products.")}}</p>
+    <a href="{{ url_for('buy') }}" class="btn">{{_("View Products")}}</a>
   </div>
 
   <!-- Post a Class -->
   <div class="card">
-    <h3>📚 Post a Training / Class</h3>
-    <p>Share educational or vocational training sessions.</p>
-    <a href="{{ url_for('post_class') }}" class="btn">Post Class</a>
+    <h3>{{_("📚 Post a Training / Class")}}</h3>
+    <p>{{_("Share educational or vocational training sessions.")}}</p>
+    <a href="{{ url_for('post_class') }}" class="btn">{{_("Post Class")}}</a>
   </div>
 
   <!-- Join a Class -->
   <div class="card">
-    <h3>🎓 Join Available Classes</h3>
-    <p>Find and join classes posted by other users.</p>
-    <a href="{{ url_for('join_class') }}" class="btn">Join Class</a>
+    <h3>{{_("🎓 Join Available Classes")}}</h3>
+    <p>{{_("Find and join classes posted by other users.")}}</p>
+    <a href="{{ url_for('join_class') }}" class="btn">{{_("Join Class")}}</a>
   </div>
 
   <!-- Jobs -->
   <div class="card">
-    <h3>💼 Jobs</h3>
-    <p> post local job opportunities.</p>
-    <a href="{{ url_for('jobs') }}" class="btn">Post Jobs</a>
+    <h3>{{_("💼 Jobs")}}</h3>
+    <p>{{_(" post local job opportunities.")}}</p>
+    <a href="{{ url_for('jobs') }}" class="btn">{{_("Post Jobs")}}</a>
   </div>
   <div class="card">
-    <h3>apply jobs</h3>
-    <p>Explore local job opportunities.</p>
-    <a href="{{ url_for('join_job') }}" class="btn">Apply job</a>
+    <h3>{{_("apply jobs")}}</h3>
+    <p>{{_("Explore local job opportunities.")}}</p>
+    <a href="{{ url_for('join_job') }}" class="btn">{{_("Apply job")}}</a>
    
   </div>
 
   <!-- Income Estimator -->
   <div class="card">
-    <h5>📈 Income Estimator</h5>
-    <p>Estimate your monthly income based on your skill and working hours.</p>
-    <a href="{{ url_for('income_estimator') }}" class="btn btn-success">Try Now</a>
+    <h5>{{_("📈 Income Estimator")}}</h5>
+    <p>{{_("Estimate your monthly income based on your skill and working hours.")}}</p>
+    <a href="{{ url_for('income_estimator') }}" class="btn btn-success">{{_("Try Now")}}</a>
   </div>
 
   <!-- Self-Employment Board -->
   <div class="card">
-    <h5>🧠 Self-Employment Ideas</h5>
-    <p>Explore local business ideas and tutorials that need minimal investment.</p>
-    <a href="{{ url_for('self_employment_board') }}" class="btn btn-primary">Explore</a>
+    <h5>{{_("🧠 Self-Employment Ideas")}}</h5>
+    <p>{{_("Explore local business ideas and tutorials that need minimal investment.")}}</p>
+    <a href="{{ url_for('self_employment_board') }}" class="btn btn-primary">{{_("Explore")}}</a>
   </div>
 
   <!-- Free Courses -->
   <div class="card">
-    <h5>🎓 Free Skill Courses</h5>
-    <p>Access free courses from NPTEL, Skill India, and more.</p>
-    <a href="{{ url_for('free_courses') }}" class="btn btn-warning">View Courses</a>
+    <h5>{{_("🎓 Free Skill Courses")}}</h5>
+    <p>{{_("Access free courses from NPTEL, Skill India, and more.")}}</p>
+    <a href="{{ url_for('free_courses') }}" class="btn btn-warning">{{_("View Courses")}}</a>
   </div>
 
   <!-- Request Mentorship -->
   <div class="card">
-    <h5>🤝 Request Guidance</h5>
-    <p>Need help with self-employment? Send a request for support.</p>
-    <a href="{{ url_for('request_mentorship') }}" class="btn btn-info">Request Help</a>
+    <h5>{{_("🤝 Request Guidance")}}</h5>
+    <p>{{_("Need help with self-employment? Send a request for support.")}}</p>
+    <a href="{{ url_for('request_mentorship') }}" class="btn btn-info">{{_("Request Help")}}</a>
   </div>
 
 </div>

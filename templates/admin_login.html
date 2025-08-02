@@ -5,54 +5,53 @@
 </head>
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='uploads/yellow.gif') }}");
+  background-image: url("{{ url_for('static', filename='uploads/yellow2.gif') }}");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: white;
 }
 
-.login-form {
+.admin_login-form {
   width: 300px;
-  margin: 50px auto;
-  padding: 20px;
+  margin: 70px auto;
+  padding: 70px;
   background: rgba(0, 0, 0, 0.6);
-  border-radius: 12px;
+  border-radius: 52px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
 }
 
-.login-form input,
-.login-form button {
+.admin_login-form input,
+.admin_login-form button {
   width: 100%;
-  margin: 10px 0;
-  padding: 10px;
+  margin: 30px 10;
+  padding: 30px;
   border: none;
-  border-radius: 6px;
+  border-radius: 20px;
 }
 
-.login-form input {
+.admin_login-form input {
   background-color: #fff;
   color: #000;
 }
 
-.login-form button {
+.admin_login-form button {
   background-color: #28a745;
   color: #fff;
   cursor: pointer;
 }
 
-.login-form button:hover {
+.admin_login-form button:hover {
   background-color: #218838;
 }
 
-.login-form a {
+.admin_login-form a {
   color: #00f;
   text-decoration: underline;
 }
 </style>
 <body>
-    <h2>Admin Login</h2>
-
+  <h2>{{_("Admin Login")}}</h2>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul>
@@ -60,16 +59,14 @@ body {
           <li style="color: red;">{{ msg }}</li>
         {% endfor %}
         </ul>
+         <p style="text-align: center;"></p>
       {% endif %}
     {% endwith %}
     <form method="post" action="{{ url_for('admin_login') }}">
-
-
-   
-        <input type="text" name="username" placeholder="Username" required><br><br>
-        <input type="password" name="password" placeholder="Password" required><br><br>
-        <input type="submit" value="Login">
+       <input type="text" name={{_(""username"")}} placeholder="Username" required><br><br>
+        <input type={{_(""password" name="password"")}} placeholder="Password" required><br><br>
+        <input type={{_(""submit"")}} value="Login">
     </form>
-
+</div>   
 </body>
 </html>
