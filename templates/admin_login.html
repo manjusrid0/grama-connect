@@ -63,9 +63,9 @@ body {
       {% endif %}
     {% endwith %}
     <form method="post" action="{{ url_for('admin_login') }}">
-       <input type="text" name={{_(""username"")}} placeholder="Username" required><br><br>
-        <input type={{_(""password" name="password"")}} placeholder="Password" required><br><br>
-        <input type={{_(""submit"")}} value="Login">
+       <input type="text" name="username" placeholder="Username" required><br><br>
+        <input type="password" name="password" placeholder="Password" required><br><br>
+        <input type="submit" value="Login">
     </form>
 </div>   
 </body>
