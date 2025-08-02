@@ -33,7 +33,7 @@ app.config['LANGUAGES'] = {
     'ml': 'മലയാളം',
     'te': 'తెలుగు'
 }
-babel = Babel(app)
+babel = Babel()
 
 
 
@@ -157,7 +157,7 @@ ADMIN_PASSWORD = "admin123"
 # Hardcoded admin credentials
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
-@babel.localeselector
+
 def get_locale():
     return session.get('lang', 'en')
 @app.context_processor
