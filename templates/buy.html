@@ -102,16 +102,16 @@ body::-webkit-scrollbar-thumb:hover {
 </style>
 
 
-<h2>Available Products</h2>
+<h2>{{_("Available Products")}}</h2>
 
 {% if products %}
 <div class="products-container">
   {% for product in products %}
     <div class="product-card">
       <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}" alt="{{ product.name }}">
-      <h3>{{_("{{ product.name }}")}}</h3>
-      <p><strong>{{_("₹{{ product.price if product.price else "Not specified" }}")}}</strong></p>
-      <p>{{_("{{ product.description }}")}}</p>
+      <h3>{{ product.name }}</h3>
+      <p><strong> ₹{{ product.price if product.price else "Not specified" }}</strong></p>
+      <p>{{ product.description }}</p>
       <form method="POST">
         <input type="hidden" name="product_id" value="{{ product.id }}">
         <button type="submit">{{_("Buy")}}</button>
@@ -124,9 +124,9 @@ body::-webkit-scrollbar-thumb:hover {
 {% endif %}
 {% for product in products %}
   <div class="product-card">
-    <h3>{{_("{{ product.name }}")}}</h3>
-    <p>{{_("{{ product.description }}")}}</p>
-    <p><strong>{{_("Price:")}}</strong>{{_(" ₹{{ product.price }}")}}</p>
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <p><strong>{{_("Price:")}}</strong> ₹{{ product.price }}</p>
     <img src="{{ url_for('static', filename='product_images/' ~ product.image_filename) }}" width="200"><br>
 
     {% if not product.buyer_id %}
@@ -134,7 +134,7 @@ body::-webkit-scrollbar-thumb:hover {
   <input type="hidden" name="product_id" value="{{ product.id }}">
   <button type="submit">{{_("Buy")}}</button>
 </form>
-
+{{_("You haven’t purchased any products yet.")}}
     {% else %}
       <p style="color:red;"><strong>{{_("SOLD")}}</strong></p>
     {% endif %}
@@ -146,17 +146,17 @@ body::-webkit-scrollbar-thumb:hover {
   {% for product in purchased %}
     <div class="product-card">
       <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}" alt="{{ product.name }}">
-      <h3>{{_("{{ product.name }}")}}</h3>
-      <p>{{_("{{ product.description }}")}}</p>
-      <p><strong>{{_("Price:")}}</strong>{{_(" ₹{{ product.price }}")}}</p>
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p><strong>{{_("Price:")}}</strong> ₹{{ product.price }}</p>
       <p style="color: green;"><strong>{{_("Status:")}}</strong>{{_(" Purchased")}}</p>
-      <p><strong>{{_("Seller:")}}</strong>{{_(" {{ product.seller.username }}")}}</p>
+      <p><strong>{{_("Seller:")}}</strong> {{ product.seller.username }}</p>
 
     </div>
   {% endfor %}
 </div>
 {% else %}
-<p style="text-align: center;">{{_("You haven’t purchased any products yet.")}}</p>
+<p style="text-align: center;"></p>
 {% endif %}
 
 

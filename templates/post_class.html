@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Post Class - Grama Connect</title>
+    <title>{{_("Post Class - Grama Connect")}}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -63,48 +63,48 @@
 </head>
 <body>
 <div class="container">
-    <h2>Post a New Class</h2>
+    <h2>{{_("Post a New Class")}}</h2>
     <form action="/post_class" method="POST" enctype="multipart/form-data">
-        <label for="title">Class Title</label>
+        <label for="title">{{_("Class Title")}}</label>
         <input type="text" id="title" name="title" required>
 
-        <label for="description">Description</label>
+        <label for="description">{{_("Description")}}</label>
         <textarea id="description" name="description" required></textarea>
 
-        <label for="delivery_mode">Delivery Mode</label>
+        <label for="delivery_mode">{{_("Delivery Mode")}}</label>
         <select id="delivery_mode" name="delivery_mode" onchange="showInputField()" required>
-            <option value="">-- Select Mode --</option>
-            <option value="video_link">Video Link (YouTube/DIKSHA)</option>
-            <option value="upload_video">Upload Video File</option>
-            <option value="offline">Offline / Live Class</option>
+            <option value="">{{_("-- Select Mode --")}}</option>
+            <option value="video_link">{{_("Video Link (YouTube/DIKSHA)")}}</option>
+            <option value="upload_video">{{_("Upload Video File")}}</option>
+            <option value="offline">{{_("Offline / Live Class")}}</option>
         </select>
 
         <div id="video_link_div" class="hidden">
-            <label for="video_link">Enter Video Link (Only YouTube or DIKSHA)</label>
+            <label for="video_link">{{_("Enter Video Link (Only YouTube or DIKSHA)")}}</label>
             <input type="url" id="video_link" name="video_link" placeholder="https://...">
         </div>
 
         <div id="video_file_div" class="hidden">
-            <label for="video_file">Upload Video File</label>
+            <label for="video_file">{{_("Upload Video File")}}</label>
             <input type="file" id="video_file" name="video_file" accept="video/*">
         </div>
 
         <div id="offline_details_div" class="hidden">
-            <label for="offline_details">Offline Class Details</label>
+            <label for="offline_details">{{_("Offline Class Details")}}</label>
             <textarea id="offline_details" name="offline_details" placeholder="Location, Date, Time, etc."></textarea>
         </div>
 
-        <button type="submit">Post Class</button>
+        <button type="submit">{{_("Post Class")}}</button>
     </form>
 
-    <h2>Posted Class History</h2>
+    <h2>{{_("Posted Class History")}}</h2>
     <table>
         <thead>
         <tr>
-            <th>Title</th>
-            <th>Mode</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th>{{_("Title")}}</th>
+            <th>{{_("Mode")}}</th>
+            <th>{{_("Description")}}</th>
+            <th>{{_("Actions")}}</th>
         </tr>
         </thead>
         <tbody>
@@ -115,10 +115,10 @@
             <td>{{ cls.description }}</td>
             <td class="actions">
     <a href="{{ url_for('edit_class', class_id=cls.id) }}">
-        <button><i class="fas fa-edit"></i> Edit</button>
+        <button><i class="fas fa-edit"></i> {{_("Edit")}}</button>
     </a>
     <a href="{{ url_for('delete_class', class_id=cls.id) }}" onclick="return confirm('Are you sure?');">
-        <button class="delete"><i class="fas fa-trash"></i> Delete</button>
+        <button class="delete"><i class="fas fa-trash"></i>{{_(" Delete")}}</button>
     </a>
 </td>
         </tr>

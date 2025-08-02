@@ -113,19 +113,19 @@ body::-webkit-scrollbar-thumb:hover {
     {% if messages %}
        <div style="background:#e0ffe0; color:#0c035a; padding: 10px; border-radius: 8px; margin-bottom: 20px;">
          {{_("Product posted successfully!")}}<br>
-    <em>{{_(" "Your product is live! May it find the right hands and bring you success."")}}</em>
+    <em>{{_("Your product is live! May it find the right hands and bring you success.")}}</em>
   </div>
     {% endif %}
   {% endwith %}
   <form method="POST" enctype="multipart/form-data">
       <label for="name">{{_("Product Name:")}}</label>
-      <input type="text" name="name" placeholder={{_(""e.g., Handmade Basket"") }} required>
+      <input type="text" name="name" placeholder="e.g., Handmade Basket" required>
 
       <label for="description">{{_("Product Description:")}}</label>
-      <textarea name="description" rows="4" placeholder={{_(""e.g., Made from natural palm leaves."")}} required></textarea>
+      <textarea name="description" rows="4" placeholder="e.g., Made from natural palm leaves." required></textarea>
 
       <label for="price">{{_("Cost (₹):")}}</label>
-      <input type="text" name="price" placeholder={{_(" "e.g., 250"")}} required>
+      <input type="text" name="price" placeholder="e.g., 250" required>
 
       <label for="image">{{_("Upload Product Image:")}}</label>
       <input type="file" name="image" accept="image/*" required>

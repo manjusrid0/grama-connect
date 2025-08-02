@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template , request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 import os
@@ -159,10 +159,19 @@ ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
 
 def get_locale():
-    return session.get('lang', 'en')
+    # If user selected a language and it's in supported languages
+    if 'lang' in session:
+        return session['lang']
+    return request.accept_languages.best_match(['en', 'ta', 'hi', 'te', 'ml'])
+    
+babel.init_app(app, locale_selector=get_locale)
+
+
+
 @app.context_processor
 def inject_locale():
     return dict(get_locale=get_locale)
+
 
 # Home route
 @app.route('/')
@@ -205,11 +214,19 @@ def admin_dashboard():
         return redirect(url_for('admin_login_page'))
     return render_template("admin_dashboard.html")
 
-# Admin logout
+def get_locale():
+    if 'lang' in session:
+        return session['lang']
+    return request.accept_languages.best_match(['en', 'ta', 'hi', 'te', 'ml'])
+babel.init_app(app, locale_selector=get_locale)
+
+# 2. Admin Logout Route
 @app.route("/admin/logout")
 def admin_logout():
-    session.pop('admin_logged_in', None)
-    return redirect(url_for('admin_login_page'))
+    session.pop('admin', None)  # Safely remove 'admin' session key
+    return redirect(url_for('admin_login_page'))  # Redirect to admin login page
+# Admin logout
+
 
 @app.route("/admin/add_jobs", methods=["GET", "POST"])
 def add_job():

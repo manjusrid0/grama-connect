@@ -84,7 +84,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 
 <div class="container mt-4">
-  <h2 class="mb-4">Self-Employment Opportunities</h2>
+  <h2 class="mb-4">{{_("Self-Employment Opportunities")}}</h2>
   <div class="row">
     {% for idea in ideas %}
     <div class="col-md-4 mb-4 d-flex align-items-stretch">
@@ -93,7 +93,7 @@ body::-webkit-scrollbar-thumb:hover {
           <h5 class="card-title">{{ idea.title }}</h5>
           <p class="card-text">{{ idea.description }}</p>
           {% if idea.link %}
-          <a href="{{ idea.link }}" target="_blank" class="btn btn-primary">Learn More</a>
+          <a href="{{ idea.link }}" target="_blank" class="btn btn-primary">{{_("Learn More")}}</a>
           {% endif %}
         </div>
       </div>

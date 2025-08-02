@@ -83,35 +83,36 @@ body::-webkit-scrollbar-thumb:hover {
 </style>
 
 <div class="profile-container">
-  <h2>Welcome, {{ user.username }}!</h2>
-  <p>This is your profile dashboard.</p>
+  <h2>{{ _("Welcome")}}</h2>
+
+  <p>{{_("This is your profile dashboard.")}}</p>
 
   <div class="profile-details">
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>{{_("Username:")}}</strong> {{ user.username }}</p>
+    <p><strong>{{_("Email:")}}</strong> {{ user.email }}</p>
     <!-- Add more fields here if available, like joined date or mobile -->
   </div>
 
   <div class="profile-actions">
-    <a href="{{ url_for('jobs') }}">Post / View Jobs</a>
-    <a href="{{ url_for('logout') }}">Logout</a>
+    <a href="{{ url_for('jobs') }}">{{_("Post / View Jobs")}}</a>
+    <a href="{{ url_for('logout') }}">{{_("Logout")}}</a>
   </div>
 </div>
 <div class="container mt-4">
-  <h2 class="mb-3">Welcome, {{ current_user.name }}</h2>
+  <h2 class="mb-3">{{_("Welcome,")}}{{ current_user.name }}</h2>
 
   <div class="card shadow rounded-4 p-3 mb-4">
-    <h4>Your Skill Badge</h4>
-    <p>Based on your activity on Grama Connect</p>
+    <h4>{{_("Your Skill Badge")}}</h4>
+    <p>{{_("Based on your activity on Grama Connect")}}</p>
 
     {% if badge %}
       <div class="alert alert-success">
-        <h5>🏅 {{ badge }}</h5>
+        <h5>{{_("🏅 {{ badge }}")}}</h5>
       </div>
     {% else %}
       <div class="alert alert-warning">
-        <strong>No badge earned yet.</strong><br>
-        Start joining classes, uploading videos, or posting jobs.
+        <strong>{{_("No badge earned yet.")}}</strong>
+       
       </div>
     {% endif %}
   </div>

@@ -2,11 +2,11 @@
 
 {% block content %}
 <div style="max-width: 600px; margin: 50px auto; background: #f9f9f9; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
-  <h2 style="color: #0c035a;">Offline Class Details</h2>
-  <p><strong>Class Title:</strong> {{ class_data.title }}</p>
-  <p><strong>Description:</strong> {{ class_data.description }}</p>
-  <p><strong>Location:</strong> {{ class_data.location }}</p>
-  <p><strong>Date:</strong> {{ class_data.date }}</p>
-  <p><strong>Time:</strong> {{ class_data.time }}</p>
+  <h2 style="color: #0c035a;">{{_("Offline Class Details")}}</h2>
+  <p><strong>{{_("Class Title:")}}</strong> {{ class_data.title }}</p>
+  <p><strong>{{_("Description:")}}</strong> {{ class_data.description }}</p>
+  <p><strong>{{_("Location:")}}</strong> {{ class_data.location }}</p>
+  <p><strong>{{_("Date:")}}</strong> {{ class_data.date }}</p>
+  <p><strong>{{_("Time:")}}</strong> {{ class_data.time }}</p>
 </div>
 {% endblock %}

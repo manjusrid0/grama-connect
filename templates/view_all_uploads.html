@@ -87,37 +87,37 @@ body::-webkit-scrollbar-thumb:hover {
 </style>
 
 <div class="uploads-container">
-  <h2>All User Uploads</h2>
+  <h2>{{_("All User Uploads")}}</h2>
 
-  <h3>🎥 Videos</h3>
+  <h3>{{_("🎥 Videos")}}</h3>
   <ul>
     {% for v in videos %}
       <li>{{ v[1] }}</li>
     {% else %}
-      <li>No videos uploaded.</li>
+      <li>{{_("No videos uploaded.")}}</li>
     {% endfor %}
   </ul>
 
-  <h3>📚 Classes</h3>
+  <h3>{{_("📚 Classes")}}</h3>
   <ul>
     {% for c in classes %}
       <li>{{ c[1] }} - {{ c[2] }}</li>
     {% else %}
-      <li>No classes uploaded.</li>
+      <li>{{_("No classes uploaded.")}}</li>
     {% endfor %}
   </ul>
 
-  <h3>🛒 Products</h3>
+  <h3>{{_("🛒 Products")}}</h3>
   <ul>
     {% for p in products %}
       <li>{{ p[1] }} - ₹{{ p[2] }}</li>
     {% else %}
-      <li>No products uploaded.</li>
+      <li>{{_("No products uploaded.")}}</li>
     {% endfor %}
   </ul>
 
   <div class="back-link">
-    <a href="{{ url_for('admin_dashboard') }}">⬅ Back to Dashboard</a>
+    <a href="{{ url_for('admin_dashboard') }}">{{_("⬅ Back to Dashboard")}}</a>
   </div>
 </div>
 {% endblock %}

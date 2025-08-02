@@ -109,7 +109,7 @@ h1 {
         </form>
     </div>
 
-    {% block content %}{% endblock %}
+   
 
 
   <header>
@@ -117,9 +117,10 @@ h1 {
     <h1>{{ _("Grama Connect")}}</h1>
     <nav>
     <a href="{{ url_for('home') }}">{{ _("Home")}}</a> |
-    <a href="{{ url_for('user_login') }}">{{ _("Login")}}</a> |
-    <a href="{{ url_for('register') }}">{{ _("Register")}}</a> |
-    <a href="{{ url_for('admin_login') }}">{{ _("Admin")}}</a> |
+    <a href="{{ url_for('user_login') }}">{{_("Login")}}</a> |
+    <a href="{{ url_for('register') }}">{{_("Register")}}</a> |
+
+    <a href="{{ url_for('admin_login') }}">{{_("Admin")}}</a> |
     <a href="{{ url_for('about') }}">{{ _("About Us")}}</a> |
     <a href="{{ url_for('logout') }}">{{ _("Logout")}}</a>
     </nav>
@@ -129,3 +130,4 @@ h1 {
 
 </body>
 </html>
+{% block content %}{% endblock %}
