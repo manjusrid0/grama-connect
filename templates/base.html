@@ -183,6 +183,108 @@
 
   <!-- 📦 Main Content Block -->
   {% block content %}{% endblock %}
+<script>
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+
+  const voices = speechSynthesis.getVoices();
+  const tamilVoice = voices.find(v => v.lang === 'ta-IN');
+  const utterance = new SpeechSynthesisUtterance(text);
+
+  if (selectedLanguage === 'ta' && tamilVoice) {
+    utterance.voice = tamilVoice;
+    utterance.lang = 'ta-IN';
+  } else {
+    utterance.lang = 'en-US';
+  }
+
+  speechSynthesis.speak(utterance);
+}
+
+  let selected_Language = "{{ get_locale() }}";
+  let tamilVoice = null;
+  let englishVoice = null;
+
+  function loadVoices() {
+    const voices = speechSynthesis.getVoices();
+
+    // Try to find a Tamil voice
+    tamilVoice = voices.find(v =>
+      v.lang.toLowerCase().includes('ta') || v.name.toLowerCase().includes('tamil')
+    );
+
+    // Default English voice (as fallback)
+    englishVoice = voices.find(v => v.lang === 'en-US') || voices[0];
+  }
+
+  // Load voices when available
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    if (selectedLanguage === 'ta' && tamilVoice) {
+      utterance.voice = tamilVoice;
+      utterance.lang = tamilVoice.lang;
+    } else if (selectedLanguage === 'en' && englishVoice) {
+      utterance.voice = englishVoice;
+      utterance.lang = englishVoice.lang;
+    }
+
+    speechSynthesis.speak(utterance);
+  }
+
+  function greetUser() {
+    const greeting = selectedLanguage === 'ta'
+      ? "வணக்கம்! கிராமா கனெக்ட் செயலிக்கு வரவேற்கிறோம்"
+      : "Welcome to Grama Connect web app. Empowering rural talent.";
+    speak(greeting);
+  }
+
+  function addVoiceToAllActions() {
+    document.querySelectorAll('button, .voice-action').forEach(elem => {
+      elem.addEventListener('click', () => {
+        const label = elem.innerText || elem.getAttribute('aria-label') || "Action performed";
+        const msg = selectedLanguage === 'ta'
+          ? "நீங்கள் தேர்ந்தெடுத்த செயலி: " + label
+          : "You selected: " + label;
+        speak(msg);
+      });
+    });
+
+    document.querySelectorAll('input, textarea, select').forEach(input => {
+      input.addEventListener('focus', () => {
+        const label = input.getAttribute('aria-label') || input.name || input.id || 'form field';
+        const msg = selectedLanguage === 'ta'
+          ? label + " உள்ளிடுக"
+          : "Please enter: " + label;
+        speak(msg);
+      });
+    });
+
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', () => {
+        const msg = selectedLanguage === 'ta'
+          ? "உங்கள் விவரங்கள் சமர்ப்பிக்கப்பட்டன"
+          : "Your form has been submitted";
+        speak(msg);
+      });
+    });
+  }
+
+  window.onload = function () {
+    if (speechSynthesis.getVoices().length !== 0) {
+      loadVoices();
+    }
+    greetUser();
+    addVoiceToAllActions();
+  };
+</script>
 
 </body>
 </html>
+
+
+
