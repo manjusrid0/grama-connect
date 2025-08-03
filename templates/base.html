@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>{{ _("Grama Connect") }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
   <style>
     body {
       margin: 0;
@@ -14,8 +13,8 @@
       transition: background-image 1s ease-in-out;
       height: 100vh;
       overflow: hidden;
+      font-family: Arial, sans-serif;
     }
-
     header {
       position: relative;
       z-index: 10;
@@ -23,14 +22,12 @@
       padding: 20px 0;
       text-align: center;
     }
-
     .header-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 10px;
     }
-
     nav a {
       color: white;
       text-decoration: none;
@@ -38,17 +35,14 @@
       font-size: 18px;
       margin: 0 10px;
     }
-
     nav a:hover {
       text-decoration: underline;
     }
-
     h1 {
       color: white;
       margin: 0;
       font-size: 32px;
     }
-
     .center-marquee {
       position: absolute;
       bottom: -100px;
@@ -61,7 +55,6 @@
       animation: scrollUp 10s linear infinite;
       z-index: 5;
     }
-
     @keyframes scrollUp {
       0%   { bottom: -100px; opacity: 0; }
       20%  { opacity: 1; }
@@ -69,86 +62,53 @@
       80%  { opacity: 1; }
       100% { bottom: 100%; opacity: 0; }
     }
-
     .hidden-slides {
       display: none;
     }
-
     .language-selector {
       text-align: right;
       padding: 10px;
     }
+    #assistant-box {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: #fff;
+      border: 2px solid #2196F3;
+      border-radius: 10px;
+      padding: 10px;
+      width: 280px;
+      box-shadow: 0 0 10px #555;
+      font-size: 15px;
+      display: none;
+      z-index: 9999;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    #assistant-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      z-index: 9999;
+      box-shadow: 2px 2px 10px #000;
+    }
   </style>
-
-  <script>
-    let selectedLanguage = "{{ get_locale() }}";
-
-    function speak(text) {
-      if (!('speechSynthesis' in window)) return;
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = (selectedLanguage === 'ta') ? 'ta-IN' : 'en-US';
-      window.speechSynthesis.speak(utterance);
-    }
-
-    function greetUser() {
-      const greeting = selectedLanguage === 'ta'
-        ? "வணக்கம்! கிராமா கனெக்ட் செயலிக்கு வரவேற்கிறோம்"
-        : "Welcome to Grama Connect web app. Empowering rural talent.";
-      speak(greeting);
-    }
-
-    function addVoiceToAllActions() {
-      // Buttons and voice-action class
-      document.querySelectorAll('button, .voice-action').forEach(elem => {
-        elem.addEventListener('click', () => {
-          let label = elem.innerText || elem.getAttribute('aria-label') || "Action performed";
-          const msg = (selectedLanguage === 'ta')
-            ? "நீங்கள் தேர்ந்தெடுத்த செயலி: " + label
-            : "You selected: " + label;
-          speak(msg);
-        });
-      });
-
-      // Input fields
-      document.querySelectorAll('input, textarea, select').forEach(input => {
-        input.addEventListener('focus', () => {
-          const label = input.getAttribute('aria-label') || input.name || input.id || 'form field';
-          const msg = (selectedLanguage === 'ta')
-            ? label + " உள்ளிடுக"
-            : "Please enter: " + label;
-          speak(msg);
-        });
-      });
-
-      // Form submit
-      document.querySelectorAll('form').forEach(form => {
-        form.addEventListener('submit', () => {
-          const msg = (selectedLanguage === 'ta')
-            ? "உங்கள் விவரங்கள் சமர்ப்பிக்கப்பட்டன"
-            : "Your form has been submitted";
-          speak(msg);
-        });
-      });
-    }
-
-    window.onload = function () {
-      greetUser();
-      addVoiceToAllActions();
-    };
-  </script>
 </head>
-
-<body>
+<body onload="greetUser(); addVoiceToAllElements();">
 
   <!-- 🌐 Language Selector -->
   <div class="language-selector">
     <form>
       <select onchange="location = this.value;">
         {% for code, name in config['LANGUAGES'].items() %}
-          <option value="{{ url_for('set_language', language=code) }}"
-            {% if code == get_locale() %} selected {% endif %}>
-            {{ name }}
-          </option>
+          <option value="{{ url_for('set_language', language=code) }}" {% if code == get_locale() %} selected {% endif %}>{{ name }}</option>
         {% endfor %}
       </select>
     </form>
@@ -159,19 +119,17 @@
     <div class="header-container">
       <h1>{{ _("Grama Connect") }}</h1>
       <nav>
-        <a href="{{ url_for('home') }}">{{ _("Home") }}</a> |
-        <a href="{{ url_for('user_login') }}">{{ _("Login") }}</a> |
-        <a href="{{ url_for('register') }}">{{ _("Register") }}</a> |
-        <a href="{{ url_for('admin_login') }}">{{ _("Admin") }}</a> |
-        <a href="{{ url_for('about') }}">{{ _("About Us") }}</a> |
+        <a href="{{ url_for('home') }}">{{ _("Home") }}</a>
+        <a href="{{ url_for('user_login') }}">{{ _("Login") }}</a>
+        <a href="{{ url_for('register') }}">{{ _("Register") }}</a>
+        <a href="{{ url_for('admin_login') }}">{{ _("Admin") }}</a>
+        <a href="{{ url_for('about') }}">{{ _("About Us") }}</a>
         <a href="{{ url_for('logout') }}">{{ _("Logout") }}</a>
       </nav>
     </div>
   </header>
 
-  <!-- 📢 Marquee (optional slogan) -->
-  
-  <!-- 🔁 Flash Message Reader -->
+  <!-- 📢 Flash Message Reader -->
   {% with messages = get_flashed_messages() %}
     {% if messages %}
       {% for msg in messages %}
@@ -183,105 +141,119 @@
 
   <!-- 📦 Main Content Block -->
   {% block content %}{% endblock %}
-<script>
-function speak(text) {
-  if (!('speechSynthesis' in window)) return;
 
-  const voices = speechSynthesis.getVoices();
-  const tamilVoice = voices.find(v => v.lang === 'ta-IN');
-  const utterance = new SpeechSynthesisUtterance(text);
+  <!-- 🎤 Smart Assistant Box -->
+  <div id="assistant-box"><div id="assistant-log"></div></div>
+  <button id="assistant-btn" onclick="toggleAssistant()">🎤</button>
 
-  if (selectedLanguage === 'ta' && tamilVoice) {
-    utterance.voice = tamilVoice;
-    utterance.lang = 'ta-IN';
-  } else {
-    utterance.lang = 'en-US';
-  }
+  <script>
+    let selectedLanguage = "{{ get_locale() }}";
+    let assistantActive = false;
 
-  speechSynthesis.speak(utterance);
-}
-
-  let selected_Language = "{{ get_locale() }}";
-  let tamilVoice = null;
-  let englishVoice = null;
-
-  function loadVoices() {
-    const voices = speechSynthesis.getVoices();
-
-    // Try to find a Tamil voice
-    tamilVoice = voices.find(v =>
-      v.lang.toLowerCase().includes('ta') || v.name.toLowerCase().includes('tamil')
-    );
-
-    // Default English voice (as fallback)
-    englishVoice = voices.find(v => v.lang === 'en-US') || voices[0];
-  }
-
-  // Load voices when available
-  window.speechSynthesis.onvoiceschanged = loadVoices;
-
-  function speak(text) {
-    if (!('speechSynthesis' in window)) return;
-
-    const utterance = new SpeechSynthesisUtterance(text);
-
-    if (selectedLanguage === 'ta' && tamilVoice) {
-      utterance.voice = tamilVoice;
-      utterance.lang = tamilVoice.lang;
-    } else if (selectedLanguage === 'en' && englishVoice) {
-      utterance.voice = englishVoice;
-      utterance.lang = englishVoice.lang;
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      if (selectedLanguage === 'ta') {
+        utterance.voice = voices.find(v => v.lang.includes('ta'));
+        utterance.lang = 'ta-IN';
+      } else {
+        utterance.voice = voices.find(v => v.lang === 'en-US') || voices[0];
+        utterance.lang = 'en-US';
+      }
+      window.speechSynthesis.speak(utterance);
     }
 
-    speechSynthesis.speak(utterance);
-  }
-
-  function greetUser() {
-    const greeting = selectedLanguage === 'ta'
-      ? "வணக்கம்! கிராமா கனெக்ட் செயலிக்கு வரவேற்கிறோம்"
-      : "Welcome to Grama Connect web app. Empowering rural talent.";
-    speak(greeting);
-  }
-
-  function addVoiceToAllActions() {
-    document.querySelectorAll('button, .voice-action').forEach(elem => {
-      elem.addEventListener('click', () => {
-        const label = elem.innerText || elem.getAttribute('aria-label') || "Action performed";
-        const msg = selectedLanguage === 'ta'
-          ? "நீங்கள் தேர்ந்தெடுத்த செயலி: " + label
-          : "You selected: " + label;
-        speak(msg);
-      });
-    });
-
-    document.querySelectorAll('input, textarea, select').forEach(input => {
-      input.addEventListener('focus', () => {
-        const label = input.getAttribute('aria-label') || input.name || input.id || 'form field';
-        const msg = selectedLanguage === 'ta'
-          ? label + " உள்ளிடுக"
-          : "Please enter: " + label;
-        speak(msg);
-      });
-    });
-
-    document.querySelectorAll('form').forEach(form => {
-      form.addEventListener('submit', () => {
-        const msg = selectedLanguage === 'ta'
-          ? "உங்கள் விவரங்கள் சமர்ப்பிக்கப்பட்டன"
-          : "Your form has been submitted";
-        speak(msg);
-      });
-    });
-  }
-
-  window.onload = function () {
-    if (speechSynthesis.getVoices().length !== 0) {
-      loadVoices();
+    function greetUser() {
+      const greeting = selectedLanguage === 'ta'
+        ? "வணக்கம்! கிராமா கனெக்ட் செயலிக்கு வரவேற்கிறோம்"
+        : "Welcome to Grama Connect web app. Empowering rural talent.";
+      speak(greeting);
     }
-    greetUser();
-    addVoiceToAllActions();
-  };
-</script>
+
+    function toggleAssistant() {
+      assistantActive = !assistantActive;
+      document.getElementById('assistant-box').style.display = assistantActive ? 'block' : 'none';
+      if (assistantActive) {
+        speak(selectedLanguage === 'ta' ? 'நீங்கள் என்ன செய்ய விரும்புகிறீர்கள்?' : 'What would you like to do?');
+        startListening();
+      } else {
+        speak(selectedLanguage === 'ta' ? 'அஸிஸ்டன்ட் நிறுத்தப்பட்டது' : 'Assistant turned off');
+      }
+    }
+
+    function startListening() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = selectedLanguage === 'ta' ? 'ta-IN' : 'en-US';
+      recognition.start();
+      recognition.onresult = function(event) {
+        const command = event.results[0][0].transcript.toLowerCase();
+        updateAssistantLog('👤', command);
+        handleCommand(command);
+      };
+      recognition.onend = function() {
+        if (assistantActive) setTimeout(startListening, 1000);
+      };
+    }
+
+    function updateAssistantLog(who, msg) {
+      const box = document.getElementById('assistant-log');
+      const div = document.createElement('div');
+      div.innerHTML = `<b>${who}</b>: ${msg}`;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function handleCommand(command) {
+      let response = '';
+      if (command.includes('login') || command.includes('உள்நுழை')) {
+        response = selectedLanguage === 'ta' ? 'உள்நுழைவு பக்கம் செல்லப்படுகிறது' : 'Going to login page';
+        window.location.href = '/login';
+      } else if (command.includes('register') || command.includes('பதிவு')) {
+        response = selectedLanguage === 'ta' ? 'பதிவு பக்கம் செல்லப்படுகிறது' : 'Going to registration page';
+        window.location.href = '/register';
+      } else {
+        response = selectedLanguage === 'ta' ? 'மன்னிக்கவும், புரியவில்லை' : "Sorry, I didn't understand that";
+      }
+      speak(response);
+    }
+
+    function addVoiceToAllElements() {
+      document.querySelectorAll('nav a, button, .voice-action').forEach(elem => {
+        elem.addEventListener('click', () => {
+          const label = elem.innerText || elem.getAttribute('aria-label') || "Action";
+          const msg = selectedLanguage === 'ta'
+            ? `${label} செயலை தேர்ந்தெடுத்தீர்கள்`
+            : `You selected: ${label}`;
+          speak(msg);
+        });
+      });
+
+      document.querySelectorAll('input, textarea, select').forEach(input => {
+        input.addEventListener('focus', () => {
+          const label = input.placeholder || input.getAttribute('aria-label') || input.name || 'field';
+          const msg = selectedLanguage === 'ta'
+            ? `${label} உள்ளிடவும்`
+            : `Please enter: ${label}`;
+          speak(msg);
+        });
+      });
+
+      document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', () => {
+          const msg = selectedLanguage === 'ta'
+            ? "உங்கள் விவரங்கள் சமர்ப்பிக்கப்பட்டன"
+            : "Your form has been submitted";
+          speak(msg);
+        });
+      });
+    }
+
+    window.onload = function () {
+      speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
+      greetUser();
+      addVoiceToAllElements();
+    }
+  </script>
 
 </body>
 </html>

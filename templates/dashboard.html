@@ -13,7 +13,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* Scrollbar */
+
 body::-webkit-scrollbar {
   width: 10px;
 }
@@ -25,7 +25,7 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
 
-/* Grid layout for all dashboard features */
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -33,7 +33,7 @@ body::-webkit-scrollbar-thumb:hover {
   margin-top: 30px;
 }
 
-/* Card Styling */
+
 .card {
   border: 1px solid #06093b;
   padding: 15px;
@@ -56,6 +56,7 @@ body::-webkit-scrollbar-thumb:hover {
   color: rgb(246, 246, 248);
   text-decoration: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 .btn:hover {
   background: #5658c5;
@@ -66,82 +67,109 @@ body::-webkit-scrollbar-thumb:hover {
 <p>{{_("This is your ")}}<strong>{{_("Grama Connect")}}</strong> {{_("dashboard.")}}</p>
 
 <div class="dashboard-grid">
-
-  <!-- Profile -->
+  
   <div class="card">
     <h3>{{_("👤 Profile")}}</h3>
     <p>{{_("View and manage your profile details.")}}</p>
-    <a href="{{ url_for('profile') }}" class="btn">{{_("Go to Profile")}}</a>
+    <a href="{{ url_for('profile') }}" class="btn voice-action">{{_("Go to Profile")}}</a>
   </div>
 
-  <!-- Sell Product -->
+  
   <div class="card">
     <h3>{{_("🛒 Sell a Product")}}</h3>
     <p>{{_("Post your handmade or local product for sale.")}}</p>
-    <a href="{{ url_for('sell') }}" class="btn">{{_("Sell Now")}}</a>
+    <a href="{{ url_for('sell') }}" class="btn voice-action">{{_("Sell Now")}}</a>
   </div>
 
-  <!-- Buy Products -->
+  
   <div class="card">
     <h3>{{_("🛍 Buy Products")}}</h3>
     <p>{{_("Browse and buy available local products.")}}</p>
-    <a href="{{ url_for('buy') }}" class="btn">{{_("View Products")}}</a>
+    <a href="{{ url_for('buy') }}" class="btn voice-action">{{_("View Products")}}</a>
   </div>
 
-  <!-- Post a Class -->
+
   <div class="card">
     <h3>{{_("📚 Post a Training / Class")}}</h3>
     <p>{{_("Share educational or vocational training sessions.")}}</p>
-    <a href="{{ url_for('post_class') }}" class="btn">{{_("Post Class")}}</a>
+    <a href="{{ url_for('post_class') }}" class="btn voice-action">{{_("Post Class")}}</a>
   </div>
 
-  <!-- Join a Class -->
+
   <div class="card">
     <h3>{{_("🎓 Join Available Classes")}}</h3>
     <p>{{_("Find and join classes posted by other users.")}}</p>
-    <a href="{{ url_for('join_class') }}" class="btn">{{_("Join Class")}}</a>
+    <a href="{{ url_for('join_class') }}" class="btn voice-action">{{_("Join Class")}}</a>
   </div>
 
-  <!-- Jobs -->
+
   <div class="card">
     <h3>{{_("💼 Jobs")}}</h3>
     <p>{{_(" post local job opportunities.")}}</p>
-    <a href="{{ url_for('jobs') }}" class="btn">{{_("Post Jobs")}}</a>
+    <a href="{{ url_for('jobs') }}" class="btn voice-action">{{_("Post Jobs")}}</a>
   </div>
+
   <div class="card">
     <h3>{{_("apply jobs")}}</h3>
     <p>{{_("Explore local job opportunities.")}}</p>
-    <a href="{{ url_for('join_job') }}" class="btn">{{_("Apply job")}}</a>
-   
+    <a href="{{ url_for('join_job') }}" class="btn voice-action">{{_("Apply job")}}</a>
   </div>
 
-  <!-- Income Estimator -->
+
   <div class="card">
     <h5>{{_("📈 Income Estimator")}}</h5>
     <p>{{_("Estimate your monthly income based on your skill and working hours.")}}</p>
-    <a href="{{ url_for('income_estimator') }}" class="btn btn-success">{{_("Try Now")}}</a>
+    <a href="{{ url_for('income_estimator') }}" class="btn voice-action">{{_("Try Now")}}</a>
   </div>
 
-  <!-- Self-Employment Board -->
+  
   <div class="card">
     <h5>{{_("🧠 Self-Employment Ideas")}}</h5>
     <p>{{_("Explore local business ideas and tutorials that need minimal investment.")}}</p>
-    <a href="{{ url_for('self_employment_board') }}" class="btn btn-primary">{{_("Explore")}}</a>
+    <a href="{{ url_for('self_employment_board') }}" class="btn voice-action">{{_("Explore")}}</a>
   </div>
 
-  <!-- Free Courses -->
+  
   <div class="card">
     <h5>{{_("🎓 Free Skill Courses")}}</h5>
     <p>{{_("Access free courses from NPTEL, Skill India, and more.")}}</p>
-    <a href="{{ url_for('free_courses') }}" class="btn btn-warning">{{_("View Courses")}}</a>
+    <a href="{{ url_for('free_courses') }}" class="btn voice-action">{{_("View Courses")}}</a>
   </div>
 
-  <!-- Request Mentorship -->
+
   <div class="card">
     <h5>{{_("🤝 Request Guidance")}}</h5>
     <p>{{_("Need help with self-employment? Send a request for support.")}}</p>
-    <a href="{{ url_for('request_mentorship') }}" class="btn btn-info">{{_("Request Help")}}</a>
+    <a href="{{ url_for('request_mentorship') }}" class="btn voice-action">{{_("Request Help")}}</a>
   </div>
 
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const selectedLanguage = "{{ get_locale() }}";
+    const speak = (text) => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = speechSynthesis.getVoices();
+      if (selectedLanguage === 'ta') {
+        utterance.voice = voices.find(v => v.lang.includes('ta'));
+        utterance.lang = 'ta-IN';
+      } else {
+        utterance.voice = voices.find(v => v.lang === 'en-US') || voices[0];
+        utterance.lang = 'en-US';
+      }
+      speechSynthesis.speak(utterance);
+    };
+
+    document.querySelectorAll('.voice-action').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const label = btn.innerText.trim();
+        const msg = selectedLanguage === 'ta'
+          ? label + ' பட்டன் கிளிக் செய்யப்பட்டது'
+          : 'You clicked: ' + label;
+        speak(msg);
+      });
+    });
+  });
+</script>
 {% endblock %}
