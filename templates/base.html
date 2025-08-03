@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ get_locale() }}">
 <head>
   <meta charset="UTF-8">
-  <title>{{ _("Grama Connect")}}</title>
+  <title>{{ _("Grama Connect") }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
   <style>
     body {
       margin: 0;
@@ -14,54 +15,40 @@
       height: 100vh;
       overflow: hidden;
     }
+
     header {
-  position: relative;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 20px 0;
-  text-align: center;
-}
+      position: relative;
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px 0;
+      text-align: center;
+    }
 
-.header-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
+    .header-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 25px;
-  padding: 0;
-  margin: 0;
-  color: white;
-}
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 0 10px;
+    }
 
-nav ul li {
-  display: inline;
-  color: white;
-}
+    nav a:hover {
+      text-decoration: underline;
+    }
 
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 18px;
-}
+    h1 {
+      color: white;
+      margin: 0;
+      font-size: 32px;
+    }
 
-nav ul li a:hover {
-  text-decoration: underline;
-  color: white;
-}
-
-h1 {
-  color: white;
-  margin: 0;
-  font-size: 32px;
-}
-
-    
     .center-marquee {
       position: absolute;
       bottom: -100px;
@@ -86,48 +73,116 @@ h1 {
     .hidden-slides {
       display: none;
     }
+
+    .language-selector {
+      text-align: right;
+      padding: 10px;
+    }
   </style>
+
+  <script>
+    let selectedLanguage = "{{ get_locale() }}";
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = (selectedLanguage === 'ta') ? 'ta-IN' : 'en-US';
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function greetUser() {
+      const greeting = selectedLanguage === 'ta'
+        ? "வணக்கம்! கிராமா கனெக்ட் செயலிக்கு வரவேற்கிறோம்"
+        : "Welcome to Grama Connect web app. Empowering rural talent.";
+      speak(greeting);
+    }
+
+    function addVoiceToAllActions() {
+      // Buttons and voice-action class
+      document.querySelectorAll('button, .voice-action').forEach(elem => {
+        elem.addEventListener('click', () => {
+          let label = elem.innerText || elem.getAttribute('aria-label') || "Action performed";
+          const msg = (selectedLanguage === 'ta')
+            ? "நீங்கள் தேர்ந்தெடுத்த செயலி: " + label
+            : "You selected: " + label;
+          speak(msg);
+        });
+      });
+
+      // Input fields
+      document.querySelectorAll('input, textarea, select').forEach(input => {
+        input.addEventListener('focus', () => {
+          const label = input.getAttribute('aria-label') || input.name || input.id || 'form field';
+          const msg = (selectedLanguage === 'ta')
+            ? label + " உள்ளிடுக"
+            : "Please enter: " + label;
+          speak(msg);
+        });
+      });
+
+      // Form submit
+      document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', () => {
+          const msg = (selectedLanguage === 'ta')
+            ? "உங்கள் விவரங்கள் சமர்ப்பிக்கப்பட்டன"
+            : "Your form has been submitted";
+          speak(msg);
+        });
+      });
+    }
+
+    window.onload = function () {
+      greetUser();
+      addVoiceToAllActions();
+    };
+  </script>
 </head>
+
 <body>
-  
-<html lang="{{ get_locale() }}">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ _("Grama Connect") }}</title>
-</head>
-<body>
-    <div style="text-align:right; padding:10px;">
-        <form>
-            <select onchange="location = this.value;">
-                {% for code, name in config['LANGUAGES'].items() %}
-                    <option value="{{ url_for('set_language', language=code) }}"
-                        {% if code == get_locale() %} selected {% endif %}>
-                        {{ name }}
-                    </option>
-                {% endfor %}
-            </select>
-        </form>
-    </div>
 
-   
-
-
-  <header>
-  <div class="header-container">
-    <h1>{{ _("Grama Connect")}}</h1>
-    <nav>
-    <a href="{{ url_for('home') }}">{{ _("Home")}}</a> |
-    <a href="{{ url_for('user_login') }}">{{_("Login")}}</a> |
-    <a href="{{ url_for('register') }}">{{_("Register")}}</a> |
-
-    <a href="{{ url_for('admin_login') }}">{{_("Admin")}}</a> |
-    <a href="{{ url_for('about') }}">{{ _("About Us")}}</a> |
-    <a href="{{ url_for('logout') }}">{{ _("Logout")}}</a>
-    </nav>
+  <!-- 🌐 Language Selector -->
+  <div class="language-selector">
+    <form>
+      <select onchange="location = this.value;">
+        {% for code, name in config['LANGUAGES'].items() %}
+          <option value="{{ url_for('set_language', language=code) }}"
+            {% if code == get_locale() %} selected {% endif %}>
+            {{ name }}
+          </option>
+        {% endfor %}
+      </select>
+    </form>
   </div>
-</header>
 
+  <!-- 🔊 Header -->
+  <header>
+    <div class="header-container">
+      <h1>{{ _("Grama Connect") }}</h1>
+      <nav>
+        <a href="{{ url_for('home') }}">{{ _("Home") }}</a> |
+        <a href="{{ url_for('user_login') }}">{{ _("Login") }}</a> |
+        <a href="{{ url_for('register') }}">{{ _("Register") }}</a> |
+        <a href="{{ url_for('admin_login') }}">{{ _("Admin") }}</a> |
+        <a href="{{ url_for('about') }}">{{ _("About Us") }}</a> |
+        <a href="{{ url_for('logout') }}">{{ _("Logout") }}</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 📢 Marquee (optional slogan) -->
+  
+  <!-- 🔁 Flash Message Reader -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert">{{ msg }}</div>
+        <script> speak("{{ msg }}"); </script>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- 📦 Main Content Block -->
+  {% block content %}{% endblock %}
 
 </body>
 </html>
-{% block content %}{% endblock %}
