@@ -8,19 +8,23 @@ body {
   background-image: url("{{ url_for('static', filename='uploads/yellow2.gif') }}");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  color: white;
+  color:rgb(240, 248, 240);
 }
 
 .login-form {
   width: 300px;
   margin: 50px auto;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
 }
-
+.login-form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.6);  /* 🌟 label color (yellow in this case) */
+}
 .login-form input,
 .login-form button {
   width: 100%;
@@ -31,22 +35,22 @@ body {
 }
 
 .login-form input {
-  background-color: #fff;
-  color: #000;
+  color: rgba(0, 0, 0, 0.6);
+  color: #0e0000;
 }
 
 .login-form button {
-  background-color: #28a745;
+  background-color: black;
   color: #fff;
   cursor: pointer;
 }
 
 .login-form button:hover {
-  background-color: #218838;
+  background-color: #033f10;
 }
 
 .login-form a {
-  color: #00f;
+  color: rgb(240, 248, 240);
   text-decoration: underline;
 }
 </style>

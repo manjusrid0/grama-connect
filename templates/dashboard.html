@@ -3,9 +3,10 @@
 {% block content %}
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='uploads/gifff.gif') }}");
+  background-image: url("{{ url_for('static', filename='uploads/field3.jpg') }}");
   background-size: cover;
-  background-color: rgb(14, 137, 209);
+  background-color: rgba(0, 0, 0, 0.5);
+
   background-position: center;
   background-repeat: no-repeat;
   color: rgb(247, 242, 242);
@@ -37,7 +38,8 @@ body::-webkit-scrollbar-thumb:hover {
 .card {
   border: 1px solid #06093b;
   padding: 15px;
-  background: #0e0244;
+  background-color: rgba(0, 0, 0, 0.5);
+  
   border-radius: 10px;
   text-align: center;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
@@ -52,14 +54,14 @@ body::-webkit-scrollbar-thumb:hover {
 .btn {
   display: inline-block;
   padding: 10px 15px;
-  background: #523bb9;
-  color: rgb(246, 246, 248);
+  background: #047413;
+  color: rgb(208, 245, 107);
   text-decoration: none;
   border-radius: 5px;
   cursor: pointer;
 }
 .btn:hover {
-  background: #5658c5;
+  background: #07070a;
 }
 </style>
 
@@ -106,7 +108,7 @@ body::-webkit-scrollbar-thumb:hover {
   <div class="card">
     <h3>{{_("💼 Jobs")}}</h3>
     <p>{{_(" post local job opportunities.")}}</p>
-    <a href="{{ url_for('jobs') }}" class="btn voice-action">{{_("Post Jobs")}}</a>
+    <a href="{{ url_for('jobs') }}" class="btn voice-action">{{_("Post Job")}}</a>
   </div>
 
   <div class="card">
