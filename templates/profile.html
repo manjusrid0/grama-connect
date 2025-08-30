@@ -1,119 +1,89 @@
 {% extends "base.html" %}
-
 {% block content %}
 <style>
-body {
-  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white;
-  font-family: 'Segoe UI', sans-serif;
+body { overflow-y: scroll; }
+.profile-wrap{
+  background: rgba(255,255,255,0.98);
+  max-width: 980px;
+  margin: 60px auto;
+  padding: 28px 32px;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
 }
-
-/* Profile container */
-.profile-container {
-  background: rgba(255, 255, 255, 0.95);
-  color: #0c035a;
-  max-width: 600px;
-  margin: 80px auto;
-  padding: 30px 40px;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  text-align: center;
+.header{
+  display:flex; gap:18px; align-items:center; border-bottom:1px solid #eee; padding-bottom:18px;
 }
-
-/* Welcome text */
-.profile-container h2 {
-  margin-bottom: 15px;
+.photo{
+  width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid #0c035a;
 }
-
-/* Profile info box */
-.profile-details {
-  text-align: left;
-  margin: 20px 0;
-  font-size: 16px;
+.section{ margin-top:22px; }
+.section h3{ color:#0c035a; margin-bottom:10px; }
+.progress{ height:12px; background:#e6e6f0; border-radius:10px; overflow:hidden; }
+.progress-bar{
+  height:100%; border-radius:10px; text-align:right; font-size:12px; line-height:12px; padding-right:6px; color:#fff;
+  background: linear-gradient(90deg, #0c035a, #564bd8);
 }
-
-.profile-details p {
-  margin-bottom: 10px;
-}
-
-/* Button links */
-.profile-actions {
-  margin-top: 25px;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.profile-actions a {
-  background-color: #0c035a;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
-
-.profile-actions a:hover {
-  background-color: #130371;
-}
-/* Force vertical scrollbar */
-body {
-  overflow-y: scroll;
-}
-
-/* Optional: Customize scrollbar appearance */
-body::-webkit-scrollbar {
-  width: 10px;
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 6px;
-}
-
-body::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
+.list-scroll{ max-height:360px; overflow-y:auto; padding-right:6px; }
+.list-scroll::-webkit-scrollbar { width:10px; }
+.list-scroll::-webkit-scrollbar-thumb { background:#bbb; border-radius:8px; }
 </style>
 
-<div class="profile-container">
-  <h2>{{ _("Welcome")}}</h2>
-
-  <p>{{_("This is your profile dashboard.")}}</p>
-
-  <div class="profile-details">
-    <p><strong>{{_("Username:")}}</strong> {{ user.username }}</p>
-    <p><strong>{{_("Email:")}}</strong> {{ user.email }}</p>
-    <!-- Add more fields here if available, like joined date or mobile -->
+<div class="profile-wrap">
+  <div class="header">
+    <img class="photo" src="{{ url_for('static', filename='uploads/' ~ (user.profile_photo or 'default.png')) }}" alt="Profile Photo">
+    <div>
+      <h2 class="m-0">{{ user.username }}</h2>
+      <div><strong>Email:</strong> {{ user.email }}</div>
+      <div><strong>Joined:</strong> {{ (user.joined_date.strftime('%B %d, %Y')) if user.joined_date else 'N/A' }}</div>
+      <div class="mt-2">
+        <a class="btn btn-sm btn-primary" href="{{ url_for('edit_profile') }}">Edit Profile</a>
+        <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('jobs') }}">Post / View Jobs</a>
+        <a class="btn btn-sm btn-outline-danger" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </div>
   </div>
 
-  <div class="profile-actions">
-    <a href="{{ url_for('jobs') }}">{{_("Post / View Jobs")}}</a>
-    <a href="{{ url_for('logout') }}">{{_("Logout")}}</a>
+  <div class="section">
+    <h3>About Me</h3>
+    <p>{{ user.description or "No description added yet." }}</p>
   </div>
-</div>
-<div class="container mt-4">
-  <h2 class="mb-3">{{_("Welcome,")}}{{ current_user.name }}</h2>
 
-  <div class="card shadow rounded-4 p-3 mb-4">
-    <h4>{{_("Your Skill Badge")}}</h4>
-    <p>{{_("Based on your activity on Grama Connect")}}</p>
+  <div class="section">
+    <h3>Skills</h3>
+    {% if user.skills and user.skills|length > 0 %}
+      <div class="list-scroll">
+        {% for skill, level in user.skills.items() %}
+        <div class="mb-2">
+          <div class="d-flex justify-content-between">
+            <strong>{{ skill }}</strong>
+            <span>{{ level|int }}%</span>
+          </div>
+          <div class="progress">
+            
 
-    {% if badge %}
-      <div class="alert alert-success">
-        <h5>{{_("🏅 {{ badge }}")}}</h5>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     {% else %}
-      <div class="alert alert-warning">
-        <strong>{{_("No badge earned yet.")}}</strong>
-       
+      <p>No skills added yet.</p>
+    {% endif %}
+  </div>
+
+  <div class="section">
+    <h3>Experience</h3>
+    {% if user.experience and user.experience|length > 0 %}
+      <div class="list-scroll">
+        {% for exp in user.experience %}
+        <div class="border rounded p-2 mb-2">
+          <div class="fw-bold">{{ exp.title }}{% if exp.company %} – {{ exp.company }}{% endif %}</div>
+          <small class="text-muted">{{ exp.start_date }} – {{ exp.end_date or 'Present' }}</small>
+          <p class="mb-0 mt-1">{{ exp.description }}</p>
+        </div>
+        {% endfor %}
       </div>
+    {% else %}
+      <p>No experience added yet.</p>
     {% endif %}
   </div>
 </div>

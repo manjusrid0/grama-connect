@@ -3,107 +3,148 @@
 {% block content %}
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-image: url("{{ url_for('static', filename='uploads/field2.jpg') }}");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: white;
   font-family: 'Segoe UI', sans-serif;
+  overflow-y: scroll;
+  padding: 40px 10px;
 }
 
-/* Form container */
+/* Glassmorphism container */
 .sell-product-container {
-  background: rgba(255, 255, 255, 0.95);
-  color: #0c035a;
-  max-width: 600px;
-  margin: 80px auto;
-  padding: 30px 40px;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(12px);
+  color: #f7f3f0;
+  max-width: 550px;
+  margin: 30px auto;
+  padding: 35px 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 10px rgba(0,0,0,0.3);
+  animation: fadeInUp 0.8s ease;
 }
 
 /* Heading */
 .sell-product-container h2 {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom:48px;
+  font-size: 76px;
+  font-weight: bold;
+  color: #faf8f8;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 6px rgb(252, 251, 251);
 }
 
-/* Labels and inputs */
+/* Labels */
 .sell-product-container label {
   display: block;
   margin-bottom: 6px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #0a0000;
 }
 
+/* Inputs and textarea */
 .sell-product-container input,
 .sell-product-container textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 18px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  padding: 12px 94px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-size: 15px;
   box-sizing: border-box;
+  background: rgba(243, 245, 245, 0.945);
+  transition: 0.3s ease;
 }
 
+.sell-product-container input:focus,
+.sell-product-container textarea:focus {
+  border: 2px solid #e7e6ec;
+  background: #f5eded;
+  transform: scale(1.01);
+}
+
+/* File input */
 .sell-product-container input[type="file"] {
-  padding: 6px;
+  padding: 8px;
+  background: rgba(243, 240, 240, 0.95);
 }
 
 /* Submit button */
 .sell-product-container button {
   width: 100%;
-  background-color: #0c035a;
-  color: white;
+  background: linear-gradient(135deg, #94df08, #178d07);
+  color: rgb(10, 0, 0);
   border: none;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 17px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .sell-product-container button:hover {
-  background-color: #130371;
+  background: linear-gradient(135deg, #1f8312, #236305);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+/* Flash message */
+.flash-message {
+  background: rgba(145, 233, 145, 0.9);
+  color: #0c035a;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* Preview section */
 .preview-section {
-  background: rgba(255, 255, 255, 0.85);
-  color: #0c035a;
-  max-width: 600px;
+  background: rgba(15, 1, 1, 0.12);
+  backdrop-filter: blur(10px);
+  color: #180101;
+  max-width: 650px;
   margin: 30px auto;
   padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   text-align: center;
 }
 
 .preview-section img {
   margin-top: 15px;
   max-width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  border-radius: 12px;
+  box-shadow: 0 0 14px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
 }
-/* Force vertical scrollbar */
-body {
-  overflow-y: scroll;
+.preview-section img:hover {
+  transform: scale(1.05);
 }
 
-/* Optional: Customize scrollbar appearance */
+/* Scrollbar */
 body::-webkit-scrollbar {
   width: 10px;
 }
-
 body::-webkit-scrollbar-thumb {
-  background-color: #888;
+  background-color: #fcf9f9;
   border-radius: 6px;
 }
-
 body::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
+  background-color: #918d8d;
 }
 
+/* Animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 
 <div class="sell-product-container">
@@ -111,12 +152,13 @@ body::-webkit-scrollbar-thumb:hover {
 
   {% with messages = get_flashed_messages() %}
     {% if messages %}
-       <div style="background:#e0ffe0; color:#0c035a; padding: 10px; border-radius: 8px; margin-bottom: 20px;">
-         {{_("Product posted successfully!")}}<br>
-    <em>{{_("Your product is live! May it find the right hands and bring you success.")}}</em>
-  </div>
+       <div class="flash-message">
+         {{_("✅ Product posted successfully!")}}<br>
+         <em>{{_("Your product is live! May it find the right hands and bring you success.")}}</em>
+       </div>
     {% endif %}
   {% endwith %}
+
   <form method="POST" enctype="multipart/form-data">
       <label for="name">{{_("Product Name:")}}</label>
       <input type="text" name="name" placeholder="e.g., Handmade Basket" required>
@@ -130,7 +172,7 @@ body::-webkit-scrollbar-thumb:hover {
       <label for="image">{{_("Upload Product Image:")}}</label>
       <input type="file" name="image" accept="image/*" required>
 
-      <button type="submit">{{_("Post Product")}}</button>
+      <button type="submit">{{_("🚀 Post Product")}}</button>
   </form>
 </div>
 {% endblock %}

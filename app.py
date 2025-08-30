@@ -9,6 +9,9 @@ from flask_babel import Babel, _
 from datetime import datetime
 import random
 import string
+from flask_migrate import Migrate
+from models import db, User
+
 
 
 # --------------- Flask App Setup ------------------
@@ -141,7 +144,7 @@ def safe_add_column(table, column, col_type):
     else:
         print(f"ℹ️ Column '{column}' already exists in '{table}'")
     conn.close()
-
+migrate = Migrate(app, db)
 # Now run this AFTER tables are created
 
 
@@ -339,26 +342,84 @@ def dashboard():
 def logout():
     logout_user()
     return redirect(url_for('user_login'))
-@app.route('/profile')
+def allowed_file(fn):
+    return "." in fn and fn.rsplit(".", 1)[1].lower() in ALLOWED_EXTS
+
+@app.route("/profile")
 @login_required
 def profile():
-    return render_template('profile.html', user=current_user)
+    user = current_user
+    # Make sure these attributes exist
+    if not hasattr(user, "skills"):
+        user.skills = {}
+    if not hasattr(user, "experience"):
+        user.experience = []
+    return render_template("profile.html", user=user)
 
-    # Fetch activity record
-    activity = UserActivity.query.filter_by(user_id=current_user.id).first()
-    badge = None
 
-    if activity:
-        score = activity.videos_uploaded + activity.classes_joined + activity.jobs_posted
+@app.route("/edit_profile", methods=["GET", "POST"])
+@login_required
+def edit_profile():
+    if request.method == "POST":
+        # Description
+        current_user.description = (request.form.get("description") or "").strip()
 
-        if score >= 5:
-            badge = "Gold Contributor"
-        elif score >= 3:
-            badge = "Silver Contributor"
-        elif score >= 1:
-            badge = "Bronze Contributor"
+        # Photo
+        file = request.files.get("profile_photo")
+        if file and file.filename and allowed_file(file.filename):
+            fname = secure_filename(file.filename)
+            save_path = os.path.join(app.config["UPLOAD_FOLDER"], fname)
+            file.save(save_path)
+            current_user.profile_photo = fname
 
-    return render_template('profile.html', badge=badge)
+        # Skills (collect lists; names and levels length-aligned)
+        # IMPORTANT: input names should be skill_name[] and skill_level[] (see template below)
+        skill_names = request.form.getlist("skill_name[]")
+        skill_levels = request.form.getlist("skill_level[]")
+        skills = {}
+        for name, lvl in zip(skill_names, skill_levels):
+            name = (name or "").strip()
+            if not name:
+                continue
+            try:
+                lvl_int = max(0, min(100, int(lvl)))
+            except (TypeError, ValueError):
+                lvl_int = 0
+            skills[name] = lvl_int
+        current_user.skills = skills  # dict
+
+        # Experience arrays
+        exp_titles   = request.form.getlist("exp_title[]")
+        exp_companies= request.form.getlist("exp_company[]")
+        exp_starts   = request.form.getlist("exp_start[]")
+        exp_ends     = request.form.getlist("exp_end[]")
+        exp_descs    = request.form.getlist("exp_desc[]")
+
+        experiences = []
+        for t, c, s, e, d in zip(exp_titles, exp_companies, exp_starts, exp_ends, exp_descs):
+            t = (t or "").strip()
+            if not t:
+                continue
+            experiences.append({
+                "title": t,
+                "company": (c or "").strip(),
+                "start_date": (s or "").strip(),
+                "end_date": (e or "").strip(),
+                "description": (d or "").strip()
+            })
+        current_user.experience = experiences  # list of dicts
+
+        # Commit
+        db.session.add(current_user)
+        db.session.commit()
+        flash("Profile updated successfully!", "success")
+        return redirect(url_for("profile"))
+
+    # GET
+    user = current_user
+    user.skills = user.skills or {}
+    user.experience = user.experience or []
+    return render_template("edit_profile.html", user=user)
 
 @app.route('/sell', methods=['GET', 'POST'])
 @login_required

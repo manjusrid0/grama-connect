@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.edit-wrap{
+  max-width: 900px;
+  margin: 50px auto;
+  background: rgba(255,255,255,0.98);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+}
+.section{
+  margin-bottom: 22px;
+}
+.scroll-section{
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 6px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 12px;
+  background: #fafafa;
+}
+/* Pretty scrollbar */
+.scroll-section::-webkit-scrollbar { width: 10px; }
+.scroll-section::-webkit-scrollbar-thumb { background:#bbb; border-radius:8px; }
+.scroll-section::-webkit-scrollbar-thumb:hover { background:#999; }
+</style>
+
+<div class="edit-wrap">
+  <h2 class="mb-3">Edit Profile</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <!-- Photo -->
+    <div class="section">
+      <label class="form-label">Profile Photo</label>
+      <input type="file" name="profile_photo" class="form-control">
+      {% if user.profile_photo %}
+        <small class="text-muted">Current: {{ user.profile_photo }}</small>
+      {% endif %}
+    </div>
+
+    <!-- About -->
+    <div class="section">
+      <label class="form-label">About Me</label>
+      <textarea name="description" class="form-control" rows="4"
+        placeholder="Describe your work (e.g., handloom weaving, pottery, organic farming)…">{{ user.description or "" }}</textarea>
+    </div>
+
+    <!-- Skills -->
+    <div class="section">
+      <label class="form-label">Skills</label>
+      <div id="skills-container" class="scroll-section">
+        {% if user.skills %}
+          {% for skill, level in user.skills.items() %}
+          <div class="row g-2 align-items-center mb-2 skill-row">
+            <div class="col-7">
+              <input type="text" name="skill_name[]" value="{{ skill }}" class="form-control" placeholder="Skill (e.g., Handloom Weaving)">
+            </div>
+            <div class="col-4">
+              <input type="number" name="skill_level[]" value="{{ level }}" min="0" max="100" class="form-control" placeholder="0-100">
+            </div>
+            <div class="col-1 text-end">
+              <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.skill-row').remove()">✖</button>
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-primary mt-2" onclick="addSkill()">+ Add Skill</button>
+    </div>
+
+    <!-- Experience -->
+    <div class="section">
+      <label class="form-label">Experience</label>
+      <div id="experience-container" class="scroll-section">
+        {% if user.experience %}
+          {% for exp in user.experience %}
+          <div class="border rounded p-2 mb-2 exp-row">
+            <input type="text" name="exp_title[]" value="{{ exp.title }}" class="form-control mb-2" placeholder="Role (e.g., Traditional Weaver)">
+            <input type="text" name="exp_company[]" value="{{ exp.company }}" class="form-control mb-2" placeholder="Place/Group (e.g., Family Handloom Business)">
+            <div class="row g-2 mb-2">
+              <div class="col">
+                <input type="text" name="exp_start[]" value="{{ exp.start_date }}" class="form-control" placeholder="Start (e.g., 2008)">
+              </div>
+              <div class="col">
+                <input type="text" name="exp_end[]" value="{{ exp.end_date }}" class="form-control" placeholder="End (e.g., Present)">
+              </div>
+            </div>
+            <textarea name="exp_desc[]" class="form-control" placeholder="Describe your work / duties">{{ exp.description }}</textarea>
+            <div class="text-end mt-2">
+              <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.exp-row').remove()">Remove</button>
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-primary mt-2" onclick="addExperience()">+ Add Experience</button>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+  </form>
+</div>
+
+<script>
+function addSkill(){
+  const c = document.getElementById('skills-container');
+  const row = document.createElement('div');
+  row.className = 'row g-2 align-items-center mb-2 skill-row';
+  row.innerHTML = `
+    <div class="col-7">
+      <input type="text" name="skill_name[]" class="form-control" placeholder="Skill (e.g., Pottery)">
+    </div>
+    <div class="col-4">
+      <input type="number" name="skill_level[]" class="form-control" placeholder="0-100" min="0" max="100">
+    </div>
+    <div class="col-1 text-end">
+      <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.skill-row').remove()">✖</button>
+    </div>
+  `;
+  c.appendChild(row);
+}
+
+function addExperience(){
+  const c = document.getElementById('experience-container');
+  const card = document.createElement('div');
+  card.className = 'border rounded p-2 mb-2 exp-row';
+  card.innerHTML = `
+    <input type="text" name="exp_title[]" class="form-control mb-2" placeholder="Role (e.g., Organic Farmer)">
+    <input type="text" name="exp_company[]" class="form-control mb-2" placeholder="Place/Group (e.g., SHG / Village)">
+    <div class="row g-2 mb-2">
+      <div class="col"><input type="text" name="exp_start[]" class="form-control" placeholder="Start (e.g., 2015)"></div>
+      <div class="col"><input type="text" name="exp_end[]" class="form-control" placeholder="End (e.g., Present)"></div>
+    </div>
+    <textarea name="exp_desc[]" class="form-control" placeholder="Describe your work / duties"></textarea>
+    <div class="text-end mt-2">
+      <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.closest('.exp-row').remove()">Remove</button>
+    </div>
+  `;
+  c.appendChild(card);
+}
+</script>
+{% endblock %}
