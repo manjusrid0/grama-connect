@@ -10,7 +10,7 @@ from datetime import datetime
 import random
 import string
 from flask_migrate import Migrate
-from models import db, User
+
 
 
 
@@ -131,6 +131,7 @@ class UserActivity(db.Model):
 with app.app_context():
     db.create_all()
 
+migrate = Migrate(app, db)
 # THEN try to add columns
 def safe_add_column(table, column, col_type):
     db_path = os.path.join(os.getcwd(), 'grama_main.db')  # or use instance path if needed
@@ -144,7 +145,7 @@ def safe_add_column(table, column, col_type):
     else:
         print(f"ℹ️ Column '{column}' already exists in '{table}'")
     conn.close()
-migrate = Migrate(app, db)
+
 # Now run this AFTER tables are created
 
 

@@ -3,108 +3,197 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{_("Post Class - Grama Connect")}}</title>
+    <title>{{ _("Post Class - Grama Connect") }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        label {
-            font-weight: bold;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        table {
-            width: 100%;
-            margin-top: 30px;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-        }
-        .actions button {
-            margin-right: 10px;
-            background-color: #28a745;
-        }
-        .actions .delete {
-            background-color: #dc3545;
-        }
-        .hidden {
-            display: none;
-        }
+body {
+  background-image: url("{{ url_for('static', filename='uploads/field6.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #6cd636 ;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: large;
+  font-weight: 700;
+  word-spacing: 0cap;
+  color: #16160b;
+  margin: 0;
+  padding: 40px 10px;
+}
+
+/* Main container */
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Heading */
+.container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #19b605;
+  border-bottom: 2px solid #e3f2fd;
+  padding-bottom: 10px;
+}
+
+/* Labels */
+.container label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #1a1818;
+}
+
+/* Inputs, textarea, select */
+.container input,
+.container textarea,
+.container select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #d7f0b0;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: 0.3s ease;
+}
+
+.container input:focus,
+.container textarea:focus,
+.container select:focus {
+  border-color: #96f183;
+  outline: none;
+  box-shadow: 0 0 6px rgba(10, 146, 101, 0.2);
+}
+
+/* File input */
+.container input[type="file"] {
+  background: #98e78d;
+  padding: 10px;
+}
+
+/* Button */
+.container button {
+  width: 100%;
+  background: #6bd606;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.container button:hover {
+  background: #114e01;
+  transform: translateY(-2px);
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+}
+
+table th {
+  background: #1ef10b;
+  color: #fff;
+  font-weight: 600;
+}
+
+table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.actions button {
+  background: #e5f504;
+  margin-right: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+.actions button.delete {
+  background: #fc0804;
+}
+
+.actions button:hover {
+  opacity: 0.9;
+}
+
+/* Hidden field toggle */
+.hidden {
+  display: none;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>{{_("Post a New Class")}}</h2>
+    <h2>{{ _("Post a New Class") }}</h2>
     <form action="/post_class" method="POST" enctype="multipart/form-data">
-        <label for="title">{{_("Class Title")}}</label>
+        <label for="title">{{ _("Class Title") }}</label>
         <input type="text" id="title" name="title" required>
 
-        <label for="description">{{_("Description")}}</label>
+        <label for="description">{{ _("Description") }}</label>
         <textarea id="description" name="description" required></textarea>
 
-        <label for="delivery_mode">{{_("Delivery Mode")}}</label>
+        <label for="delivery_mode">{{ _("Delivery Mode") }}</label>
         <select id="delivery_mode" name="delivery_mode" onchange="showInputField()" required>
-            <option value="">{{_("-- Select Mode --")}}</option>
-            <option value="video_link">{{_("Video Link (YouTube/DIKSHA)")}}</option>
-            <option value="upload_video">{{_("Upload Video File")}}</option>
-            <option value="offline">{{_("Offline / Live Class")}}</option>
+            <option value="">{{ _("-- Select Mode --") }}</option>
+            <option value="video_link">{{ _("Video Link (YouTube/DIKSHA)") }}</option>
+            <option value="upload_video">{{ _("Upload Video File") }}</option>
+            <option value="offline">{{ _("Offline / Live Class") }}</option>
         </select>
 
         <div id="video_link_div" class="hidden">
-            <label for="video_link">{{_("Enter Video Link (Only YouTube or DIKSHA)")}}</label>
+            <label for="video_link">{{ _("Enter Video Link (Only YouTube or DIKSHA)") }}</label>
             <input type="url" id="video_link" name="video_link" placeholder="https://...">
         </div>
 
         <div id="video_file_div" class="hidden">
-            <label for="video_file">{{_("Upload Video File")}}</label>
+            <label for="video_file">{{ _("Upload Video File") }}</label>
             <input type="file" id="video_file" name="video_file" accept="video/*">
         </div>
 
         <div id="offline_details_div" class="hidden">
-            <label for="offline_details">{{_("Offline Class Details")}}</label>
+            <label for="offline_details">{{ _("Offline Class Details") }}</label>
             <textarea id="offline_details" name="offline_details" placeholder="Location, Date, Time, etc."></textarea>
         </div>
 
-        <button type="submit">{{_("Post Class")}}</button>
+        <button type="submit">{{ _("Post Class") }}</button>
     </form>
 
-    <h2>{{_("Posted Class History")}}</h2>
+    <h2>{{ _("Posted Class History") }}</h2>
     <table>
         <thead>
         <tr>
-            <th>{{_("Title")}}</th>
-            <th>{{_("Mode")}}</th>
-            <th>{{_("Description")}}</th>
-            <th>{{_("Actions")}}</th>
+            <th>{{ _("Title") }}</th>
+            <th>{{ _("Mode") }}</th>
+            <th>{{ _("Description") }}</th>
+            <th>{{ _("Actions") }}</th>
         </tr>
         </thead>
         <tbody>
@@ -114,13 +203,13 @@
             <td>{{ cls.delivery_mode }}</td>
             <td>{{ cls.description }}</td>
             <td class="actions">
-    <a href="{{ url_for('edit_class', class_id=cls.id) }}">
-        <button><i class="fas fa-edit"></i> {{_("Edit")}}</button>
-    </a>
-    <a href="{{ url_for('delete_class', class_id=cls.id) }}" onclick="return confirm('Are you sure?');">
-        <button class="delete"><i class="fas fa-trash"></i>{{_(" Delete")}}</button>
-    </a>
-</td>
+                <a href="{{ url_for('edit_class', class_id=cls.id) }}">
+                    <button><i class="fas fa-edit"></i> {{ _("Edit") }}</button>
+                </a>
+                <a href="{{ url_for('delete_class', class_id=cls.id) }}" onclick="return confirm('Are you sure?');">
+                    <button class="delete"><i class="fas fa-trash"></i> {{ _("Delete") }}</button>
+                </a>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
