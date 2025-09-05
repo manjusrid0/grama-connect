@@ -10,8 +10,8 @@ from datetime import datetime
 import random
 import string
 from flask_migrate import Migrate
-
-
+import json
+from models import db, User
 
 
 # --------------- Flask App Setup ------------------
@@ -53,10 +53,11 @@ def allowed_file(filename):
 
 # ---------- User Table ----------
 class User(UserMixin, db.Model):
- 
+    
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True)
+    email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
+
 
 # ---------- Product Table ----------
 class Product(db.Model):
@@ -307,31 +308,35 @@ def view_all_uploads():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
-        existing_user = User.query.filter_by(username=username).first()
+
+        existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            flash("Username already exists!")
+            flash("Email already registered!")
             return redirect(url_for('register'))
-        new_user = User(username=username, password=password)
+
+        new_user = User(email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
         flash("Registration successful. Please login.")
         return redirect(url_for('user_login'))
     return render_template("register.html")
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def user_login():
     if request.method == 'POST':
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
-        user = User.query.filter_by(username=username, password=password).first()
+        user = User.query.filter_by(email=email, password=password).first()
         if user:
             login_user(user)
             return redirect(url_for('dashboard'))
         else:
             flash("Invalid credentials.")
     return render_template("login.html")
+
 
 @app.route('/dashboard')
 @login_required
@@ -344,7 +349,7 @@ def logout():
     logout_user()
     return redirect(url_for('user_login'))
 def allowed_file(fn):
-    return "." in fn and fn.rsplit(".", 1)[1].lower() in ALLOWED_EXTS
+    return "." in fn and fn.rsplit(".", 1)[1].lower() in allowed_file
 
 @app.route("/profile")
 @login_required
@@ -362,96 +367,42 @@ def profile():
 @login_required
 def edit_profile():
     if request.method == "POST":
-        # Description
-        current_user.description = (request.form.get("description") or "").strip()
+        # Basic fields
+        current_user.description = request.form.get("description")
 
-        # Photo
-        file = request.files.get("profile_photo")
-        if file and file.filename and allowed_file(file.filename):
-            fname = secure_filename(file.filename)
-            save_path = os.path.join(app.config["UPLOAD_FOLDER"], fname)
-            file.save(save_path)
-            current_user.profile_photo = fname
-
-        # Skills (collect lists; names and levels length-aligned)
-        # IMPORTANT: input names should be skill_name[] and skill_level[] (see template below)
+        # Save Skills (as dict)
         skill_names = request.form.getlist("skill_name[]")
         skill_levels = request.form.getlist("skill_level[]")
-        skills = {}
-        for name, lvl in zip(skill_names, skill_levels):
-            name = (name or "").strip()
-            if not name:
-                continue
-            try:
-                lvl_int = max(0, min(100, int(lvl)))
-            except (TypeError, ValueError):
-                lvl_int = 0
-            skills[name] = lvl_int
-        current_user.skills = skills  # dict
+        skills_dict = {}
+        for name, level in zip(skill_names, skill_levels):
+            if name.strip():
+                skills_dict[name.strip()] = int(level) if level else 0
+        current_user.skills = json.dumps(skills_dict)
 
-        # Experience arrays
-        exp_titles   = request.form.getlist("exp_title[]")
-        exp_companies= request.form.getlist("exp_company[]")
-        exp_starts   = request.form.getlist("exp_start[]")
-        exp_ends     = request.form.getlist("exp_end[]")
-        exp_descs    = request.form.getlist("exp_desc[]")
+        # Save Experience (as list of dicts)
+        titles = request.form.getlist("exp_title[]")
+        companies = request.form.getlist("exp_company[]")
+        starts = request.form.getlist("exp_start[]")
+        ends = request.form.getlist("exp_end[]")
+        descs = request.form.getlist("exp_desc[]")
 
-        experiences = []
-        for t, c, s, e, d in zip(exp_titles, exp_companies, exp_starts, exp_ends, exp_descs):
-            t = (t or "").strip()
-            if not t:
-                continue
-            experiences.append({
-                "title": t,
-                "company": (c or "").strip(),
-                "start_date": (s or "").strip(),
-                "end_date": (e or "").strip(),
-                "description": (d or "").strip()
-            })
-        current_user.experience = experiences  # list of dicts
+        experience_list = []
+        for t, c, s, e, d in zip(titles, companies, starts, ends, descs):
+            if t.strip():
+                experience_list.append({
+                    "title": t.strip(),
+                    "company": c.strip(),
+                    "start_date": s.strip(),
+                    "end_date": e.strip(),
+                    "description": d.strip()
+                })
+        current_user.experience = json.dumps(experience_list)
 
-        # Commit
-        db.session.add(current_user)
         db.session.commit()
         flash("Profile updated successfully!", "success")
         return redirect(url_for("profile"))
 
-    # GET
-    user = current_user
-    user.skills = user.skills or {}
-    user.experience = user.experience or []
-    return render_template("edit_profile.html", user=user)
-
-@app.route('/sell', methods=['GET', 'POST'])
-@login_required
-def sell():
-    if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-        price = request.form['price']
-        image = request.files['image']
-
-        if image and allowed_file(image.filename):
-            filename = secure_filename(image.filename)
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-            product = Product(
-                name=name,
-                description=description,
-                image_filename=filename,
-                price=price,
-                seller_id=current_user.id
-            )
-            db.session.add(product)
-            db.session.commit()
-
-            # ✅ Redirect with success flag
-            return redirect(url_for('sell', success='1'))
-
-    # ✅ Get flash message only if redirected with ?success=1
-    success = request.args.get('success') == '1'
-    return render_template('add_product.html', success=success)
-
+    return render_template("edit_profile.html", user=current_user)
 @app.route('/debug/jobs')
 def debug_jobs():
     import sqlite3

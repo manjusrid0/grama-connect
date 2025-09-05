@@ -57,13 +57,14 @@ body {
 </style>
 
 <div class="login-form">
-  <form method="POST">
-      <input name="username" placeholder="Username" required>
-      <input name="password" type="password" placeholder="Password" required>
-      <button type="submit">{{_("Login")}}</button>
+  <form method="POST" action="{{ url_for('user_login') }}">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">{{ _("Login") }}</button>
   </form>
   <p style="text-align: center;">
-    {{_("New here?")}} <a href="{{ url_for('register') }}">{{_("Register here")}}</a>
+    {{ _("New here?") }} <a href="{{ url_for('register') }}">{{ _("Register here") }}</a>
   </p>
 </div>
+
 {% endblock %}
