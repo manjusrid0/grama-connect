@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="text-align:center; margin-top:30px;">{{_("📤 Post Upload")}}</h2>
+
+<div style="width:400px; margin:50px auto; padding:30px; background: rgba(0,0,0,0.7); border-radius:12px; color:#fff;">
+  <form method="POST" enctype="multipart/form-data">
+    <label>{{_("Title")}}</label>
+    <input type="text" name="title" placeholder="{{_('Enter title')}}" required style="width:100%; padding:10px; margin:10px 0; border-radius:6px;">
+
+    <label>{{_("Select File")}}</label>
+    <input type="file" name="file" required style="width:100%; margin:10px 0;">
+
+    <button type="submit" style="width:100%; padding:12px; background:#1a8f1a; color:#fff; border:none; border-radius:6px; font-weight:bold;">
+      {{_("Upload")}}
+    </button>
+  </form>
+</div>
+{% endblock %}

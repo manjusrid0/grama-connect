@@ -3,61 +3,119 @@
 {% block content %}
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='uploads/gif7.gif') }}");
+  background-image: url("{{ url_for('static', filename='uploads/yellow2.gif') }}");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   color: white;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-y: auto;
 }
 
-.register-form {
-  width: 500px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: rgba(0,0,0,0.6);
+/* Custom scrollbar */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+}
+body::-webkit-scrollbar-thumb {
+  background: #2e7d32;
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.3);
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: #1b5e20;
+}
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #2e7d32 rgba(0,0,0,0.3);
 }
 
-.register-form input,
-.register-form button {
+/* Register form container */
+.register-form {
+  width: 520px;
+  margin: 60px auto;
+  padding: 35px;
+  background: rgba(0, 30, 4, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s ease;
+}
+.register-form:hover {
+  transform: translateY(-5px);
+}
+
+/* Heading */
+.register-form h2 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #a5d6a7;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 6px #000;
+}
+
+/* Input fields */
+.register-form input {
   width: 100%;
-  padding: 12px;
-  margin: 15px 0;
-  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 20px;
+  border-radius: 8px;
   border: none;
   font-size: 18px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+  color: #000;
 }
 
-.register-form input {
-  color: black;
-}
-
+/* Submit button */
 .register-form button {
-  background-color: #1a8f1a;
-  color: white;
+  width: 100%;
+  padding: 14px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: #fff;
   cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
 }
-
 .register-form button:hover {
-  background-color: #126912;
+  background: linear-gradient(135deg, #388e3c, #2e7d32);
+  transform: translateY(-2px);
 }
 
+/* Links */
 .register-form a {
-  color: white;
+  color: #a5d6a7;
+  font-weight: bold;
   text-decoration: underline;
+}
+.register-form a:hover {
+  color: #e8f5e9;
+}
+
+/* Paragraph */
+.register-form p {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 16px;
 }
 </style>
 
 <div class="register-form">
-  <h2 style="text-align:center">{{_("Register")}}</h2>
+  <h2>{{_("Register")}}</h2>
   <form method="POST">
-      <input name="name" placeholder="Full Name" required>
-      <input name="email" type="email" placeholder="Email" required>
-      <input name="password" type="password" placeholder="Password" required>
+      <input name="name" type="text" placeholder="{{_('Full Name')}}" required>
+      <input name="email" type="email" placeholder="{{_('Email')}}" required>
+      <input name="password" type="password" placeholder="{{_('Password')}}" required>
       <button type="submit">{{_("Register")}}</button>
   </form>
-  <p style="text-align:center">
+  <p>
       {{_("Already have an account?")}} 
       <a href="{{ url_for('user_login') }}">{{_("Login")}}</a>
   </p>

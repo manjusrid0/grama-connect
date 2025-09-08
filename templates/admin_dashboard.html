@@ -66,12 +66,18 @@ body::-webkit-scrollbar-thumb:hover {
 </style>
 
 <div class="dashboard-container">
-  <h2>{{_("Welcome, Admin!")}}</h2>
+  <h2>{{ _("Welcome, Admin!") }}</h2>
   <div class="menu-buttons">
-    <a href="{{ url_for('admin_add_job') }}">{{_("Add New Job")}}</a>
-    <a href="{{ url_for('view_jobs') }}">{{_("View All Jobs")}}</a>
-    <a href="{{ url_for('view_all_uploads') }}">{{_("View All Uploads")}}</a>
-    <a href="{{ url_for('logout') }}">{{_("Logout")}}</a>
+    <a href="{{ url_for('admin_add_job') }}">{{ _("Add New Job") }}</a>
+    <a href="{{ url_for('admin_view_jobs') }}">{{ _("View All Jobs") }}</a>
+    
+    {% for job in jobs %}
+      <!-- Only show the View Applicants button for each job -->
+      <a href="{{ url_for('view_applicants', job_id=job.id) }}">{{ _("View Applicants") }}</a>
+    {% endfor %}
+    <a href="{{ url_for('post_upload') }}">Post Upload</a>
+    <a href="{{ url_for('admin_view_uploads') }}">View Uploads</a>
+    <a href="{{ url_for('admin_logout') }}">{{ _("Logout") }}</a>
   </div>
 </div>
 {% endblock %}

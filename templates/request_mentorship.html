@@ -3,61 +3,72 @@
 
 <style>
 body {
-  background-image: url("{{ url_for('static', filename='uploads/craft8.jpg') }}");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #fff;
+  background: linear-gradient(135deg, #a8e063, #56ab2f);
   font-family: 'Segoe UI', sans-serif;
+  color: #fff;
   overflow-y: scroll;
 }
 
-/* Mentor form card */
+/* Mentor card */
 .mentor-card {
-  background: rgba(255, 255, 255, 0.95);
-  color: #000;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  padding: 25px;
-  max-width: 600px;
+  background: #f9fff7;
+  color: #333;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+  padding: 30px;
+  max-width: 750px;
   width: 100%;
-  margin: 30px auto;
-  transition: transform 0.2s ease-in-out;
+  margin: 40px auto;
+  transition: all 0.3s ease-in-out;
 }
 .mentor-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
 }
 
-/* Headline */
+/* Heading */
 .mentor-card h2 {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 26px;
   margin-bottom: 20px;
-  color: #0d6efd;
+  color: #2e7d32;
   text-align: center;
 }
 
-/* Form spacing */
+/* Labels and Inputs */
 .mentor-card .form-label {
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  color: #2e7d32;
 }
-.mentor-card .form-control {
+.mentor-card .form-control,
+.mentor-card select {
   margin-bottom: 15px;
-  border-radius: 6px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 /* Button */
 .mentor-card button {
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: bold;
-  padding: 10px;
+  padding: 12px;
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  transition: background 0.2s ease;
+}
+.mentor-card button:hover {
+  background: #1b5e20;
 }
 
-/* Success alert */
-.alert-success {
-  border-radius: 8px;
+/* Idea box */
+.idea-box {
+  background: #e8f5e9;
+  border: 1px solid #81c784;
+  border-radius: 12px;
+  padding: 15px;
   margin-top: 15px;
+  color: #1b5e20;
 }
 </style>
 
@@ -77,21 +88,139 @@ body {
         <label for="phone" class="form-label">{{_("Phone Number (Optional)")}}</label>
         <input type="text" class="form-control" name="phone">
       </div>
+
+      <!-- Predefined options -->
       <div class="mb-3">
-        <label for="need" class="form-label">{{_("What help do you need?")}}</label>
-        <textarea class="form-control" name="need" rows="4" required></textarea>
+        <label for="topic" class="form-label">{{_("Choose a Guidance Topic")}}</label>
+        <select id="topic" name="topic" class="form-control" onchange="showIdea()">
+          <option value="">{{_("-- Select a topic --")}}</option>
+          <option value="cows">{{_("Dairy business with 2 cows")}}</option>
+          <option value="goats">{{_("Goat farming for meat and milk")}}</option>
+          <option value="poultry">{{_("Small-scale poultry farming")}}</option>
+          <option value="fish">{{_("Fish farming in ponds")}}</option>
+          <option value="organic">{{_("Organic vegetable farming")}}</option>
+          <option value="beekeeping">{{_("Beekeeping and honey production")}}</option>
+          <option value="tailoring">{{_("Tailoring & stitching business")}}</option>
+          <option value="handicraft">{{_("Handicrafts & bamboo products")}}</option>
+          <option value="oil">{{_("Traditional oil extraction unit")}}</option>
+          <option value="shop">{{_("Opening a village grocery shop")}}</option>
+          <option value="skills">{{_("Learn a new skill for income")}}</option>
+        </select>
+      </div>
+
+      <!-- Idea box appears dynamically -->
+      <div id="ideaBox" class="idea-box" style="display:none;"></div>
+
+      <div class="mb-3">
+        <label for="need" class="form-label">{{_("Other Requests (if any)")}}</label>
+        <textarea class="form-control" name="need" rows="4"></textarea>
       </div>
       <div class="d-grid">
-        <button type="submit" class="btn btn-success">{{_("Submit Request")}}</button>
+        <button type="submit">{{_("Submit Request")}}</button>
       </div>
     </form>
 
     {% if success %}
-    <div class="alert alert-success text-center">
+    <div class="alert alert-success text-center mt-3">
       {{_("✅ Your request has been sent successfully! Our team will contact you soon.")}}
     </div>
     {% endif %}
   </div>
 </div>
+
+<script>
+function showIdea() {
+  const topic = document.getElementById("topic").value;
+  const box = document.getElementById("ideaBox");
+  let content = "";
+
+  if (topic === "cows") {
+    content = `
+      <h5>🐄 Dairy business with 2 cows</h5>
+      <p>✅ Milk production: ~20 liters/day</p>
+      <p>✅ Profit: ₹15,000 - ₹25,000 per month</p>
+      <p><strong>Roadmap:</strong> Buy cows → arrange fodder & shed → sell milk directly or to dairy.</p>
+      <strong>📩 Mentor will contact you soon with buyer contacts.</strong>
+    `;
+  } else if (topic === "goats") {
+    content = `
+      <h5>🐐 Goat farming</h5>
+      <p>✅ 10 goats can give ~₹40,000 profit/year</p>
+      <p><strong>Roadmap:</strong> Buy healthy goats → focus on breeding → sell milk & meat locally.</p>
+      <strong>📩 Mentor will guide you on breeds & buyers.</strong>
+    `;
+  } else if (topic === "poultry") {
+    content = `
+      <h5>🐔 Poultry farming</h5>
+      <p>✅ 200 hens = ~₹30,000 profit/month</p>
+      <p><strong>Roadmap:</strong> Build shed → buy chicks → feed & vaccines → sell eggs & meat.</p>
+      <strong>📩 Local trainers will connect with you soon.</strong>
+    `;
+  } else if (topic === "fish") {
+    content = `
+      <h5>🐟 Fish farming</h5>
+      <p>✅ 1 pond can give ₹50,000 - ₹1,00,000/year</p>
+      <p><strong>Roadmap:</strong> Clean pond → stock fingerlings → feed → sell to local market.</p>
+      <strong>📩 Mentor will help in choosing fish species.</strong>
+    `;
+  } else if (topic === "organic") {
+    content = `
+      <h5>🌱 Organic vegetable farming</h5>
+      <p>✅ Profit: ₹20,000 - ₹40,000/acre</p>
+      <p><strong>Roadmap:</strong> Select crops → use organic manure → sell directly to consumers.</p>
+      <strong>📩 Advisor will guide on seeds and marketing.</strong>
+    `;
+  } else if (topic === "beekeeping") {
+    content = `
+      <h5>🍯 Beekeeping</h5>
+      <p>✅ 10 boxes = ~₹1,00,000 profit/year</p>
+      <p><strong>Roadmap:</strong> Buy bee boxes → place near crops → extract honey every 2 months.</p>
+      <strong>📩 Mentor will connect with honey buyers.</strong>
+    `;
+  } else if (topic === "tailoring") {
+    content = `
+      <h5>🧵 Tailoring & stitching business</h5>
+      <p>✅ Small unit can earn ₹8,000 - ₹15,000/month</p>
+      <p><strong>Roadmap:</strong> Buy sewing machine → take local orders → expand to uniforms & bags.</p>
+      <strong>📩 Women self-help group mentors will contact you.</strong>
+    `;
+  } else if (topic === "handicraft") {
+    content = `
+      <h5>🎨 Handicrafts & bamboo products</h5>
+      <p>✅ Can earn ₹5,000 - ₹20,000/month depending on demand</p>
+      <p><strong>Roadmap:</strong> Make mats, baskets, toys → sell in fairs & online platforms.</p>
+      <strong>📩 Mentor will share buyer contacts.</strong>
+    `;
+  } else if (topic === "oil") {
+    content = `
+      <h5>🌾 Traditional oil extraction</h5>
+      <p>✅ Profit: ₹15,000 - ₹30,000/month</p>
+      <p><strong>Roadmap:</strong> Set up ghani/expeller → buy local seeds → sell fresh oil directly.</p>
+      <strong>📩 Local cooperative will contact you soon.</strong>
+    `;
+  } else if (topic === "shop") {
+    content = `
+      <h5>🏪 Village grocery shop</h5>
+      <p>✅ Profit margin: 10-20%</p>
+      <p><strong>Roadmap:</strong> Rent a shop → stock essentials → maintain low prices → build trust.</p>
+      <strong>📩 Business mentors will connect with you soon.</strong>
+    `;
+  } else if (topic === "skills") {
+    content = `
+      <h5>📚 Learning skills for income</h5>
+      <p>✅ Popular: mobile repair, digital literacy, carpentry, tailoring</p>
+      <p><strong>Roadmap:</strong> Enroll in govt. free training → practice locally → offer services.</p>
+      <strong>📩 Mentor will share training center contacts.</strong>
+    `;
+  }
+
+  if (content) {
+    box.innerHTML = content;
+    box.style.display = "block";
+  } else {
+    box.style.display = "none";
+  }
+}
+</script>
 
 {% endblock %}

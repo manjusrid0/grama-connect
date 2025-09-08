@@ -4,7 +4,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, U
 from werkzeug.utils import secure_filename
 from flask_babel import Babel, _
 import os
-
+from datetime import datetime
 # -------------------- Flask App Setup --------------------
 app = Flask(__name__)
 app.secret_key = 'secretkey'
@@ -73,6 +73,12 @@ class Product(db.Model):
     seller_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     buyer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     seller = db.relationship("User", foreign_keys=[seller_id])
+class Upload(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=False)
+    filename = db.Column(db.String(200), nullable=False)  # video or image
+    upload_type = db.Column(db.String(20), nullable=False)  # 'video' or 'image'
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Job(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -173,7 +179,10 @@ def admin_login():
 def admin_dashboard():
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin_login_page'))
-    return render_template("admin_dashboard.html")
+    
+    jobs = Job.query.all()  # Fetch all jobs
+    return render_template("admin_dashboard.html", jobs=jobs)
+
 
 @app.route("/admin/logout")
 def admin_logout():
@@ -205,6 +214,38 @@ def admin_view_jobs():
         return redirect(url_for('admin_login_page'))
     jobs = Job.query.all()
     return render_template("join_job.html", jobs=jobs)
+@app.route("/admin/post_upload", methods=["GET", "POST"])
+def admin_post_upload():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login_page'))
+
+    if request.method == "POST":
+        file = request.files.get('file')
+        filename = None
+        if file:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        upload = Upload(
+            title=request.form['title'],
+            
+            filename=filename
+        )
+        db.session.add(upload)
+        db.session.commit()
+        flash("Upload successful!")
+        return redirect(url_for('admin_view_uploads'))
+
+    return render_template("post_upload.html")
+
+
+@app.route('/admin/view_uploads')
+def admin_view_uploads():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login_page'))
+
+    uploads = Upload.query.order_by(Upload.created_at.desc()).all()
+    return render_template('view_all_uploads.html', uploads=uploads)
 
 # ---------- User Registration/Login ----------
 @app.route('/register', methods=['GET', 'POST'])
@@ -234,27 +275,39 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def user_login():
     if request.method == 'POST':
-        email = request.form.get('email')
+        identifier = request.form.get('username_or_email')
         password = request.form.get('password')
-        if not email or not password:
-            flash("Please enter both email and password")
+
+        if not identifier or not password:
+            flash("⚠️ Please enter both username/email and password", "warning")
             return redirect(url_for('user_login'))
 
-        user = User.query.filter_by(email=email, password=password).first()
-        if user:
+        # Login check (plain password, or hash later)
+        user = User.query.filter(
+            (User.email == identifier) | (User.name == identifier)
+        ).first()
+
+        if user and user.password == password:
             login_user(user)
+            flash(f"✅ Welcome back, {user.name}!", "success")
             return redirect(url_for('dashboard'))
         else:
-            flash("Invalid credentials")
+            flash("❌ Invalid credentials", "danger")
             return redirect(url_for('user_login'))
 
     return render_template("login.html")
+
 
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
     return render_template("dashboard.html")
+@app.route('/dashboard/uploads')
+@login_required
+def user_view_uploads():
+    uploads = Upload.query.filter_by(upload_type='video').order_by(Upload.created_at.desc()).all()
+    return render_template('user_view_uploads.html', uploads=uploads)
 
 @app.route('/logout')
 @login_required
