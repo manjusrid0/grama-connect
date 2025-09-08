@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="text-align: center; margin-top: 20px;">{{_("Login")}}</h2>
+
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='uploads/yellow2.gif') }}");
+  background-size: cover;
+  background-position: center;
+  color:rgb(240, 248, 240);
+}
+
+.login-form {
+  width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgba(26, 18, 18, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+.login-form label {
+  display: block;
+  margin-top: 10px;
+  background-color: rgba(14, 5, 5, 0.6);  /* 🌟 label color (yellow in this case) */
+}
+.login-form input,
+.login-form button {
+  width: 100%;
+  margin: 30px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+}
+
+.login-form input { 
+  font-size: 40px;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 6px rgb(252, 251, 251);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.login-form button {
+  background-color: rgb(18, 51, 11);
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #033f10;
+}
+
+.login-form a {
+  color: rgb(240, 248, 240);
+  text-decoration: underline;
+}
+</style>
+
+<div class="login-form">
+  <form method="POST">
+      <input name="email" type="email" placeholder="Email" required>
+      <input name="password" type="password" placeholder="Password" required>
+      <button type="submit">{{_("Login")}}</button>
+  </form>
+  <p style="text-align: center;">
+    {{_("New here?")}} <a href="{{ url_for('register') }}">{{_("Register here")}}</a>
+  </p>
+</div>
+
+{% endblock %}

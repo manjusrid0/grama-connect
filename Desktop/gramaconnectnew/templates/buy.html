@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='images/home.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  margin-top: 40px;
+  color: #fff;
+}
+
+/* Product grid */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* Individual product card */
+.product-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c035a;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin: 15px;
+  width: 260px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Product image */
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* Product text */
+.product-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.product-card p {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Buy button */
+.product-card button {
+  background-color: #0c035a;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.product-card button:hover {
+  background-color: #140477;
+}
+/* Force vertical scrollbar */
+body {
+  overflow-y: scroll;
+}
+
+/* Optional: Customize scrollbar appearance */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+</style>
+
+
+<h2>{{_("Available Products")}}</h2>
+
+{% if products %}
+<div class="products-container">
+  {% for product in products %}
+    <div class="product-card">
+      <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}" alt="{{ product.name }}">
+      <h3>{{ product.name }}</h3>
+      <p><strong> ₹{{ product.price if product.price else "Not specified" }}</strong></p>
+      <p>{{ product.description }}</p>
+      <form method="POST">
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <button type="submit">{{_("Buy")}}</button>
+      </form>
+    </div>
+  {% endfor %}
+</div>
+{% else %}
+<p style="text-align: center;">{{_("No products available yet.")}}</p>
+{% endif %}
+{% for product in products %}
+  <div class="product-card">
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <p><strong>{{_("Price:")}}</strong> ₹{{ product.price }}</p>
+    <img src="{{ url_for('static', filename='product_images/' ~ product.image_filename) }}" width="200"><br>
+
+    {% if not product.buyer_id %}
+      <form method="POST">
+  <input type="hidden" name="product_id" value="{{ product.id }}">
+  <button type="submit">{{_("Buy")}}</button>
+</form>
+{{_("You haven’t purchased any products yet.")}}
+    {% else %}
+      <p style="color:red;"><strong>{{_("SOLD")}}</strong></p>
+    {% endif %}
+  </div>
+{% endfor %}
+<h2 style="margin-top: 50px;">{{_("🛒 Your Purchase History")}}</h2>
+{% if purchased %}
+<div class="products-container">
+  {% for product in purchased %}
+    <div class="product-card">
+      <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}" alt="{{ product.name }}">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p><strong>{{_("Price:")}}</strong> ₹{{ product.price }}</p>
+      <p style="color: green;"><strong>{{_("Status:")}}</strong>{{_(" Purchased")}}</p>
+      <p><strong>{{_("Seller:")}}</strong> {{ product.seller.username }}</p>
+
+    </div>
+  {% endfor %}
+</div>
+{% else %}
+<p style="text-align: center;"></p>
+{% endif %}
+
+
+{% endblock %}

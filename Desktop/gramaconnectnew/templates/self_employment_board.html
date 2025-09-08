@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+/* --- Background & Body --- */
+body {
+  background: linear-gradient(135deg, #a8e063, #56ab2f);
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  padding: 30px 15px;
+  overflow-y: scroll;
+}
+
+/* Scrollbar */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+  border-radius: 6px;
+}
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #43e97b, #2f855a);
+  border-radius: 6px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #38a169, #276749);
+}
+
+/* Section heading */
+h2 {
+  text-align: center;
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-shadow: 1px 1px 8px rgba(0,0,0,0.4);
+}
+
+/* Product grid */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+/* Diamond-shaped cards */
+.product-card {
+  background: rgb(253, 251, 251);
+  backdrop-filter: blur(8px);
+  width: 250px;
+  min-height: 320px;
+  transform: rotate(-2deg);
+  transition: all 0.3s ease;
+  border-radius: 20px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+  text-align: center;
+  position: relative;
+  padding: 20px;
+  color: #0e0202;
+}
+
+.product-card:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.45);
+}
+
+/* Diamond content container */
+.product-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border: 2px solid #43e97b;
+}
+
+.product-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #038332;
+}
+
+.product-card p {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #09160d;
+  line-height: 1.5;
+}
+
+/* Label badge */
+.label-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #43e97b, #2f855a);
+  color: #fff;
+  text-transform: uppercase;
+}
+
+/* Button */
+.product-card a.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #43e97b, #2f855a);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.25s;
+}
+
+.product-card a.btn:hover {
+  background: linear-gradient(135deg, #2f855a, #276749);
+  transform: translateY(-2px);
+}
+
+/* Add extra card tilt variety */
+.product-card:nth-child(3n) { transform: rotate(2deg); }
+.product-card:nth-child(4n) { transform: rotate(-1.5deg); }
+
+</style>
+
+<div class="container mt-4">
+  <h2>{{_("💼 Self-Employment Opportunities")}}</h2>
+  <div class="products-container">
+    {% set ideas_list = [
+      {"title": "Handmade Baskets", "description": "Crafted from natural palm leaves. Perfect for home decor or gift items.", "image": "tribal_handicraft.jpg", "link": "https://www.skillshare.com/browse/handicrafts"},
+      {"title": "Pottery & Ceramics", "description": "Make clay pots, vases, and ceramic art to sell online or locally.", "image": "pot_making.jpg", "link": "https://www.coursera.org/courses?query=pottery"},
+      {"title": "Woodwork & Furniture", "description": "Custom furniture, wooden toys, and decorative items.", "image": "img8.jpg", "link": "https://www.udemy.com/courses/search/?q=woodworking"},
+      {"title": "Tailoring & Dressmaking", "description": "Create personalized outfits or start a small tailoring business.", "image": "ddd.jpg", "link": "https://www.skillindia.gov.in/"},
+      {"title": "Dairy & Poultry Farming", "description": "Milk, eggs, and dairy products for local supply.", "image": "ccc.jpg", "link": "https://www.nabard.org/english/financial-inclusion.aspx"},
+      {"title": "Organic Farming", "description": "Grow organic fruits and vegetables to sell in local markets.", "image": "farmer2.jpg", "link": "https://www.ncof.dac.gov.in/"},
+      {"title": "Jewelry Making", "description": "Handcrafted jewelry using beads, metal, or resin.", "image": "cccc.jpg", "link": "https://www.coursera.org/courses?query=jewelry"},
+      {"title": "E-commerce Selling", "description": "Start selling homemade products online via Amazon, Etsy, or Shopify.", "image": "ecommerce.jpg", "link": "https://www.shopify.com/"},
+      {"title": "Photography & Videography", "description": "Freelance services for events, social media, or content creation.", "image": "photography.jpg", "link": "https://www.udemy.com/courses/search/?q=photography"},
+      {"title": "Beauty & Salon Services", "description": "Hair, skin, and beauty services at home or a small studio.", "image": "beauty.jpg", "link": "https://www.skillindia.gov.in/"},
+      {"title": "Mobile & Electronics Repair", "description": "Repair phones, laptops, and electronic devices locally.", "image": "repair.jpg", "link": "https://www.nptel.ac.in/"},
+      {"title": "Freelancing / IT Services", "description": "Offer online services like graphic design, coding, or writing.", "image": "freelancing.jpg", "link": "https://www.upwork.com/"},
+      {"title": "Handmade Candles & Soaps", "description": "Craft eco-friendly candles and soaps for gifts and sales.", "image": "candles.jpg", "link": "https://www.skillshare.com/"},
+      {"title": "Content Creation", "description": "Start a YouTube channel, blog, or social media page to monetize content.", "image": "content.jpg", "link": "https://www.youtube.com/"},
+      {"title": "Cooking & Catering", "description": "Prepare home-cooked meals or catering for events.", "image": "cooking.jpg", "link": "https://www.nestleprofessional.in/"},
+      {"title": "Tutoring / Coaching", "description": "Teach subjects or skills online or offline.", "image": "tutoring.jpg", "link": "https://www.khanacademy.org/"} 
+    ] %}
+    
+    {% for idea in ideas_list %}
+      <div class="product-card">
+        <span class="label-badge">{{ _("Opportunity") }}</span>
+        <img src="{{ url_for('static', filename='uploads/' ~ idea.image) }}" alt="{{ idea.title }}">
+        <h3>{{ idea.title }}</h3>
+        <p>{{ idea.description }}</p>
+        <a href="{{ idea.link }}" target="_blank" class="btn">{{ _("Learn More") }}</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
