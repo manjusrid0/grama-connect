@@ -214,29 +214,54 @@ def admin_view_jobs():
         return redirect(url_for('admin_login_page'))
     jobs = Job.query.all()
     return render_template("join_job.html", jobs=jobs)
+@app.route("/admin/delete_upload/<int:upload_id>", methods=["POST", "GET"])
+def delete_upload(upload_id):
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login_page'))
+
+    upload = Upload.query.get_or_404(upload_id)
+
+    # Remove file from static/uploads if it exists
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], upload.filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+    # Delete record from database
+    db.session.delete(upload)
+    db.session.commit()
+
+    flash("🗑️ Upload deleted successfully")
+    return redirect(url_for('admin_view_uploads'))
+
 @app.route("/admin/post_upload", methods=["GET", "POST"])
-def admin_post_upload():
+def post_upload():
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin_login_page'))
 
     if request.method == "POST":
         file = request.files.get('file')
-        filename = None
+        description = request.form.get('description')
+
         if file:
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-        upload = Upload(
-            title=request.form['title'],
-            
-            filename=filename
-        )
-        db.session.add(upload)
-        db.session.commit()
-        flash("Upload successful!")
-        return redirect(url_for('admin_view_uploads'))
+            # Save file
+            file.save(filepath)
+
+            # Save to DB
+            new_upload = Upload(filename=filename, description=description)
+            db.session.add(new_upload)
+            db.session.commit()
+
+            flash("✅ Upload posted successfully", "success")
+            return redirect(url_for('admin_view_uploads'))
+        else:
+            flash("⚠️ Please select a file", "danger")
 
     return render_template("post_upload.html")
+
+
 
 
 @app.route('/admin/view_uploads')

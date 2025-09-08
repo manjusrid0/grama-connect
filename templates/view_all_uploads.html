@@ -80,8 +80,13 @@
       <p>{{_("Uploaded on")}}: {{ upload.created_at.strftime('%d-%m-%Y') }}</p>
 
       {% if session.get('admin_logged_in') %}
-        <a href="{{ url_for('delete_upload', upload_id=upload.id) }}" class="btn">{{_("Delete")}}</a>
+        <a href="{{ url_for('delete_upload', upload_id=upload.id) }}" 
+         onclick="return confirm('Are you sure you want to delete this upload?');" 
+         class="btn btn-danger">
+         {{_("Delete")}}
+        </a>
       {% endif %}
+
     </div>
   {% endfor %}
 </div>
