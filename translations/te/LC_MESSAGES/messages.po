@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Language: te\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Home"
+msgstr "హోమ్"
+
+msgid "Login"
+msgstr "లాగిన్"
+
+msgid "Admin"
+msgstr "అడ్మిన్"
+
+msgid "About Us"
+msgstr "మా గురించి"
+
+msgid "Register"
+msgstr "రిజిస్టర్"
+
+msgid "Name"
+msgstr "పేరు"
+
+msgid "Email"
+msgstr "ఇమెయిల్"
+
+msgid "Password"
+msgstr "పాస్‌వర్డ్"
+
+msgid "Confirm Password"
+msgstr "పాస్‌వర్డ్‌ను నిర్ధారించండి"
+
+msgid "Submit"
+msgstr "సమర్పించండి"
+
+msgid "Logout"
+msgstr "లాగ్ అవుట్"
+
+msgid "Dashboard"
+msgstr "డాష్‌బోర్డ్"
+
+msgid "Add Job"
+msgstr "ఉద్యోగం జోడించండి"
+
+msgid "View Job"
+msgstr "ఉద్యోగాన్ని చూడండి"
+
+msgid "Buy Product"
+msgstr "ఉత్పత్తిని కొనండి"
+
+msgid "Join Class"
+msgstr "తరగతిలో చేరండి"
+
+msgid "Profile"
+msgstr "ప్రొఫైల్"
+
+msgid "Language"
+msgstr "భాష"
+
+msgid "Welcome"
+msgstr "స్వాగతం"
+
+msgid "Please login to continue"
+msgstr "కొనసాగించడానికి దయచేసి లాగిన్ అవ్వండి"
+
+msgid "Don't have an account?"
+msgstr "మీకు ఖాతా లేదా?"
+
+msgid "Already have an account?"
+msgstr "మీకు ఇప్పటికే ఖాతా ఉందా?"

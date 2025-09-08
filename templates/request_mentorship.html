@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='uploads/craft8.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-y: scroll;
+}
+
+/* Mentor form card */
+.mentor-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #000;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  padding: 25px;
+  max-width: 600px;
+  width: 100%;
+  margin: 30px auto;
+  transition: transform 0.2s ease-in-out;
+}
+.mentor-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Headline */
+.mentor-card h2 {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #0d6efd;
+  text-align: center;
+}
+
+/* Form spacing */
+.mentor-card .form-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.mentor-card .form-control {
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+/* Button */
+.mentor-card button {
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+/* Success alert */
+.alert-success {
+  border-radius: 8px;
+  margin-top: 15px;
+}
+</style>
+
+<div class="container">
+  <div class="mentor-card">
+    <h2>{{_("Request Guidance / Mentorship")}}</h2>
+    <form method="POST">
+      <div class="mb-3">
+        <label for="name" class="form-label">{{_("Your Name")}}</label>
+        <input type="text" class="form-control" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">{{_("Email")}}</label>
+        <input type="email" class="form-control" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">{{_("Phone Number (Optional)")}}</label>
+        <input type="text" class="form-control" name="phone">
+      </div>
+      <div class="mb-3">
+        <label for="need" class="form-label">{{_("What help do you need?")}}</label>
+        <textarea class="form-control" name="need" rows="4" required></textarea>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-success">{{_("Submit Request")}}</button>
+      </div>
+    </form>
+
+    {% if success %}
+    <div class="alert alert-success text-center">
+      {{_("✅ Your request has been sent successfully! Our team will contact you soon.")}}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

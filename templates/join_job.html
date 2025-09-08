@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ _("Join a Job - Grama Connect") }}</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(120deg, #e6f9f0, #d4f4ec);
+      margin: 0;
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 30px;
+      font-weight: 700;
+      color: #1b4332;
+    }
+
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+      margin: 0 0 10px 0;
+      color: #155724;
+      font-size: 20px;
+    }
+
+    .card p {
+      margin: 5px 0;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #28a745, #218838);
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.2s ease;
+      width: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #218838, #1c7430);
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin: 6px 0;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 5px rgba(40, 167, 69, 0.25);
+      outline: none;
+    }
+
+    .success {
+      text-align: center;
+      color: #28a745;
+      font-weight: bold;
+      margin-top: 10px;
+      padding: 8px;
+      background: #e6f9f0;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>{{ _("Available Jobs") }}</h2>
+
+  {% if message %}
+    <p class="success">{{ message }}</p>
+  {% endif %}
+
+  <div class="job-grid">
+    {% for job in jobs %}
+      <div class="card">
+        <div>
+          <h3>{{ job.title }}</h3>
+          <p><strong>📍</strong> {{ job.location }}</p>
+          <p><strong>💰</strong> {{ job.salary }}</p>
+          <p><strong>🕒</strong> {{ job.job_type }}</p>
+          <p style="color:#444;">{{ job.description }}</p>
+        </div>
+
+        {% if job.applied %}
+          <p class="success">✅ {{ _("You have applied for this job!") }}</p>
+        {% else %}
+          <form method="POST">
+              <input type="hidden" name="job_id" value="{{ job.id }}">
+              <input type="text" name="name" placeholder="Your Name" required>
+              <input type="email" name="email" placeholder="Your Email" required>
+              <input type="text" name="phone" placeholder="Phone" required>
+              <button type="submit" class="btn">{{ _("Apply for Job") }}</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
