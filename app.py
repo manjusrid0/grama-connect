@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from flask_babel import Babel, _
 import os
 from datetime import datetime
+from flask_mail import Mail, Message
 # -------------------- Flask App Setup --------------------
 app = Flask(__name__)
 app.secret_key = 'secretkey'
@@ -25,7 +26,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{db_path}"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = "your_email@gmail.com"   # sender email
+app.config['MAIL_PASSWORD'] = "your_app_password"      # app password, not Gmail login
+app.config['MAIL_DEFAULT_SENDER'] = "your_email@gmail.com"
 
+mail = Mail(app)
 # Flask-Login setup
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -49,6 +57,38 @@ def get_locale():
     return session.get('lang', request.accept_languages.best_match(['en', 'ta', 'hi', 'te', 'ml']))
 
 babel.init_app(app, locale_selector=get_locale)
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    message = db.Column(db.String(500), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    is_read = db.Column(db.Boolean, default=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    type = db.Column(db.String(50), default="general")
+
+    def __init__(self, message, user_id=None, type="general"):
+        self.message = message
+        self.user_id = user_id
+        self.type = type
+
+    @staticmethod
+    def create_notification(message, user, type="general", send_email=False):
+        notif = Notification(message=message, user_id=user.id, type=type)
+        db.session.add(notif)
+        db.session.commit()
+
+        # Send email if required
+        if send_email and user.email:
+            try:
+                msg = Message(
+                    subject="Grama Connect Notification",
+                    recipients=[user.email],
+                    body=message
+                )
+                mail.send(msg)
+            except Exception as e:
+                print("Email sending failed:", e)
+
+        return notif
 
 @app.context_processor
 def inject_locale():
@@ -63,6 +103,7 @@ class User(UserMixin, db.Model):
     location = db.Column(db.String(150))
     skills = db.Column(db.Text)
     password = db.Column(db.String(150))
+    
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -391,9 +432,25 @@ def buy():
             product.buyer_id = current_user.id
             db.session.commit()
             flash('Product purchased successfully!')
+
+            # Create notification **only after a successful purchase**
+            Notification.create_notification(
+             message=f"Your product '{product.name}' has been sold!",
+             user=product.seller,   # seller is a User object
+             type="product",
+             send_email=True
+            )
+
+        else:
+            flash('Product not available or already sold.')
+
+    # GET or after POST: show lists
     available_products = Product.query.filter_by(buyer_id=None).all()
     purchased_products = Product.query.filter_by(buyer_id=current_user.id).all()
+    
     return render_template('buy.html', products=available_products, purchased=purchased_products)
+
+
 
 # ---------- Jobs ----------
 # Route to post a job
@@ -452,6 +509,13 @@ def user_view_jobs():
         db.session.commit()
         job = Job.query.get(job_id)
         print(f"Notify employer: {job.contact} about new applicant {joined.user_name}")
+        Notification.create_notification(
+         message=f"{current_user.name} has applied for your job '{job.title}'!",
+         user=job.poster,   # assuming job has poster as a User
+         type="job",
+         send_email=True
+        )
+
         message = "Successfully joined the job! The employer will contact you."
     return render_template('join_job.html', jobs=jobs, message=message)
 @app.route("/user/view_applicants/<int:job_id>")
@@ -506,6 +570,7 @@ def post_class():
         return redirect(url_for('post_class'))
 
     classes = ClassPost.query.all()
+
     return render_template("post_class.html", classes=classes)
 
 @app.route('/join_class')
@@ -515,17 +580,18 @@ def join_class():
 
 @app.route('/confirm_join/<int:class_id>', methods=['GET', 'POST'])
 def confirm_join(class_id):
-    selected_class = ClassPost.query.get_or_404(class_id)
+    selected_class = ClassPost.query.get(class_id)
     if request.method == 'POST':
-        joined = JoinedClass(
-            user_name=request.form['name'],
-            email=request.form['email'],
-            phone=request.form['phone'],
-            class_ref=class_id
+        # Handle user join
+        Notification.create_notification(
+            message=f"{current_user.name} has joined your class '{selected_class.title}'!",
+            user=selected_class.owner,  # make sure ClassPost has an 'owner' field
+            type="class",
+            send_email=True
         )
-        db.session.add(joined)
-        db.session.commit()
-        return redirect(url_for('show_class_content', class_id=class_id))
+        # Save join info if needed
+        return redirect(url_for('join_class'))
+
     return render_template('join_class.html', step='confirm', selected_class=selected_class)
 
 @app.route('/show_class/<int:class_id>')
@@ -588,6 +654,14 @@ def request_mentorship():
         db.session.add(req)
         db.session.commit()
         success = True
+        Notification.create_notification(
+         message=f"{current_user.name} has requested mentorship.",
+         user=mentor_user,
+         type="mentorship",
+         send_email=True
+        )
+
+
     return render_template('request_mentorship.html', success=success)
 
 # ---------- Income Estimator ----------
@@ -595,13 +669,31 @@ def request_mentorship():
 def income_estimator():
     estimated_income = None
     if request.method == 'POST':
-        skill = request.form['skill']
-        hours = int(request.form['hours'])
-        days = int(request.form['days'])
-        rates = {'Tailoring':60,'Farming':40,'Masonry':80,'Welding':100,'Tutoring':50}
+        skill = request.form.get('skill')
+        try:
+            hours = int(request.form.get('hours', 0))
+            days = int(request.form.get('days', 0))
+        except ValueError:
+            hours = 0
+            days = 0
+
+        # Add more skills if needed
+        rates = {
+            'Tailoring': 60,
+            'Farming': 40,
+            'Masonry': 80,
+            'Welding': 100,
+            'Tutoring': 50,
+            'Handicrafts': 50,
+            'Jewelry Making': 70,
+            'Cooking': 45
+        }
+
         if skill in rates:
-            estimated_income = rates[skill]*hours*days*4
+            estimated_income = rates[skill] * hours * days * 4  # 4 weeks in a month
+
     return render_template('income_estimator.html', estimated_income=estimated_income)
+
 
 # ---------- Self Employment ----------
 @app.route('/self_employment_board')

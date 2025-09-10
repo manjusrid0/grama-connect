@@ -1,37 +1,31 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: Grama Connect\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-01 00:00+0000\n"
+"PO-Revision-Date: 2025-08-01 00:00+0000\n"
+"Last-Translator: Elara <your@email.com>\n"
+"Language-Team: Hindi\n"
 "Language: hi\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Home"
-msgstr "होम"
+msgid "Welcome to Grama Connect"
+msgstr "ग्राम कनेक्ट में आपका स्वागत है"
 
 msgid "Login"
 msgstr "लॉगिन"
 
-msgid "Admin"
-msgstr "एडमिन"
 
-msgid "About Us"
-msgstr "हमारे बारे में"
+
+
+
+
 
 msgid "Register"
-msgstr "रजिस्टर"
-
-msgid "Name"
-msgstr "नाम"
-
-msgid "Email"
-msgstr "ईमेल"
-
-msgid "Password"
-msgstr "पासवर्ड"
-
-msgid "Confirm Password"
-msgstr "पासवर्ड की पुष्टि करें"
-
-msgid "Submit"
-msgstr "सबमिट"
+msgstr "पंजीकरण करें"
 
 msgid "Logout"
 msgstr "लॉगआउट"
@@ -42,29 +36,1272 @@ msgstr "डैशबोर्ड"
 msgid "Add Job"
 msgstr "नौकरी जोड़ें"
 
-msgid "View Job"
-msgstr "नौकरी देखें"
+msgid "View Jobs"
+msgstr "नौकरियां देखें"
+
+msgid "Sell Product"
+msgstr "उत्पाद बेचें"
 
 msgid "Buy Product"
 msgstr "उत्पाद खरीदें"
 
+msgid "Post Class"
+msgstr "कक्षा पोस्ट करें"
+
 msgid "Join Class"
 msgstr "कक्षा में शामिल हों"
+
+msgid "Your Profile"
+msgstr "आपकी प्रोफ़ाइल"
+
+msgid "Submit"
+msgstr "जमा करें"
+
+msgid "Home"
+msgstr "होम"
+
+msgid "About Us"
+msgstr "हमारे बारे में"
+
+msgid "Email"
+msgstr "ईमेल"
+
+msgid "Password"
+msgstr "पासवर्ड"
+
+msgid "Confirm Password"
+msgstr "पासवर्ड की पुष्टि करें"
+
+msgid "Name"
+msgstr "नाम"
+
+msgid "Phone Number"
+msgstr "फ़ोन नंबर"
+
+msgid "Free Courses"
+msgstr "नि:शुल्क पाठ्यक्रम"
+
+msgid "Income Estimator"
+msgstr "आय अनुमानक"
+
+msgid "Mentorship Help"
+msgstr "मार्गदर्शन सहायता"
+
+msgid "Skill Badge"
+msgstr "कौशल बैज"
+
+msgid "Class Title"
+msgstr "कक्षा का शीर्षक"
+
+msgid "Class Description"
+msgstr "कक्षा विवरण"
+
+msgid "Location"
+msgstr "स्थान"
+
+msgid "Video Link"
+msgstr "वीडियो लिंक"
+
+msgid "Upload Video"
+msgstr "वीडियो अपलोड करें"
+
+msgid "Offline Class Details"
+msgstr "ऑफ़लाइन कक्षा विवरण"
+
+msgid "Buy"
+msgstr "खरीदें"
+
+msgid "Post"
+msgstr "पोस्ट करें"
+
+msgid "Join"
+msgstr "शामिल हों"
+
+msgid "Enter your name"
+msgstr "अपना नाम दर्ज करें"
+
+msgid "Enter your phone number"
+msgstr "अपना फ़ोन नंबर दर्ज करें"
+
+msgid "Join Now"
+msgstr "अभी शामिल हों"
+
+msgid "View All"
+msgstr "सभी देखें"
+
+msgid "Back to Dashboard"
+msgstr "डैशबोर्ड पर वापस जाएं"
+
+msgid "Class Mode"
+msgstr "कक्षा मोड"
+
+msgid "Video"
+msgstr "वीडियो"
+
+msgid "Offline"
+msgstr "ऑफ़लाइन"
+
+msgid "Live Class"
+msgstr "लाइव कक्षा"
+
+msgid "Your request has been submitted"
+msgstr "आपका अनुरोध सबमिट कर दिया गया है"
+
+msgid "Thank you for joining!"
+msgstr "शामिल होने के लिए धन्यवाद!"
+
+msgid "Something went wrong. Please try again."
+msgstr "कुछ गलत हो गया। कृपया पुनः प्रयास करें।"
+
+msgid "About Grama Connect"
+msgstr "ग्राम कनेक्ट के बारे में"
+
+msgid "Grama Connect is a web platform designed to bridge the gap between rural talents and job opportunities."
+msgstr "ग्राम कनेक्ट एक वेब प्लेटफ़ॉर्म है जो ग्रामीण प्रतिभाओं और नौकरी के अवसरों के बीच की खाई को पाटने के लिए बनाया गया है।"
+
+msgid "We aim to empower individuals in villages by providing access to employment, skill development, and resources."
+msgstr "हमारा उद्देश्य गांवों के लोगों को रोजगार, कौशल विकास और संसाधनों तक पहुंच प्रदान करके सशक्त बनाना है।"
+
+msgid "Our mission is to create a connected and empowered rural workforce using technology."
+msgstr "हमारा मिशन तकनीक का उपयोग करके एक जुड़ी और सशक्त ग्रामीण कार्यबल बनाना है।"
+
+msgid "Sell a Product"
+msgstr "उत्पाद बेचें"
+
+msgid "Product posted successfully!"
+msgstr "उत्पाद सफलतापूर्वक पोस्ट किया गया!"
+
+msgid "Your product is live! May it find the right hands and bring you success."
+msgstr "आपका उत्पाद लाइव है! यह सही हाथों तक पहुंचे और आपको सफलता दिलाए।"
+
+msgid "Product Name:"
+msgstr "उत्पाद का नाम:"
+
+msgid "e.g., Handmade Basket"
+msgstr "जैसे, हस्तनिर्मित टोकरी"
+
+msgid "Product Description:"
+msgstr "उत्पाद विवरण:"
+
+msgid "e.g., Made from natural palm leaves."
+msgstr "जैसे, प्राकृतिक पाम पत्तियों से बना।"
+
+msgid "Cost (₹):"
+msgstr "कीमत (₹):"
+
+msgid "e.g., 250"
+msgstr "जैसे, 250"
+
+msgid "Upload Product Image:"
+msgstr "उत्पाद की छवि अपलोड करें:"
+
+msgid "Post Product"
+msgstr "उत्पाद पोस्ट करें"
+msgid "Post Product"
+msgstr "उत्पाद पोस्ट करें"
+
+msgid "Product Name"
+msgstr "उत्पाद का नाम"
+
+msgid "Product Description"
+msgstr "उत्पाद विवरण"
+
+msgid "Product Image"
+msgstr "उत्पाद छवि"
+
+msgid "Submit"
+msgstr "जमा करें"
+
+msgid "Buy Product"
+msgstr "उत्पाद खरीदें"
+
+msgid "Buy"
+msgstr "खरीदें"
+
+msgid "Your purchase has been confirmed."
+msgstr "आपकी खरीद की पुष्टि हो गई है।"
+
+msgid "Mentorship"
+msgstr "मार्गदर्शन"
+
+msgid "Request Mentorship"
+msgstr "मार्गदर्शन का अनुरोध करें"
+
+msgid "Mentorship Topic"
+msgstr "मार्गदर्शन विषय"
+
+msgid "Mentorship Description"
+msgstr "मार्गदर्शन विवरण"
+
+msgid "Request"
+msgstr "अनुरोध करें"
+
+msgid "Available Mentors"
+msgstr "उपलब्ध मार्गदर्शक"
+
+msgid "Skill Rating Badge"
+msgstr "कौशल रेटिंग बैज"
+
+msgid "Your Skill Level"
+msgstr "आपका कौशल स्तर"
+
+msgid "Beginner"
+msgstr "शुरुआती"
+
+msgid "Intermediate"
+msgstr "मध्यम"
+
+msgid "Advanced"
+msgstr "उन्नत"
+
+msgid "Expert"
+msgstr "विशेषज्ञ"
+
+msgid "Free Courses"
+msgstr "नि:शुल्क पाठ्यक्रम"
+
+msgid "Suggested Courses"
+msgstr "सुझाए गए पाठ्यक्रम"
+
+msgid "Income Estimator"
+msgstr "आय अनुमानक"
+
+msgid "Estimated Income"
+msgstr "अनुमानित आय"
+
+msgid "Self Employment Opportunities"
+msgstr "स्वरोजगार के अवसर"
+
+msgid "Opportunity Name"
+msgstr "अवसर का नाम"
+
+msgid "Opportunity Details"
+msgstr "अवसर का विवरण"
+
+msgid "Join Class"
+msgstr "कक्षा में शामिल हों"
+
+msgid "Available Classes"
+msgstr "उपलब्ध कक्षाएँ"
+
+msgid "Join"
+msgstr "शामिल हों"
+
+msgid "Enter Your Details"
+msgstr "अपनी जानकारी दर्ज करें"
+
+msgid "Confirm"
+msgstr "पुष्टि करें"
+
+msgid "Class Mode"
+msgstr "कक्षा का तरीका"
+
+msgid "Video Class"
+msgstr "वीडियो कक्षा"
+
+msgid "Offline Class"
+msgstr "ऑफ़लाइन कक्षा"
+
+msgid "Live Session"
+msgstr "सीधा सत्र"
+
+msgid "Video Link"
+msgstr "वीडियो लिंक"
+
+msgid "Upload Video"
+msgstr "वीडियो अपलोड करें"
+
+msgid "Class Location"
+msgstr "कक्षा स्थान"
+
+msgid "Class Date"
+msgstr "कक्षा की तारीख"
+
+msgid "Class Time"
+msgstr "कक्षा का समय"
+msgid "Post Class"
+msgstr "कक्षा पोस्ट करें"
+
+msgid "Class Title"
+msgstr "कक्षा शीर्षक"
+
+msgid "Class Description"
+msgstr "कक्षा विवरण"
+
+msgid "Delivery Option"
+msgstr "प्रेषण विकल्प"
+
+msgid "Choose one option"
+msgstr "एक विकल्प चुनें"
+
+msgid "Upload File"
+msgstr "फ़ाइल अपलोड करें"
+
+msgid "Provide Video Link"
+msgstr "वीडियो लिंक प्रदान करें"
+
+msgid "Offline/Live Details"
+msgstr "ऑफ़लाइन/लाइव विवरण"
+
+msgid "Course Provider"
+msgstr "पाठ्यक्रम प्रदाता"
+
+msgid "Submit Class"
+msgstr "कक्षा जमा करें"
+
+msgid "Notifications"
+msgstr "सूचनाएँ"
+
+msgid "You have a new class update."
+msgstr "आपके पास एक नई कक्षा अपडेट है।"
+
+msgid "You have successfully joined the class."
+msgstr "आप सफलतापूर्वक कक्षा में शामिल हो गए हैं।"
 
 msgid "Profile"
 msgstr "प्रोफ़ाइल"
 
-msgid "Language"
-msgstr "भाषा"
+msgid "User Profile"
+msgstr "उपयोगकर्ता प्रोफ़ाइल"
 
-msgid "Welcome"
-msgstr "स्वागत है"
+msgid "Update Profile"
+msgstr "प्रोफ़ाइल अपडेट करें"
 
-msgid "Please login to continue"
-msgstr "कृपया जारी रखने के लिए लॉगिन करें"
+msgid "Name"
+msgstr "नाम"
 
-msgid "Don't have an account?"
-msgstr "क्या आपका खाता नहीं है?"
+msgid "Email"
+msgstr "ईमेल"
 
-msgid "Already have an account?"
-msgstr "क्या आपके पास पहले से खाता है?"
+msgid "Phone Number"
+msgstr "फ़ोन नंबर"
+
+msgid "Save Changes"
+msgstr "परिवर्तन सहेजें"
+
+msgid "Dashboard"
+msgstr "डैशबोर्ड"
+
+msgid "Welcome to your dashboard"
+msgstr "आपके डैशबोर्ड में आपका स्वागत है"
+
+msgid "Jobs"
+msgstr "नौकरियाँ"
+
+msgid "Add Job"
+msgstr "नौकरी जोड़ें"
+
+msgid "View Jobs"
+msgstr "नौकरियाँ देखें"
+
+msgid "Job Title"
+msgstr "नौकरी शीर्षक"
+
+msgid "Job Description"
+msgstr "नौकरी विवरण"
+
+msgid "Post Job"
+msgstr "नौकरी पोस्ट करें"
+
+msgid "Videos"
+msgstr "वीडियो"
+
+msgid "Upload Video"
+msgstr "वीडियो अपलोड करें"
+
+msgid "View Videos"
+msgstr "वीडियो देखें"
+
+msgid "Logout"
+msgstr "लॉगआउट"
+msgid "Admin Panel"
+msgstr "प्रशासन पैनल"
+
+msgid "Admin Dashboard"
+msgstr "प्रशासन डैशबोर्ड"
+
+msgid "Manage Users"
+msgstr "उपयोगकर्ताओं का प्रबंधन करें"
+
+msgid "Manage Jobs"
+msgstr "नौकरियों का प्रबंधन करें"
+
+msgid "Manage Classes"
+msgstr "कक्षाओं का प्रबंधन करें"
+
+msgid "Manage Products"
+msgstr "उत्पादों का प्रबंधन करें"
+
+msgid "Manage Mentorships"
+msgstr "मार्गदर्शन का प्रबंधन करें"
+
+msgid "Manage Courses"
+msgstr "पाठ्यक्रमों का प्रबंधन करें"
+
+msgid "Admin Login"
+msgstr "प्रशासन लॉगिन"
+
+msgid "Enter Admin Credentials"
+msgstr "प्रशासन क्रेडेंशियल दर्ज करें"
+
+msgid "Username"
+msgstr "उपयोगकर्ता नाम"
+
+msgid "Password"
+msgstr "पासवर्ड"
+
+msgid "Login"
+msgstr "लॉगिन"
+
+msgid "User Management"
+msgstr "उपयोगकर्ता प्रबंधन"
+
+msgid "All Users"
+msgstr "सभी उपयोगकर्ता"
+
+msgid "User Name"
+msgstr "उपयोगकर्ता नाम"
+
+msgid "User Email"
+msgstr "उपयोगकर्ता ईमेल"
+
+msgid "User Role"
+msgstr "उपयोगकर्ता भूमिका"
+
+msgid "Actions"
+msgstr "कार्रवाई"
+
+msgid "Edit"
+msgstr "संपादित करें"
+
+msgid "Delete"
+msgstr "हटाएँ"
+
+msgid "Confirm Delete"
+msgstr "हटाने की पुष्टि करें"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "क्या आप वाकई इस उपयोगकर्ता को हटाना चाहते हैं?"
+
+msgid "Yes, Delete"
+msgstr "हाँ, हटाएँ"
+
+msgid "Cancel"
+msgstr "रद्द करें"
+
+msgid "Back to Dashboard"
+msgstr "डैशबोर्ड पर वापस जाएँ"
+
+msgid "Reports"
+msgstr "रिपोर्ट"
+
+msgid "Generate Report"
+msgstr "रिपोर्ट तैयार करें"
+
+msgid "Download Report"
+msgstr "रिपोर्ट डाउनलोड करें"
+
+msgid "System Settings"
+msgstr "सिस्टम सेटिंग्स"
+
+msgid "Change Language"
+msgstr "भाषा बदलें"
+
+msgid "Notification Settings"
+msgstr "सूचना सेटिंग्स"
+
+msgid "Security Settings"
+msgstr "सुरक्षा सेटिंग्स"
+msgid "User Notifications"
+msgstr "उपयोगकर्ता सूचनाएँ"
+
+msgid "New Notification"
+msgstr "नई सूचना"
+
+msgid "Mark as Read"
+msgstr "पढ़ा हुआ चिह्नित करें"
+
+msgid "No new notifications"
+msgstr "कोई नई सूचना नहीं"
+
+msgid "Feedback"
+msgstr "प्रतिक्रिया"
+
+msgid "Submit Feedback"
+msgstr "प्रतिक्रिया जमा करें"
+
+msgid "Your Feedback"
+msgstr "आपकी प्रतिक्रिया"
+
+msgid "Feedback Description"
+msgstr "प्रतिक्रिया विवरण"
+
+msgid "Thank you for your feedback!"
+msgstr "आपकी प्रतिक्रिया के लिए धन्यवाद!"
+
+msgid "Resume"
+msgstr "बायोडाटा"
+
+msgid "Upload Resume"
+msgstr "बायोडाटा अपलोड करें"
+
+msgid "Download Resume"
+msgstr "बायोडाटा डाउनलोड करें"
+
+msgid "View Resume"
+msgstr "बायोडाटा देखें"
+
+msgid "Update Resume"
+msgstr "बायोडाटा अपडेट करें"
+
+msgid "Resume Builder"
+msgstr "बायोडाटा बिल्डर"
+
+msgid "Education Details"
+msgstr "शिक्षा विवरण"
+
+msgid "Work Experience"
+msgstr "कार्य अनुभव"
+
+msgid "Skills"
+msgstr "कौशल"
+
+msgid "Add Skill"
+msgstr "कौशल जोड़ें"
+
+msgid "Remove Skill"
+msgstr "कौशल हटाएँ"
+
+msgid "Generate Resume"
+msgstr "बायोडाटा तैयार करें"
+
+msgid "Career Guidance"
+msgstr "कैरियर मार्गदर्शन"
+
+msgid "Guidance Topics"
+msgstr "मार्गदर्शन विषय"
+
+msgid "View Guidance"
+msgstr "मार्गदर्शन देखें"
+
+msgid "Career Options"
+msgstr "कैरियर विकल्प"
+
+msgid "Available Careers"
+msgstr "उपलब्ध करियर"
+
+msgid "Career Description"
+msgstr "कैरियर विवरण"
+
+msgid "Company Links"
+msgstr "कंपनी लिंक"
+
+msgid "Explore Careers"
+msgstr "कैरियर खोजें"
+msgid "Email Notifications"
+msgstr "ईमेल सूचनाएँ"
+
+msgid "Enable Email Alerts"
+msgstr "ईमेल अलर्ट सक्षम करें"
+
+msgid "Disable Email Alerts"
+msgstr "ईमेल अलर्ट अक्षम करें"
+
+msgid "New Job Notification"
+msgstr "नई नौकरी सूचना"
+
+msgid "New Class Notification"
+msgstr "नई कक्षा सूचना"
+
+msgid "New Product Notification"
+msgstr "नया उत्पाद सूचना"
+
+msgid "New Mentorship Notification"
+msgstr "नया मार्गदर्शन सूचना"
+
+msgid "Career Plan"
+msgstr "कैरियर योजना"
+
+msgid "Download Career Plan"
+msgstr "कैरियर योजना डाउनलोड करें"
+
+msgid "View Career Path"
+msgstr "कैरियर पथ देखें"
+
+msgid "Set Career Goal"
+msgstr "कैरियर लक्ष्य निर्धारित करें"
+
+msgid "Short Term Goal"
+msgstr "लघु अवधि लक्ष्य"
+
+msgid "Long Term Goal"
+msgstr "दीर्घ अवधि लक्ष्य"
+
+msgid "Save Career Plan"
+msgstr "कैरियर योजना सहेजें"
+
+msgid "Motivational Quotes"
+msgstr "प्रेरणादायक उद्धरण"
+
+msgid "Quote of the Day"
+msgstr "आज का उद्धरण"
+
+msgid "View More Quotes"
+msgstr "अधिक उद्धरण देखें"
+
+msgid "Inspiration"
+msgstr "प्रेरणा"
+
+msgid "Stay Motivated"
+msgstr "प्रेरित रहें"
+msgid "Guidance"
+msgstr "मार्गदर्शन"
+
+msgid "Get Guidance"
+msgstr "मार्गदर्शन प्राप्त करें"
+
+msgid "Guidance Description"
+msgstr "मार्गदर्शन विवरण"
+
+msgid "Ask a Question"
+msgstr "प्रश्न पूछें"
+
+msgid "Expert Guidance"
+msgstr "विशेषज्ञ मार्गदर्शन"
+
+msgid "Request Help"
+msgstr "मदद का अनुरोध करें"
+
+msgid "Help Request Form"
+msgstr "मदद अनुरोध फॉर्म"
+
+msgid "Describe Your Problem"
+msgstr "अपनी समस्या का वर्णन करें"
+
+msgid "Submit Request"
+msgstr "अनुरोध जमा करें"
+
+msgid "Mentorship Requests"
+msgstr "मार्गदर्शन अनुरोध"
+
+msgid "Pending Requests"
+msgstr "लंबित अनुरोध"
+
+msgid "Approved Requests"
+msgstr "स्वीकृत अनुरोध"
+
+msgid "Rejected Requests"
+msgstr "अस्वीकृत अनुरोध"
+
+msgid "Free Courses"
+msgstr "नि:शुल्क पाठ्यक्रम"
+
+msgid "Course List"
+msgstr "पाठ्यक्रम सूची"
+
+msgid "Course Provider"
+msgstr "पाठ्यक्रम प्रदाता"
+
+msgid "Enroll Now"
+msgstr "अभी नामांकन करें"
+
+msgid "Skill Development"
+msgstr "कौशल विकास"
+
+msgid "Available Courses"
+msgstr "उपलब्ध पाठ्यक्रम"
+
+msgid "Course Description"
+msgstr "पाठ्यक्रम विवरण"
+
+msgid "Duration"
+msgstr "अवधि"
+
+msgid "Level"
+msgstr "स्तर"
+
+msgid "Certificate"
+msgstr "प्रमाणपत्र"
+
+msgid "Start Learning"
+msgstr "सीखना प्रारंभ करें"
+msgid "Income Estimator"
+msgstr "आय अनुमानक"
+
+msgid "Estimate your monthly income based on your skill and working hours."
+msgstr "अपने कौशल और कार्य घंटों के आधार पर मासिक आय का अनुमान लगाएं।"
+
+msgid "Try Now"
+msgstr "अभी प्रयास करें"
+
+msgid "Self-Employment Ideas"
+msgstr "स्व-रोज़गार के विचार"
+
+msgid "Explore local business ideas and tutorials that need minimal investment."
+msgstr "स्थानीय व्यवसाय विचार और मार्गदर्शन देखें जिनमें न्यूनतम निवेश की आवश्यकता है।"
+
+msgid "Goat Farming"
+msgstr "बकरी पालन"
+
+msgid "Start with 2 goats, sell milk, manure, and kids. Can earn ₹8,000–₹12,000/month."
+msgstr "2 बकरियों के साथ शुरू करें, दूध, गोबर और बच्चों को बेचें। ₹8,000–₹12,000/माह की आय हो सकती है।"
+
+msgid "Home-based Pickle Business"
+msgstr "घर आधारित अचार व्यवसाय"
+
+msgid "Use local ingredients, low investment. Package and sell to neighbors or online."
+msgstr "स्थानीय सामग्री का उपयोग करें, कम निवेश करें। पैकेजिंग कर पड़ोसियों या ऑनलाइन बेचें।"
+
+msgid "Paper Bag Making"
+msgstr "कागज़ की थैली निर्माण"
+
+msgid "Eco-friendly product idea. Sell to small shops, markets, and schools."
+msgstr "पर्यावरण अनुकूल उत्पाद विचार। छोटे दुकानों, बाजारों और स्कूलों को बेचें।"
+
+msgid "Basic Tailoring Service"
+msgstr "बुनियादी दर्जी सेवा"
+
+msgid "Use one sewing machine and offer mending/alterations for daily income."
+msgstr "एक सिलाई मशीन का उपयोग करें और दैनिक आय के लिए मरम्मत/परिवर्तन सेवाएँ प्रदान करें।"
+
+msgid "Mobile Recharge & UPI Agent"
+msgstr "मोबाइल रिचार्ज और यूपीआई एजेंट"
+
+msgid "Provide digital services in rural area with a smartphone. No huge setup needed."
+msgstr "स्मार्टफोन के साथ ग्रामीण क्षेत्रों में डिजिटल सेवाएं प्रदान करें। कोई बड़ा सेटअप आवश्यक नहीं।"
+
+msgid "Learn More"
+msgstr "और जानें"
+msgid "Post Class"
+msgstr "क्लास पोस्ट करें"
+
+msgid "Post your educational or vocational class for others."
+msgstr "अन्य लोगों के लिए अपनी शैक्षिक या व्यावसायिक क्लास पोस्ट करें।"
+
+msgid "Class Title"
+msgstr "क्लास का शीर्षक"
+
+msgid "Class Description"
+msgstr "क्लास का विवरण"
+
+msgid "Location"
+msgstr "स्थान"
+
+msgid "Video Link"
+msgstr "वीडियो लिंक"
+
+msgid "Upload Video"
+msgstr "वीडियो अपलोड करें"
+
+msgid "Offline Class Details"
+msgstr "ऑफ़लाइन क्लास विवरण"
+
+msgid "Post Product"
+msgstr "उत्पाद पोस्ट करें"
+
+msgid "Join Class"
+msgstr "क्लास जॉइन करें"
+
+msgid "Enter your name"
+msgstr "अपना नाम दर्ज करें"
+
+msgid "Enter your phone number"
+msgstr "अपना फ़ोन नंबर दर्ज करें"
+
+msgid "Join Now"
+msgstr "अभी शामिल हों"
+
+msgid "Class Mode"
+msgstr "क्लास का प्रकार"
+
+msgid "Video"
+msgstr "वीडियो"
+
+msgid "Offline"
+msgstr "ऑफ़लाइन"
+
+msgid "Live Class"
+msgstr "लाइव क्लास"
+
+msgid "Your request has been submitted"
+msgstr "आपका अनुरोध जमा कर दिया गया है"
+
+msgid "Thank you for joining!"
+msgstr "शामिल होने के लिए धन्यवाद!"
+
+msgid "Something went wrong. Please try again."
+msgstr "कुछ गलत हो गया। कृपया फिर से प्रयास करें।"
+msgid "Dashboard"
+msgstr "डैशबोर्ड"
+
+msgid "Your Profile"
+msgstr "आपकी प्रोफ़ाइल"
+
+msgid "View and manage your profile details."
+msgstr "अपनी प्रोफ़ाइल विवरण देखें और प्रबंधित करें।"
+
+msgid "Go to Profile"
+msgstr "प्रोफ़ाइल पर जाएँ"
+
+msgid "🛒 Sell a Product"
+msgstr "🛒 उत्पाद बेचें"
+
+msgid "Post your handmade or local product for sale."
+msgstr "अपना हस्तशिल्प या स्थानीय उत्पाद बिक्री के लिए पोस्ट करें।"
+
+msgid "Sell Now"
+msgstr "अभी बेचें"
+
+msgid "🛍 Buy Products"
+msgstr "🛍 उत्पाद खरीदें"
+
+msgid "Browse and buy available local products."
+msgstr "उपलब्ध स्थानीय उत्पादों को ब्राउज़ करें और खरीदें।"
+
+msgid "View Products"
+msgstr "उत्पाद देखें"
+
+msgid "📚 Post a Training / Class"
+msgstr "📚 प्रशिक्षण / क्लास पोस्ट करें"
+
+msgid "Share educational or vocational training sessions."
+msgstr "शैक्षिक या व्यावसायिक प्रशिक्षण सत्र साझा करें।"
+
+msgid "🎓 Join Available Classes"
+msgstr "🎓 उपलब्ध क्लासों में शामिल हों"
+
+msgid "Find and join classes posted by other users."
+msgstr "अन्य उपयोगकर्ताओं द्वारा पोस्ट की गई क्लासों को ढूंढें और शामिल हों।"
+
+msgid "💼 Jobs"
+msgstr "💼 नौकरियां"
+
+msgid "Post local job opportunities."
+msgstr "स्थानीय नौकरी के अवसर पोस्ट करें।"
+
+msgid "Apply jobs"
+msgstr "नौकरियों के लिए आवेदन करें"
+
+msgid "Explore local job opportunities."
+msgstr "स्थानीय नौकरी के अवसरों का पता लगाएँ।"
+
+msgid "Apply job"
+msgstr "नौकरी के लिए आवेदन करें"
+
+msgid "📈 Income Estimator"
+msgstr "📈 आय अनुमानक"
+
+msgid "Estimate your monthly income based on your skill and working hours."
+msgstr "अपनी कौशल और कार्य समय के आधार पर मासिक आय का अनुमान लगाएँ।"
+
+msgid "Try Now"
+msgstr "अब प्रयास करें"
+
+msgid "🧠 Self-Employment Ideas"
+msgstr "🧠 स्वरोज़गार विचार"
+
+msgid "Explore local business ideas and tutorials that need minimal investment."
+msgstr "स्थानीय व्यापार विचार और ट्यूटोरियल देखें जिनमें न्यूनतम निवेश की आवश्यकता हो।"
+
+msgid "Explore"
+msgstr "अन्वेषण करें"
+
+msgid "🎓 Free Skill Courses"
+msgstr "🎓 मुफ्त कौशल पाठ्यक्रम"
+
+msgid "Access free courses from NPTEL, Skill India, and more."
+msgstr "NPTEL, स्किल इंडिया और अन्य स्रोतों से मुफ्त पाठ्यक्रमों तक पहुँचें।"
+
+msgid "View Courses"
+msgstr "पाठ्यक्रम देखें"
+
+msgid "🤝 Request Guidance"
+msgstr "🤝 मार्गदर्शन का अनुरोध करें"
+
+msgid "Need help with self-employment? Send a request for support."
+msgstr "स्वरोज़गार में मदद चाहिए? समर्थन के लिए अनुरोध भेजें।"
+
+msgid "Request Help"
+msgstr "सहायता का अनुरोध करें"
+
+msgid "Your Skill Badge"
+msgstr "आपका कौशल बैज"
+
+msgid "Based on your activity on Grama Connect"
+msgstr "Grama Connect पर आपकी गतिविधि के आधार पर"
+
+msgid "No badge earned yet."
+msgstr "अभी तक कोई बैज नहीं मिला।"
+
+msgid "Start joining classes, uploading videos, or posting jobs."
+msgstr "क्लासों में शामिल होना, वीडियो अपलोड करना, या नौकरियों को पोस्ट करना शुरू करें।"
+msgid "Available Products"
+msgstr "उपलब्ध उत्पाद"
+
+msgid "Not specified"
+msgstr "निर्दिष्ट नहीं"
+
+msgid "Buy"
+msgstr "खरीदें"
+
+msgid "SOLD"
+msgstr "बेच दिया गया"
+
+msgid "You haven’t purchased any products yet."
+msgstr "आपने अभी तक कोई उत्पाद नहीं खरीदा है।"
+
+msgid "🛒 Your Purchase History"
+msgstr "🛒 आपकी खरीदारी का इतिहास"
+
+msgid "Price:"
+msgstr "कीमत:"
+
+msgid "Status:"
+msgstr "स्थिति:"
+
+msgid "Purchased"
+msgstr "खरीदा गया"
+
+msgid "Seller:"
+msgstr "विक्रेता:"
+
+msgid "Description:"
+msgstr "विवरण:"
+
+msgid "Salary:"
+msgstr "वेतन:"
+
+msgid "Job Type:"
+msgstr "नौकरी का प्रकार:"
+
+msgid "Post Job"
+msgstr "नौकरी पोस्ट करें"
+
+msgid "Post a Job"
+msgstr "एक नौकरी पोस्ट करें"
+
+msgid "Available Jobs"
+msgstr "उपलब्ध नौकरियां"
+
+msgid "Location:"
+msgstr "स्थान:"
+
+msgid "Contact:"
+msgstr "संपर्क:"
+
+msgid "Type:"
+msgstr "प्रकार:"
+
+msgid "apply job"
+msgstr "नौकरी के लिए आवेदन करें"
+
+msgid "Post a New Class"
+msgstr "नई क्लास पोस्ट करें"
+
+msgid "--select mode--"
+msgstr "--मोड चुनें--"
+
+msgid "Posted Class History"
+msgstr "पोस्ट की गई क्लास का इतिहास"
+
+msgid "Mode"
+msgstr "मोड"
+
+msgid "Actions"
+msgstr "क्रियाएँ"
+
+msgid "Edit"
+msgstr "संपादित करें"
+
+msgid "Delete"
+msgstr "हटाएँ"
+
+msgid "Available Classes"
+msgstr "उपलब्ध क्लासें"
+
+msgid "Select Your Skill"
+msgstr "अपना कौशल चुनें"
+
+msgid "-- Choose Skill --"
+msgstr "--कौशल चुनें--"
+
+msgid "Hours per Day"
+msgstr "प्रति दिन घंटे"
+
+msgid "Days per Week"
+msgstr "प्रति सप्ताह दिन"
+
+msgid "Estimate Income"
+msgstr "आय का अनुमान लगाएँ"
+
+msgid "Self-Employment Opportunities"
+msgstr "स्वरोज़गार के अवसर"
+
+msgid "Goat Farming"
+msgstr "बकरी पालन"
+
+msgid "Start with 2 goats, sell milk, manure, and kids. Can earn ₹8,000–₹12,000/month."
+msgstr "2 बकरियों के साथ शुरू करें, दूध, गोबर और बच्चों को बेचें। ₹8,000–₹12,000/माह की आय हो सकती है।"
+
+msgid "Learn More"
+msgstr "और जानें"
+
+msgid "Home-based Pickle Business"
+msgstr "घर पर अचार बनाने का व्यवसाय"
+
+msgid "Use local ingredients, low investment. Package and sell to neighbors or online."
+msgstr "स्थानीय सामग्री का उपयोग करें, कम निवेश। पैकेज करें और पड़ोसियों या ऑनलाइन बेचें।"
+
+msgid "Paper Bag Making"
+msgstr "कागज़ की थैली बनाना"
+
+msgid "Eco-friendly product idea. Sell to small shops, markets, and schools."
+msgstr "पर्यावरण अनुकूल उत्पाद विचार। छोटे दुकानों, बाजारों और स्कूलों में बेचें।"
+
+msgid "Basic Tailoring Service"
+msgstr "मूल दर्ज़ी सेवा"
+
+msgid "Use one sewing machine and offer mending/alterations for daily income."
+msgstr "एक सिलाई मशीन का उपयोग करें और दैनिक आय के लिए मरम्मत/संशोधन सेवाएँ प्रदान करें।"
+
+msgid "Mobile Recharge & UPI Agent"
+msgstr "मोबाइल रिचार्ज और UPI एजेंट"
+
+msgid "Provide digital services in rural area with a smartphone. No huge setup needed."
+msgstr "स्मार्टफोन के साथ ग्रामीण क्षेत्रों में डिजिटल सेवाएं प्रदान करें। बड़े सेटअप की आवश्यकता नहीं।"
+
+msgid "Free Skill Courses (Govt & Trusted Platforms)"
+msgstr "मुफ्त कौशल पाठ्यक्रम (सरकारी और भरोसेमंद प्लेटफॉर्म से)"
+
+msgid "Request Guidance / Mentorship"
+msgstr "मार्गदर्शन / मेंटरशिप का अनुरोध करें"
+
+msgid "Your Name"
+msgstr "आपका नाम"
+
+msgid "Phone Number (Optional)"
+msgstr "फोन नंबर (वैकल्पिक)"
+
+msgid "What help do you need?"
+msgstr "आपको किस प्रकार की मदद चाहिए?"
+
+msgid "Submit Request"
+msgstr "अनुरोध सबमिट करें"
+
+msgid "Course Link"
+msgstr "पाठ्यक्रम लिंक"
+
+msgid "Go to Course"
+msgstr "पाठ्यक्रम पर जाएँ"
+msgid "Edit Class: {{ cls.title }}"
+msgstr "क्लास संपादित करें: {{ cls.title }}"
+
+msgid "Title"
+msgstr "शीर्षक"
+
+msgid "Description"
+msgstr "विवरण"
+
+msgid "Delivery Mode"
+msgstr "डिलीवरी मोड"
+
+msgid "Video Link"
+msgstr "वीडियो लिंक"
+
+msgid "Upload Video"
+msgstr "वीडियो अपलोड करें"
+
+msgid "Offline"
+msgstr "ऑफलाइन"
+
+msgid "Video Link:"
+msgstr "वीडियो लिंक:"
+
+msgid "Upload New Video:"
+msgstr "नया वीडियो अपलोड करें:"
+
+msgid "Offline Details:"
+msgstr "ऑफलाइन विवरण:"
+
+msgid "Update Class"
+msgstr "क्लास अपडेट करें"
+
+msgid "Visit Course"
+msgstr "कोर्स पर जाएँ"
+
+msgid "Grama Connect is Live - Empowering Villages with Innovation!"
+msgstr "Grama Connect लाइव है - नवाचार के साथ गाँवों को सशक्त बना रहा है!"
+
+msgid "Admin"
+msgstr "व्यवस्थापक"
+
+msgid "New here?"
+msgstr "यहाँ नए हैं?"
+
+msgid "Register here"
+msgstr "यहाँ पंजीकरण करें"
+
+msgid "Welcome,"
+msgstr "स्वागत है,"
+
+msgid "This is your profile dashboard."
+msgstr "यह आपका प्रोफ़ाइल डैशबोर्ड है।"
+
+msgid "Username:"
+msgstr "उपयोगकर्ता नाम:"
+
+msgid "Email:"
+msgstr "ईमेल:"
+
+msgid "Post / View Jobs"
+msgstr "नौकरियां पोस्ट/देखें"
+
+msgid "Logout"
+msgstr "लॉग आउट"
+
+msgid "Your Skill Badge"
+msgstr "आपका कौशल बैज"
+
+msgid "Based on your activity on Grama Connect"
+msgstr "Grama Connect पर आपकी गतिविधियों के आधार पर"
+
+msgid "No badge earned yet."
+msgstr "अभी तक कोई बैज नहीं मिला।"
+
+msgid "Start joining classes, uploading videos, or posting jobs."
+msgstr "क्लास में शामिल होना, वीडियो अपलोड करना या नौकरियां पोस्ट करना शुरू करें।"
+
+msgid "Available Products"
+msgstr "उपलब्ध उत्पाद"
+
+msgid "Not specified"
+msgstr "निर्दिष्ट नहीं"
+
+msgid "Buy"
+msgstr "खरीदें"
+
+msgid "SOLD"
+msgstr "बेच दिया गया"
+
+msgid "You haven’t purchased any products yet."
+msgstr "आपने अभी तक कोई उत्पाद नहीं खरीदा है।"
+
+msgid "🛒 Your Purchase History"
+msgstr "🛒 आपकी खरीदारी का इतिहास"
+
+msgid "Price:"
+msgstr "कीमत:"
+
+msgid "Status:"
+msgstr "स्थिति:"
+
+msgid "Purchased"
+msgstr "खरीदा गया"
+
+msgid "Seller:"
+msgstr "विक्रेता:"
+
+msgid "Description:"
+msgstr "विवरण:"
+
+msgid "Salary:"
+msgstr "वेतन:"
+
+msgid "Job Type:"
+msgstr "नौकरी का प्रकार:"
+
+msgid "Post Job"
+msgstr "नौकरी पोस्ट करें"
+
+msgid "Post a Job"
+msgstr "एक नौकरी पोस्ट करें"
+
+msgid "Available Jobs"
+msgstr "उपलब्ध नौकरियां"
+
+msgid "Location:"
+msgstr "स्थान:"
+
+msgid "Contact:"
+msgstr "संपर्क:"
+
+msgid "Type:"
+msgstr "प्रकार:"
+
+msgid "apply job"
+msgstr "नौकरी के लिए आवेदन करें"
+
+msgid "Post a New Class"
+msgstr "नई क्लास पोस्ट करें"
+
+msgid "--select mode--"
+msgstr "--मोड चुनें--"
+
+msgid "Posted Class History"
+msgstr "पोस्ट की गई क्लास का इतिहास"
+
+msgid "Mode"
+msgstr "मोड"
+
+msgid "Actions"
+msgstr "क्रियाएँ"
+
+msgid "Edit"
+msgstr "संपादित करें"
+
+msgid "Delete"
+msgstr "हटाएँ"
+
+msgid "Available Classes"
+msgstr "उपलब्ध क्लासें"
+
+msgid "Select Your Skill"
+msgstr "अपना कौशल चुनें"
+
+msgid "-- Choose Skill --"
+msgstr "--कौशल चुनें--"
+
+msgid "Hours per Day"
+msgstr "प्रति दिन घंटे"
+
+msgid "Days per Week"
+msgstr "प्रति सप्ताह दिन"
+
+msgid "Estimate Income"
+msgstr "आय का अनुमान लगाएँ"
+
+msgid "Self-Employment Opportunities"
+msgstr "स्वरोज़गार के अवसर"
+
+msgid "Goat Farming"
+msgstr "बकरी पालन"
+
+msgid "Start with 2 goats, sell milk, manure, and kids. Can earn ₹8,000–₹12,000/month."
+msgstr "2 बकरियों के साथ शुरू करें, दूध, गोबर और बच्चों को बेचें। ₹8,000–₹12,000/माह की आय हो सकती है।"
+
+msgid "Learn More"
+msgstr "और जानें"
+
+msgid "Home-based Pickle Business"
+msgstr "घर पर अचार बनाने का व्यवसाय"
+
+msgid "Use local ingredients, low investment. Package and sell to neighbors or online."
+msgstr "स्थानीय सामग्री का उपयोग करें, कम निवेश। पैकेज करें और पड़ोसियों या ऑनलाइन बेचें।"
+
+msgid "Paper Bag Making"
+msgstr "कागज़ की थैली बनाना"
+
+msgid "Eco-friendly product idea. Sell to small shops, markets, and schools."
+msgstr "पर्यावरण अनुकूल उत्पाद विचार। छोटे दुकानों, बाजारों और स्कूलों में बेचें।"
+
+msgid "Basic Tailoring Service"
+msgstr "मूल दर्ज़ी सेवा"
+
+msgid "Use one sewing machine and offer mending/alterations for daily income."
+msgstr "एक सिलाई मशीन का उपयोग करें और दैनिक आय के लिए मरम्मत/संशोधन सेवाएँ प्रदान करें।"
+
+msgid "Mobile Recharge & UPI Agent"
+msgstr "मोबाइल रिचार्ज और UPI एजेंट"
+
+msgid "Provide digital services in rural area with a smartphone. No huge setup needed."
+msgstr "स्मार्टफोन के साथ ग्रामीण क्षेत्रों में डिजिटल सेवाएं प्रदान करें। बड़े सेटअप की आवश्यकता नहीं।"

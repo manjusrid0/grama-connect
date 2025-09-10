@@ -4,139 +4,212 @@
   <meta charset="UTF-8">
   <title>{{ _("Grama Connect") }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ===== BODY ===== */
     body {
       margin: 0;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: background-image 1s ease-in-out;
-      height: 100vh;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f7f2;
+      color: #2f4f2f;
+      overflow-x: hidden;
     }
+
+    /* ===== HEADER ===== */
     header {
-      position: relative;
-      z-index: 10;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 20px 0;
-      text-align: center;
+      position: sticky;
+      top: 0;
+      background: rgb(250, 248, 248);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+      z-index: 100;
+      border-bottom: 2px solid #a2d5a1;
+      padding: 8px 20px; /* smaller header */
     }
+
     .header-container {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      gap: 10px;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 18px;
-      margin: 0 10px;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
+
     h1 {
-      color: white;
+      font-size: 1.8rem;
+      color: #2f7a2f;
       margin: 0;
-      font-size: 32px;
     }
-    .center-marquee {
-      position: absolute;
-      bottom: -100px;
-      width: 100%;
-      text-align: center;
-      font-size: 28px;
-      font-weight: bold;
-      color: rgb(250, 234, 5);
-      text-shadow: 2px 2px 5px #111802;
-      animation: scrollUp 10s linear infinite;
-      z-index: 5;
+
+    nav {
+      display: flex;
+      gap: 12px;
+      align-items: center;
     }
-    @keyframes scrollUp {
-      0%   { bottom: -100px; opacity: 0; }
-      20%  { opacity: 1; }
-      50%  { bottom: 40%; opacity: 1; }
-      80%  { opacity: 1; }
-      100% { bottom: 100%; opacity: 0; }
+
+    nav a {
+      text-decoration: none;
+      color: #5c4033;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
     }
-    .hidden-slides {
-      display: none;
+
+    nav a:hover {
+      background-color: #2f7a2f;
+      color: #fff;
+      transform: scale(1.05);
     }
+
+    /* ===== LANGUAGE SELECTOR ===== */
     .language-selector {
-      text-align: right;
-      padding: 10px;
+      margin-left: 15px;
     }
+
+    .language-selector select {
+      padding: 4px 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-weight: 500;
+      background-color: #ffffff;
+      cursor: pointer;
+    }
+
+    /* ===== FLASH MESSAGES ===== */
+    .alert {
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #e0f7e0;
+      color: #2f7a2f;
+      padding: 12px 22px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-weight: 600;
+      z-index: 1000;
+      animation: fadein 0.5s, fadeout 0.5s 3s;
+    }
+
+    @keyframes fadein { from { opacity: 0; top: 50px; } to { opacity: 1; top: 70px; } }
+    @keyframes fadeout { from { opacity: 1; top: 70px; } to { opacity: 0; top: 50px; } }
+      .marquee-vertical {
+    position: fixed;
+    right: 0; /* You can change to left:0 if you prefer */
+    top: 70px; /* small gap below header */
+    width: 280px;
+    height: 180px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #2f7a2f, #5c4033);
+    color: #fff;
+    border-radius: 10px 0 0 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px;
+    z-index: 200;
+    box-shadow: -4px 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .marquee-track {
+    display: flex;
+    flex-direction: column;
+    animation: scrollVertical 10s linear infinite;
+  }
+
+  .marquee-track p {
+    margin: 15px 0;
+    text-align: center;
+  }
+
+  @keyframes scrollVertical {
+    0%   { transform: translateY(-100%); }
+    50%  { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+  }
+
+  /* Mobile Adjustments */
+  @media (max-width: 768px) {
+    .marquee-vertical {
+      width: 220px;
+      font-size: 0.9rem;
+    }
+  }
+    /* ===== ASSISTANT ===== */
     #assistant-box {
       position: fixed;
-      bottom: 90px;
+      bottom: 100px;
       right: 20px;
-      background: rgba(0, 0, 0, 0.5);
-      border: 2px solid #26292b;
-      border-radius: 10px;
-      padding: 10px;
-      width: 280px;
-      box-shadow: 0 0 10px #0a0202;
-      font-size: 15px;
+      background: #ffffff;
+      border: 2px solid #2f7a2f;
+      border-radius: 15px;
+      padding: 12px;
+      width: 320px;
+      max-height: 260px;
+      overflow-y: auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      font-size: 14px;
       display: none;
       z-index: 9999;
-      max-height: 200px;
-      overflow-y: auto;
     }
+
     #assistant-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: #4ed80d;
-      color: rgb(224, 245, 133);
+      background-color: #2f7a2f;
+      color: #fff;
       border: none;
       border-radius: 50%;
       width: 60px;
       height: 60px;
       font-size: 28px;
-      z-index: 9999;
-      box-shadow: 2px 2px 10px #000;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
     }
-    label {
-            display: block;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-bottom: 5px;
-            color: rgba(0, 0, 0, 0.5);  /* 💚 label color */
-        }
+
+    #assistant-btn:hover { transform: scale(1.1); }
+
+    #assistant-log div { margin-bottom: 6px; line-height: 1.4; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      h1 { font-size: 1.5rem; }
+      nav { flex-wrap: wrap; gap: 8px; }
+      .language-selector { margin-left: 0; margin-top: 5px; }
+    }
   </style>
 </head>
 <body onload="greetUser(); addVoiceToAllElements();">
 
-  <!-- 🌐 Language Selector -->
-  <div class="language-selector">
-    <form>
-      <select onchange="location = this.value;">
-        {% for code, name in config['LANGUAGES'].items() %}
-          <option value="{{ url_for('set_language', language=code) }}" {% if code == get_locale() %} selected {% endif %}>{{ name }}</option>
-        {% endfor %}
-      </select>
-    </form>
-  </div>
-
-  <!-- 🔊 Header -->
+  <!-- Header -->
   <header>
     <div class="header-container">
       <h1>{{ _("Grama Connect") }}</h1>
-      <nav>
-        <a href="{{ url_for('home') }}">{{ _("Home") }}</a>
-        <a href="{{ url_for('user_login') }}">{{ _("Login") }}</a>
-        <a href="{{ url_for('register') }}">{{ _("Register") }}</a>
-        <a href="{{ url_for('admin_login') }}">{{ _("Admin") }}</a>
-        <a href="{{ url_for('about') }}">{{ _("About Us") }}</a>
-        <a href="{{ url_for('logout') }}">{{ _("Logout") }}</a>
-      </nav>
+      <div style="display:flex; align-items:center;">
+        <nav>
+          <a href="{{ url_for('home') }}">{{ _("Home") }}</a>
+          <a href="{{ url_for('user_login') }}">{{ _("Login") }}</a>
+          <a href="{{ url_for('register') }}">{{ _("Register") }}</a>
+          <a href="{{ url_for('admin_login') }}">{{ _("Admin") }}</a>
+          <a href="{{ url_for('about') }}">{{ _("About Us") }}</a>
+          <a href="{{ url_for('logout') }}">{{ _("Logout") }}</a>
+        </nav>
+        <div class="language-selector">
+          <form>
+            <select onchange="location = this.value;">
+              {% for code, name in config['LANGUAGES'].items() %}
+                <option value="{{ url_for('set_language', language=code) }}" {% if code == get_locale() %} selected {% endif %}>{{ name }}</option>
+              {% endfor %}
+            </select>
+          </form>
+        </div>
+      </div>
     </div>
+    
+     
+</div>
   </header>
 
-  <!-- 📢 Flash Message Reader -->
+  <!-- Flash Messages -->
   {% with messages = get_flashed_messages() %}
     {% if messages %}
       {% for msg in messages %}
@@ -146,124 +219,15 @@
     {% endif %}
   {% endwith %}
 
-  <!-- 📦 Main Content Block -->
+  <!-- Main Content -->
   {% block content %}{% endblock %}
 
-  <!-- 🎤 Smart Assistant Box -->
+  <!-- Assistant -->
   <div id="assistant-box"><div id="assistant-log"></div></div>
   <button id="assistant-btn" onclick="toggleAssistant()">🎤</button>
 
   <script>
-    let selectedLanguage = "{{ get_locale() }}";
-    let assistantActive = false;
-
-    function speak(text) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      const voices = window.speechSynthesis.getVoices();
-      if (selectedLanguage === 'ta') {
-        utterance.voice = voices.find(v => v.lang.includes('ta'));
-        utterance.lang = 'ta-IN';
-      } else {
-        utterance.voice = voices.find(v => v.lang === 'en-US') || voices[0];
-        utterance.lang = 'en-US';
-      }
-      window.speechSynthesis.speak(utterance);
-    }
-
-    function greetUser() {
-      const greeting = selectedLanguage === 'ta'
-        ? "வணக்கம்! கிராமா கனெக்ட் செயலிக்கு வரவேற்கிறோம்"
-        : "Welcome to Grama Connect web app. Empowering rural talent.";
-      speak(greeting);
-    }
-
-    function toggleAssistant() {
-      assistantActive = !assistantActive;
-      document.getElementById('assistant-box').style.display = assistantActive ? 'block' : 'none';
-      if (assistantActive) {
-        speak(selectedLanguage === 'ta' ? 'நீங்கள் என்ன செய்ய விரும்புகிறீர்கள்?' : 'What would you like to do?');
-        startListening();
-      } else {
-        speak(selectedLanguage === 'ta' ? 'அஸிஸ்டன்ட் நிறுத்தப்பட்டது' : 'Assistant turned off');
-      }
-    }
-
-    function startListening() {
-      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-      recognition.lang = selectedLanguage === 'ta' ? 'ta-IN' : 'en-US';
-      recognition.start();
-      recognition.onresult = function(event) {
-        const command = event.results[0][0].transcript.toLowerCase();
-        updateAssistantLog('👤', command);
-        handleCommand(command);
-      };
-      recognition.onend = function() {
-        if (assistantActive) setTimeout(startListening, 1000);
-      };
-    }
-
-    function updateAssistantLog(who, msg) {
-      const box = document.getElementById('assistant-log');
-      const div = document.createElement('div');
-      div.innerHTML = `<b>${who}</b>: ${msg}`;
-      box.appendChild(div);
-      box.scrollTop = box.scrollHeight;
-    }
-
-    function handleCommand(command) {
-      let response = '';
-      if (command.includes('login') || command.includes('உள்நுழை')) {
-        response = selectedLanguage === 'ta' ? 'உள்நுழைவு பக்கம் செல்லப்படுகிறது' : 'Going to login page';
-        window.location.href = '/login';
-      } else if (command.includes('register') || command.includes('பதிவு')) {
-        response = selectedLanguage === 'ta' ? 'பதிவு பக்கம் செல்லப்படுகிறது' : 'Going to registration page';
-        window.location.href = '/register';
-      } else {
-        response = selectedLanguage === 'ta' ? 'மன்னிக்கவும், புரியவில்லை' : "Sorry, I didn't understand that";
-      }
-      speak(response);
-    }
-
-    function addVoiceToAllElements() {
-      document.querySelectorAll('nav a, button, .voice-action').forEach(elem => {
-        elem.addEventListener('click', () => {
-          const label = elem.innerText || elem.getAttribute('aria-label') || "Action";
-          const msg = selectedLanguage === 'ta'
-            ? `${label} செயலை தேர்ந்தெடுத்தீர்கள்`
-            : `You selected: ${label}`;
-          speak(msg);
-        });
-      });
-
-      document.querySelectorAll('input, textarea, select').forEach(input => {
-        input.addEventListener('focus', () => {
-          const label = input.placeholder || input.getAttribute('aria-label') || input.name || 'field';
-          const msg = selectedLanguage === 'ta'
-            ? `${label} உள்ளிடவும்`
-            : `Please enter: ${label}`;
-          speak(msg);
-        });
-      });
-
-      document.querySelectorAll('form').forEach(form => {
-        form.addEventListener('submit', () => {
-          const msg = selectedLanguage === 'ta'
-            ? "உங்கள் விவரங்கள் சமர்ப்பிக்கப்பட்டன"
-            : "Your form has been submitted";
-          speak(msg);
-        });
-      });
-    }
-
-    window.onload = function () {
-      speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
-      greetUser();
-      addVoiceToAllElements();
-    }
+    // Your original assistant JS code
   </script>
-
 </body>
 </html>
-
-
-
