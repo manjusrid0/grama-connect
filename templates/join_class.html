@@ -7,9 +7,9 @@ html, body {
   min-height: 100%;
   margin: 0;
   padding: 20px;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: linear-gradient(135deg, #f4f7fb, #74b6ec);
-  color: #333;
+  font-family: "Poppins", Arial, sans-serif;
+  background: linear-gradient(135deg, #ecfdf5, #bbf7d0);
+  color: #1b4332;
   overflow-y: auto;
 }
 
@@ -18,14 +18,14 @@ body::-webkit-scrollbar {
   width: 10px;
 }
 body::-webkit-scrollbar-thumb {
-  background-color: #a0aec0;
+  background-color: #86efac;
   border-radius: 8px;
 }
 body::-webkit-scrollbar-thumb:hover {
-  background-color: #718096;
+  background-color: #22c55e;
 }
 body::-webkit-scrollbar-track {
-  background: #edf2f7;
+  background: #f0fdf4;
 }
 
 /* Page title */
@@ -34,8 +34,8 @@ body::-webkit-scrollbar-track {
   font-size: 2rem;
   font-weight: 700;
   margin: 20px 0 35px;
-  color: #140569;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  color: #065f46;
+  text-shadow: 1px 2px 6px rgba(0,0,0,0.1);
 }
 
 /* --- Grid for classes --- */
@@ -52,67 +52,87 @@ body::-webkit-scrollbar-track {
 .class-card {
   width: 340px;
   height: 280px;
-  background: linear-gradient(135deg, #97d8f1, #041d6e);
-  transform: rotate(45deg);
+  background: linear-gradient(135deg, #34d399, #065f46);
+  transform: rotate(6deg);
   border-radius: 80px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: right;
 }
+.class-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+  transform: rotate(-4deg);
+}
 .class-card:hover {
-  transform: rotate(45deg) scale(1.05);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  transform: rotate(45deg) scale(1.08);
+  box-shadow: 0 12px 28px rgba(5, 150, 105, 0.4);
 }
 
 /* Inner content rotated back */
+.class-card {
+  width: 270px;
+  height: 420px;
+  
+  background: linear-gradient(135deg, #54cae7,#2aa5b6, #2f84b6);
+  transform: skew(-4deg);
+  border-radius: 20px;
+  box-shadow: 0 6px 16px rgba(16,185,129,0.3);
+  transition: transform 0.3s ease;
+}
+.class-card:hover {
+  transform: skew(-6deg) scale(1.00);
+}
 .card-content {
-  transform: rotate(-45deg);
+  transform: skew(2deg);
   text-align: center;
-  padding: 85px;
+
   color: #fff;
-  width: 100%;
+  padding: 40px;
 }
-.card-content h3 {
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-  font-weight: 700;
-}
-.card-content p {
-  font-size: 0.85rem;
-  margin-bottom: 12px;
-  line-height: 1.4;
-}
+
+
+
+
 .mode-badge {
   display: inline-block;
-  padding: 4px 30px;
-  background: #f8f8f6;
-  color: #fff;
+  padding: 5px 28px;
+  background: #f0fdf4;
+  color: #065f46;
   font-weight: 600;
-  font-size: 0.7rem;
-  border-radius: 12px;
+  font-size: 0.75rem;
+  border-radius: 14px;
   margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.25);
 }
 
 /* Join button inside card */
 .btn-join {
-  padding: 10px 12px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #86ddec, #53cdf1);
-  color: #030441;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #553eb9,#31238d);
+  color: #ffffff;
   font-weight: 600;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 0.8rem;
-  transition: all 0.25s ease;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(5, 11, 97, 0.3);
 }
 .btn-join:hover {
-  background: linear-gradient(135deg, #2f855a, #38a169);
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #1c1088, #074a81);
+  transform: scale(1.08);
+  box-shadow: 0 6px 14px rgba(22, 163, 74, 0.4);
 }
 
 /* --- Confirm Join Form --- */
@@ -123,36 +143,42 @@ body::-webkit-scrollbar-track {
 }
 .join-form {
   background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  border: 1px solid #bbf7d0;
 }
 .join-form input {
   width: 100%;
   padding: 12px 14px;
   margin: 12px 0;
-  border-radius: 8px;
-  border: 1px solid #cbd5e0;
+  border-radius: 10px;
+  border: 1px solid #a7f3d0;
   font-size: 1rem;
+  background: #f0fdf4;
 }
 .join-form input:focus {
   outline: none;
-  border-color: #3182ce;
-  box-shadow: 0 0 5px rgba(49,130,206,0.3);
+  border-color: #22c55e;
+  box-shadow: 0 0 6px rgba(34,197,94,0.35);
+  background: #ffffff;
 }
 .join-form button {
   width: 100%;
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
-  background: linear-gradient(135deg, #3182ce, #2b6cb0);
+  background: linear-gradient(135deg, #c4f0d4, #15803d);
   color: #fff;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(34,197,94,0.3);
+  transition: all 0.3s ease;
 }
 .join-form button:hover {
-  background: linear-gradient(135deg, #2b6cb0, #3182ce);
+  background: linear-gradient(135deg, #15803d, #065f46);
+  box-shadow: 0 6px 16px rgba(22,163,74,0.35);
 }
 
 /* --- Video Player --- */
@@ -163,9 +189,9 @@ body::-webkit-scrollbar-track {
 video {
   width: 100%;
   max-height: 480px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,128,0,0.15);
+  border: 1px solid #a7f3d0;
 }
 
 /* --- Offline class --- */
@@ -173,19 +199,21 @@ video {
   max-width: 680px;
   margin: 20px auto;
   background: #ffffff;
-  padding: 22px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  border: 1px solid #bbf7d0;
 }
 .offline-details p {
   font-size: 1rem;
   margin: 10px 0;
-  color: #2d3748;
+  color: #1b4332;
 }
 .offline-details strong {
-  color: #2b6cb0;
+  color: #15803d;
 }
 </style>
+
 
 <!-- Step 1: Show all classes -->
 {% if step == 'list' %}

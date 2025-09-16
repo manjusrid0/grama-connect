@@ -30,13 +30,15 @@ class Application(db.Model):
 
 class ClassPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
-    description = db.Column(db.Text)
-    mode = db.Column(db.String(20))  # 'video', 'offline', 'file'
-    video_link = db.Column(db.String(200))
-    file_name = db.Column(db.String(200))
-    location = db.Column(db.String(100))
-    date_time = db.Column(db.String(100))
+    title = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    class_type = db.Column(db.String(50))
+    video_url = db.Column(db.String(300))
+    video_filename = db.Column(db.String(300))
+    location = db.Column(db.String(200))
+    date = db.Column(db.String(50))
+    time = db.Column(db.String(50))
+
 
 class ClassJoin(db.Model):
     id = db.Column(db.Integer, primary_key=True)

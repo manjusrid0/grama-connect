@@ -6,6 +6,10 @@ from flask_babel import Babel, _
 import os
 from datetime import datetime
 from flask_mail import Mail, Message
+import smtplib
+from email.mime.text import MIMEText
+
+
 # -------------------- Flask App Setup --------------------
 app = Flask(__name__)
 app.secret_key = 'secretkey'
@@ -57,6 +61,31 @@ def get_locale():
     return session.get('lang', request.accept_languages.best_match(['en', 'ta', 'hi', 'te', 'ml']))
 
 babel.init_app(app, locale_selector=get_locale)
+
+def send_notification(to_email, subject, body):
+    msg = Message(subject, sender=app.config['MAIL_USERNAME'], recipients=[to_email])
+    msg.body = body
+    mail.send(msg)
+
+def send_notification(subject, recipient, body):
+    sender_email = "your_outlook_email@outlook.com"   # change here
+    sender_password = "your_password"                 # change here
+
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = sender_email
+    msg["To"] = recipient
+
+    try:
+        with smtplib.SMTP("smtp.office365.com", 587) as server:  # if Outlook
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, recipient, msg.as_string())
+        print("✅ Email sent successfully")
+    except Exception as e:
+        print("❌ Error:", e)
+
+
 class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String(500), nullable=False)
@@ -140,14 +169,18 @@ class JoinedJob(db.Model):
 
 class ClassPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    class_type = db.Column(db.String(20), nullable=False)
-    video_url = db.Column(db.String(500))
-    video_filename = db.Column(db.String(200))
+    title = db.Column(db.String(100))
+    description = db.Column(db.Text)
+    delivery_mode = db.Column(db.String(20))  # 'video_link', 'upload_video', 'offline'
+    video_link = db.Column(db.String(200))
+    file_name = db.Column(db.String(200))
     location = db.Column(db.String(100))
-    date = db.Column(db.String(20))
-    time = db.Column(db.String(20))
+    date_time = db.Column(db.String(100))
+
+    # ✅ Add owner link
+    owner_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    owner = db.relationship("User", backref="classes")
+
 
 class JoinedClass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -433,21 +466,20 @@ def buy():
             db.session.commit()
             flash('Product purchased successfully!')
 
-            # Create notification **only after a successful purchase**
-            Notification.create_notification(
-             message=f"Your product '{product.name}' has been sold!",
-             user=product.seller,   # seller is a User object
-             type="product",
-             send_email=True
+            # Notify seller
+            send_notification(
+                product.seller.email,   # seller is a User object
+                "Your Product Has Been Sold!",
+                f"Hi {product.seller.name},\n\nYour product '{product.name}' was bought by {current_user.name}.\n\n-Grama Connect"
             )
 
         else:
             flash('Product not available or already sold.')
 
-    # GET or after POST: show lists
+
     available_products = Product.query.filter_by(buyer_id=None).all()
     purchased_products = Product.query.filter_by(buyer_id=current_user.id).all()
-    
+
     return render_template('buy.html', products=available_products, purchased=purchased_products)
 
 
@@ -492,8 +524,8 @@ def add_jobs():
     flash("Successfully joined the job! Employer will contact you.")
     return redirect(url_for('view_jobs'))
 
-
 @app.route("/jobs", methods=["GET", "POST"])
+@login_required
 def user_view_jobs():
     jobs = Job.query.all()
     message = None
@@ -508,16 +540,17 @@ def user_view_jobs():
         db.session.add(joined)
         db.session.commit()
         job = Job.query.get(job_id)
-        print(f"Notify employer: {job.contact} about new applicant {joined.user_name}")
-        Notification.create_notification(
-         message=f"{current_user.name} has applied for your job '{job.title}'!",
-         user=job.poster,   # assuming job has poster as a User
-         type="job",
-         send_email=True
+
+        # Notify job poster
+        send_notification(
+            job.poster.email,
+            "New Job Application",
+            f"Hi {job.poster.name},\n\n{current_user.name} ({current_user.email}) has applied for your job '{job.title}'.\n\n-Grama Connect"
         )
 
         message = "Successfully joined the job! The employer will contact you."
     return render_template('join_job.html', jobs=jobs, message=message)
+
 @app.route("/user/view_applicants/<int:job_id>")
 @login_required
 def view_applicants(job_id):
@@ -563,6 +596,7 @@ def post_class():
             video_filename=video_filename,
             location=location,
             date=date,
+            owner_id=current_user.id,
             time=time
         )
         db.session.add(new_class)
@@ -578,18 +612,20 @@ def join_class():
     classes = ClassPost.query.all()
     return render_template('join_class.html', step='list', classes=classes)
 
+
 @app.route('/confirm_join/<int:class_id>', methods=['GET', 'POST'])
-def confirm_join(class_id):
-    selected_class = ClassPost.query.get(class_id)
+@login_required
+def confirm_join_class(class_id):
+    selected_class = ClassPost.query.get_or_404(class_id)
+
     if request.method == 'POST':
-        # Handle user join
-        Notification.create_notification(
-            message=f"{current_user.name} has joined your class '{selected_class.title}'!",
-            user=selected_class.owner,  # make sure ClassPost has an 'owner' field
-            type="class",
-            send_email=True
+        # ✅ Send email to class owner
+        send_notification(
+            subject="New Class Join",
+            recipient=selected_class.owner.email,
+            body=f"Hi {selected_class.owner.name}, {current_user.name} has joined your class '{selected_class.title}'."
         )
-        # Save join info if needed
+        flash("You have successfully joined the class!")
         return redirect(url_for('join_class'))
 
     return render_template('join_class.html', step='confirm', selected_class=selected_class)
@@ -642,6 +678,7 @@ def uploaded_video(filename):
 
 # ---------- Mentorship ----------
 @app.route('/request_mentorship', methods=['GET', 'POST'])
+@login_required
 def request_mentorship():
     success = False
     if request.method == 'POST':
@@ -654,15 +691,18 @@ def request_mentorship():
         db.session.add(req)
         db.session.commit()
         success = True
-        Notification.create_notification(
-         message=f"{current_user.name} has requested mentorship.",
-         user=mentor_user,
-         type="mentorship",
-         send_email=True
+
+        # Always notify admin
+        send_notification(
+            "manjusrid0@gmail.com",  # admin email
+            "New Mentorship Request",
+            f"Hi Admin,\n\n{current_user.name} ({current_user.email}) has requested mentorship.\n\nDetails: {req.need}\n\n-Grama Connect"
         )
 
+        flash("Mentorship request submitted. Admin will contact you soon.")
 
     return render_template('request_mentorship.html', success=success)
+
 
 # ---------- Income Estimator ----------
 @app.route('/income_estimator', methods=['GET', 'POST'])
