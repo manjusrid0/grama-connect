@@ -1,0 +1,315 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+body {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0fff4 100%);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2.5rem;
+  margin: 3rem 0;
+  padding: 0 2vw;
+}
+
+.class-card {
+  background: rgba(255,255,255,0.7);
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13), 0 1.5px 4px #b3b3b3;
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  padding: 2.2rem 1.7rem 1.7rem 1.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.25s, transform 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.class-card::before {
+  content: "";
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, #9beec7 0%, #60a5fa 100%);
+  opacity: 0.13;
+  border-radius: 50%;
+  z-index: 0;
+}
+.class-card:hover {
+  box-shadow: 0 16px 48px 0 rgba(31, 38, 135, 0.18), 0 3px 12px #b3b3b3;
+  transform: translateY(-6px) scale(1.025);
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.card-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.35rem;
+  color: #1e293b;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.card-content p {
+  color: #475569;
+  margin-bottom: 1.1rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+.mode-badge {
+  background: linear-gradient(90deg, #f472b6 0%, #818cf8 100%);
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 0.28rem 0.95rem;
+  border-radius: 14px;
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  font-weight: 500;
+  box-shadow: 0 1px 4px #e0e7ff;
+}
+.btn-join {
+  background: linear-gradient(90deg, #38bdf8 0%, #6366f1 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.7rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.13s;
+  margin-top: 1.2rem;
+  box-shadow: 0 2px 8px #bae6fd;
+  letter-spacing: 0.01em;
+}
+.btn-join:hover {
+  background: linear-gradient(90deg, #2563eb 0%, #06b6d4 100%);
+  box-shadow: 0 4px 16px #a5b4fc;
+  transform: scale(1.04);
+}
+
+.join-wrap {
+  background: rgba(255,255,255,0.8);
+  max-width: 420px;
+  margin: 3.5rem auto;
+  padding: 2.7rem 2.2rem;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13), 0 1.5px 4px #b3b3b3;
+  backdrop-filter: blur(8px);
+  text-align: center;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  position: relative;
+}
+.join-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -30px; left: -30px;
+  width: 70px; height: 70px;
+  background: linear-gradient(135deg, #f472b6 0%, #818cf8 100%);
+  opacity: 0.10;
+  border-radius: 50%;
+  z-index: 0;
+}
+.join-wrap h2 {
+  margin-bottom: 1.7rem;
+  color: #2563eb;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.join-form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.1rem;
+  border: 1.5px solid #c7d2fe;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  background: #f1f5f9;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px #e0e7ff;
+}
+.join-form input:focus {
+  border: 1.5px solid #6366f1;
+  outline: none;
+  box-shadow: 0 2px 8px #c7d2fe;
+}
+.join-form button {
+  width: 100%;
+  background: linear-gradient(90deg, #38bdf8 0%, #6366f1 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem;
+  font-size: 1.13rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.13s;
+  box-shadow: 0 2px 8px #bae6fd;
+  letter-spacing: 0.01em;
+}
+.join-form button:hover {
+  background: linear-gradient(90deg, #2563eb 0%, #06b6d4 100%);
+  box-shadow: 0 4px 16px #a5b4fc;
+  transform: scale(1.03);
+}
+
+.video-wrap {
+  background: rgba(255,255,255,0.85);
+  max-width: 760px;
+  margin: 3.5rem auto;
+  padding: 2.7rem 2.2rem;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13), 0 1.5px 4px #b3b3b3;
+  backdrop-filter: blur(8px);
+  text-align: center;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  position: relative;
+}
+.video-wrap::before {
+  content: "";
+  position: absolute;
+  top: -35px; right: -35px;
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, #a7f3d0 0%, #60a5fa 100%);
+  opacity: 0.13;
+  border-radius: 50%;
+  z-index: 0;
+}
+.video-wrap h2 {
+  margin-bottom: 1.7rem;
+  color: #2563eb;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.video-wrap iframe,
+.video-wrap video {
+  width: 100%;
+  max-width: 650px;
+  height: 370px;
+  border-radius: 14px;
+  margin-bottom: 1.7rem;
+  background: #000;
+  box-shadow: 0 2px 12px #c7d2fe;
+}
+a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+.offline-details {
+  background: rgba(255,255,255,0.8);
+  max-width: 520px;
+  margin: 3.5rem auto;
+  padding: 2.7rem 2.2rem;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13), 0 1.5px 4px #b3b3b3;
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.25);
+}
+@media (max-width: 700px) {
+  .video-wrap iframe,
+  .video-wrap video {
+    max-width: 98vw;
+    height: 220px;
+  }
+  .classes-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
+</style>
+
+<!-- Step 1: Show all classes -->
+{% if step == 'list' %}
+  <div class="classes-grid">
+    {% for cls in classes %}
+      <div class="class-card">
+        <div class="card-content">
+          <h3>{{ cls.title }}</h3>
+          <p>{{ cls.description }}</p>
+          <span class="mode-badge">{{ cls.class_type|capitalize }}</span>
+          <a class="btn-join" href="{{ url_for('join_class', class_id=cls.id) }}">Join</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<!-- Step 2: Confirm Join Form -->
+{% if step == 'confirm' %}
+  <div class="join-wrap">
+    <h2>Join: {{ selected_class.title }}</h2>
+    <form class="join-form" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="text" name="phone" placeholder="Your Phone" required>
+      <button type="submit">Confirm Join</button>
+    </form>
+    <div style="margin-top:20px;">
+      <a href="{{ url_for('join_class_list') }}">&#8592; Back to class list</a>
+    </div>
+  </div>
+{% endif %}
+
+<!-- Step 3: Show Video (auto-play) -->
+{% if step == 'video' %}
+  <div class="video-wrap">
+    <h2>{{ selected_class.title }}</h2>
+    {% if video_link %}
+      {% set yt_id = None %}
+      {% if 'youtube.com' in video_link or 'youtu.be' in video_link %}
+        {% set yt_id = video_link.split('v=')[-1].split('&')[0] if 'v=' in video_link else video_link.split('/')[-1] %}
+      {% endif %}
+      {% if yt_id %}
+        <iframe
+          src="https://www.youtube.com/embed/{{ yt_id }}?autoplay=1"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen>
+        </iframe>
+      {% else %}
+        <script>
+          window.open("{{ video_link }}", "_blank");
+        </script>
+        <p>
+          <a href="{{ video_link }}" target="_blank">Click here if the video didn't open automatically.</a>
+        </p>
+      {% endif %}
+    {% elif video_file %}
+      <video controls autoplay>
+        <source src="{{ url_for('static', filename='uploads/' ~ video_file) }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    {% else %}
+      <p>No video available for this class.</p>
+    {% endif %}
+    <div style="margin-top:20px;">
+      <a href="{{ url_for('join_class_list') }}">&#8592; Back to class list</a>
+    </div>
+  </div>
+{% endif %}
+
+<!-- Step 4: Offline class details (optional) -->
+{% if step == 'offline' %}
+  <div class="offline-details">
+    <h2>{{ selected_class.title }}</h2>
+    <p><strong>Location:</strong> {{ selected_class.location }}</p>
+    <p><strong>Date & Time:</strong> {{ selected_class.date_time }}</p>
+    <div style="margin-top:20px;">
+      <a href="{{ url_for('join_class_list') }}">&#8592; Back to class list</a>
+    </div>
+  </div>
+{% endif %}
+
+{% endblock %}

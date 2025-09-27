@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<<<<<<< HEAD
 
 <style>
 body {
@@ -11,10 +12,27 @@ body {
   overflow-y: scroll;
 }
 
+=======
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='uploads/field3.jpg') }}");
+  background-size: cover;
+  background-color: black;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  color: rgb(247, 242, 242);
+  overflow-y: scroll;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+
+>>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
 body::-webkit-scrollbar {
   width: 10px;
 }
 body::-webkit-scrollbar-thumb {
+<<<<<<< HEAD
   background: linear-gradient(135deg, #6ee7b7 0%, #34d399 100%);
   border-radius: 6px;
 }
@@ -165,6 +183,54 @@ h2 {
   }
 }
 </style>
+=======
+  background-color: #888;
+  border-radius: 6px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+
+.card {
+  border: 1px solid #06093b;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+.card h3, .card h5 {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.card p {
+  color: #e4cccc;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background: #047413;
+  color: rgb(208, 245, 107);
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #07070a;
+}
+</style>
+
+>>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
 <h2>Welcome,{{ current_user.username }}</h2>
 <p>{{_("This is your ")}}<strong>{{_("Grama Connect")}}</strong> {{_("dashboard.")}}</p>
 
@@ -194,14 +260,22 @@ h2 {
   <div class="card">
     <h3>{{_("📚 Post a Training / Class")}}</h3>
     <p>{{_("Share educational or vocational training sessions.")}}</p>
+<<<<<<< HEAD
     <a href="{{ url_for('post_class_new') }}" class="btn voice-action">{{_("Post Class")}}</a>
+=======
+    <a href="{{ url_for('post_class') }}" class="btn voice-action">{{_("Post Class")}}</a>
+>>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
   </div>
 
 
   <div class="card">
     <h3>{{_("🎓 Join Available Classes")}}</h3>
     <p>{{_("Find and join classes posted by other users.")}}</p>
+<<<<<<< HEAD
     <a href="{{ url_for('join_class_list') }}" class="btn voice-action">{{_("Join Class")}}</a>
+=======
+    <a href="{{ url_for('join_class') }}" class="btn voice-action">{{_("Join Class")}}</a>
+>>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
   </div>
 
 
@@ -213,7 +287,11 @@ h2 {
   </div>
 
   <div class="card">
+<<<<<<< HEAD
     <h3>{{_("📝 apply jobs")}}</h3>
+=======
+    <h3>{{_("apply jobs")}}</h3>
+>>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
     <p>{{_("Explore local job opportunities.")}}</p>
     <a href="{{ url_for('user_view_jobs') }}" class="btn voice-action">{{_("Apply job")}}</a>
   </div>

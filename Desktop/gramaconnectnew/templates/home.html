@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hidden images used as sources for background slider -->
+<div class="hidden-slides">
+  <img class="slide" src="{{ url_for('static', filename='uploads/farmer3.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/craft2.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/parai.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/nesavu.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/puppet.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/therukuuthu.jpg') }}">
+   <img class="slide" src="{{ url_for('static', filename='uploads/wooden-handicrafts2.jpg') }}">
+    <img class="slide" src="{{ url_for('static', filename='uploads/pot_making.jpg') }}">
+     <img class="slide" src="{{ url_for('static', filename='uploads/farmer.jpg') }}">
+      <img class="slide" src="{{ url_for('static', filename='uploads/weaving.jpg') }}">
+       <img class="slide" src="{{ url_for('static', filename='uploads/gombeyata-tradition-puppet.jpg') }}">
+</div>
+
+<div class="center-marquee">
+ {{_("  Grama Connect is Live - Empowering Villages with Innovation! ")}}
+</div>
+
+
+
+
+
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let index = 0;
+
+  function showSlide() {
+    const body = document.body;
+    if (slides[index]) {
+      body.style.backgroundImage = `url(${slides[index].src})`;
+    }
+    index = (index + 1) % slides.length;
+  }
+
+  showSlide();
+  setInterval(showSlide, 4000);
+</script>
+<style>
+/* Force vertical scrollbar */
+body {
+  overflow-y: scroll;
+}
+
+/* Optional: Customize scrollbar appearance */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+</style>
+{% endblock %}
