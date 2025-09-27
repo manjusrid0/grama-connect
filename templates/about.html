@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  body {
+    background-image: url("{{ url_for('static', filename='uploads/9UjLSn.gif') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .about-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+  }
+
+  .about-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 30px 40px;
+    max-width: 700px;
+    text-align: center;
+    color: #2f4f2f;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .about-card h2 {
+    font-size: 2rem;
+    color: #f8f8f7;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #a2d5a1;
+    display: inline-block;
+    padding-bottom: 5px;
+  }
+
+  .about-card p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #f8f7f7;
+    margin-bottom: 15px;
+  }
+
+  .highlight {
+    color: #2f7a2f;
+    font-weight: bold;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .about-card {
+      padding: 20px;
+      font-size: 0.95rem;
+    }
+    .about-card h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<div class="about-container">
+  <div class="about-card">
+    <h2>{{ _("About Grama Connect") }}</h2>
+    <p>{{ _("🌱 Grama Connect is a web platform designed to bridge the gap between rural talents and job opportunities.") }}</p>
+    <p>{{ _("🤝 We aim to empower individuals in villages by providing access to employment, skill development, and resources.") }}</p>
+    <p>{{ _("🚀 Our mission is to create a connected and empowered rural workforce using technology.") }}</p>
+  </div>
+</div>
+{% endblock %}

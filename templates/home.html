@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hidden images used as sources for background slider -->
+<div class="hidden-slides">
+  <img class="slide" src="{{ url_for('static', filename='uploads/bb.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/a2.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/a3.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/a4.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/a5.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/a6.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/a12.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/a8.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/a9.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/weaving.jpg') }}">
+  <img class="slide" src="{{ url_for('static', filename='uploads/a13.jpg') }}">
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let index = 0;
+
+  function showSlide() {
+    const body = document.body;
+    if (slides[index]) {
+      body.style.backgroundImage = `url(${slides[index].src})`;
+      body.style.backgroundSize = "cover";         // Fill whole screen
+      body.style.backgroundPosition = "center";    // Center the image
+      body.style.backgroundRepeat = "no-repeat";   // Prevent repeating
+      body.style.transition = "background-image 1s ease-in-out"; // Smooth fade
+    }
+    index = (index + 1) % slides.length;
+  }
+
+  showSlide();
+  setInterval(showSlide, 4000);
+</script>
+
+<style>
+/* Force vertical scrollbar */
+body {
+  overflow-y: scroll;
+  min-height: 100vh;
+}
+
+/* Optional: Customize scrollbar appearance */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Hide the hidden slides */
+.hidden-slides {
+  display: none;
+}
+</style>
+{% endblock %}
