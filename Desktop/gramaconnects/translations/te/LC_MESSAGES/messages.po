@@ -1,0 +1,322 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Grama Connect\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-01 00:00+0000\n"
+"PO-Revision-Date: 2025-08-01 00:00+0000\n"
+"Last-Translator: Elara <your@email.com>\n"
+"Language-Team: Telugu\n"
+"Language: te\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Welcome to Grama Connect"
+msgstr "గ్రామ కనెక్ట్‌కి స్వాగతం"
+
+msgid "Login"
+msgstr "లాగిన్"
+
+msgid "Register"
+msgstr "రిజిస్టర్"
+
+msgid "Logout"
+msgstr "లాగ్‌ఔట్"
+
+msgid "Dashboard"
+msgstr "డ్యాష్‌బోర్డు"
+
+msgid "Add Job"
+msgstr "ఉద్యోగం జోడించండి"
+
+msgid "View Jobs"
+msgstr "ఉద్యోగాలు చూడండి"
+
+msgid "Sell Product"
+msgstr "ఉత్పత్తి అమ్మండి"
+
+msgid "Buy Product"
+msgstr "ఉత్పత్తి కొనండి"
+
+msgid "Post Class"
+msgstr "తరగతి పోస్ట్ చేయండి"
+
+msgid "Join Class"
+msgstr "తరగతిలో చేరండి"
+
+msgid "Your Profile"
+msgstr "మీ ప్రొఫైలు"
+
+msgid "Submit"
+msgstr "సబ్మిట్ చేయండి"
+
+msgid "Home"
+msgstr "హోమ్"
+
+msgid "About Us"
+msgstr "మా గురించి"
+
+msgid "Email"
+msgstr "ఈమెయిల్"
+
+msgid "Password"
+msgstr "పాస్‌వర్డ్"
+
+msgid "Confirm Password"
+msgstr "పాస్‌వర్డ్‌ను నిర్ధారించండి"
+
+msgid "Name"
+msgstr "పేరు"
+
+msgid "Phone Number"
+msgstr "ఫోన్ నంబర్"
+
+msgid "Free Courses"
+msgstr "ఉచిత కోర్సులు"
+
+msgid "Income Estimator"
+msgstr "ఆదాయం అంచనా"
+
+msgid "Mentorship Help"
+msgstr "మార్గదర్శక సహాయం"
+
+msgid "Skill Badge"
+msgstr "నైపుణ్య బ్యాడ్జ్"
+
+msgid "Class Title"
+msgstr "తరగతి శీర్షిక"
+
+msgid "Class Description"
+msgstr "తరగతి వివరణ"
+
+msgid "Location"
+msgstr "ప్రాంతం"
+
+msgid "Video Link"
+msgstr "వీడియో లింక్"
+
+msgid "Upload Video"
+msgstr "వీడియో అప్‌లోడ్ చేయండి"
+
+msgid "Offline Class Details"
+msgstr "ఆఫ్‌లైన్ తరగతి వివరాలు"
+
+msgid "Buy"
+msgstr "కొనండి"
+
+msgid "Post"
+msgstr "పోస్ట్ చేయండి"
+
+msgid "Join"
+msgstr "చేరండి"
+
+msgid "Enter your name"
+msgstr "మీ పేరు నమోదు చేయండి"
+
+msgid "Enter your phone number"
+msgstr "మీ ఫోన్ నంబర్ నమోదు చేయండి"
+
+msgid "Join Now"
+msgstr "ఇప్పుడు చేరండి"
+
+msgid "View All"
+msgstr "అన్నీ చూడండి"
+
+msgid "Back to Dashboard"
+msgstr "డ్యాష్‌బోర్డు కి తిరిగి వెళ్ళండి"
+
+msgid "Class Mode"
+msgstr "తరగతి మోడ్"
+
+msgid "Video"
+msgstr "వీడియో"
+
+msgid "Offline"
+msgstr "ఆఫ్‌లైన్"
+
+msgid "Live Class"
+msgstr "ప్రత్యక్ష తరగతి"
+
+msgid "Your request has been submitted"
+msgstr "మీ అభ్యర్థన సమర్పించబడింది"
+
+msgid "Thank you for joining!"
+msgstr "చేరినందుకు ధన్యవాదాలు!"
+
+msgid "Something went wrong. Please try again."
+msgstr "ఏదో తప్పు జరిగింది. దయచేసి మళ్లీ ప్రయత్నించండి."
+
+msgid "About Grama Connect"
+msgstr "గ్రామ కనెక్ట్ గురించి"
+
+msgid "Grama Connect is a web platform designed to bridge the gap between rural talents and job opportunities."
+msgstr "గ్రామ కనెక్ట్ గ్రామీణ ప్రతిభ మరియు ఉద్యోగ అవకాశాల మధ్య దూరాన్ని తగ్గించడానికి రూపొందించిన వెబ్ ప్లాట్‌ఫారమ్."
+
+msgid "We aim to empower individuals in villages by providing access to employment, skill development, and resources."
+msgstr "గ్రామాలలోని వ్యక్తులకు ఉద్యోగాలు, నైపుణ్యాభివృద్ధి, వనరుల ప్రాప్యత అందించడం ద్వారా వారికి శక్తినివ్వడమే మా లక్ష్యం."
+
+msgid "Our mission is to create a connected and empowered rural workforce using technology."
+msgstr "సాంకేతికతను ఉపయోగించి కలిసికట్టుగా ఉన్న శక్తివంతమైన గ్రామీణ కార్మికశక్తిని సృష్టించడం మా మిషన్."
+
+msgid "Sell a Product"
+msgstr "ఉత్పత్తిని అమ్మండి"
+
+msgid "Product posted successfully!"
+msgstr "ఉత్పత్తి విజయవంతంగా పోస్ట్ చేయబడింది!"
+
+msgid "Your product is live! May it find the right hands and bring you success."
+msgstr "మీ ఉత్పత్తి లైవ్ లో ఉంది! అది సరైన వ్యక్తుల వద్దకు చేరి మీకు విజయాన్ని తేవాలి."
+
+msgid "Product Name:"
+msgstr "ఉత్పత్తి పేరు:"
+
+msgid "e.g., Handmade Basket"
+msgstr "ఉదా: చేతితో చేసిన బుట్ట"
+
+msgid "Product Description:"
+msgstr "ఉత్పత్తి వివరణ:"
+
+msgid "e.g., Made from natural palm leaves."
+msgstr "ఉదా: సహజ తాటి ఆకులతో తయారు చేసినది."
+
+msgid "Cost (₹):"
+msgstr "ధర (₹):"
+
+msgid "e.g., 250"
+msgstr "ఉదా: 250"
+
+msgid "Upload Product Image:"
+msgstr "ఉత్పత్తి చిత్రం అప్‌లోడ్ చేయండి:"
+
+msgid "Post Product"
+msgstr "ఉత్పత్తి పోస్ట్ చేయండి"
+
+msgid "Post a New Job"
+msgstr "కొత్త ఉద్యోగం పోస్ట్ చేయండి"
+
+msgid "Job Title:"
+msgstr "ఉద్యోగం శీర్షిక:"
+
+msgid "Job Description:"
+msgstr "ఉద్యోగం వివరణ:"
+
+msgid "Location:"
+msgstr "ప్రాంతం:"
+
+msgid "Contact Info:"
+msgstr "సంప్రదింపు సమాచారం:"
+
+msgid "Welcome, Admin!"
+msgstr "స్వాగతం, అడ్మిన్!"
+
+msgid "Add New Job"
+msgstr "కొత్త ఉద్యోగం జోడించండి"
+
+msgid "View All Jobs"
+msgstr "అన్ని ఉద్యోగాలు చూడండి"
+
+msgid "View All Uploads"
+msgstr "అన్ని అప్‌లోడ్స్ చూడండి"
+
+msgid "Logout"
+msgstr "లాగ్‌ఔట్"
+
+msgid "Admin Login"
+msgstr "అడ్మిన్ లాగిన్"
+
+msgid "username"
+msgstr "వినియోగదారు పేరు"
+
+msgid "password"
+msgstr "పాస్‌వర్డ్"
+
+msgid "submit"
+msgstr "సబ్మిట్"
+
+msgid "Home"
+msgstr "హోమ్"
+
+msgid "Login"
+msgstr "లాగిన్"
+
+msgid "Register"
+msgstr "రిజిస్టర్"
+
+msgid "About Us"
+msgstr "మా గురించి"
+
+msgid "Grama Connect"
+msgstr "గ్రామ కనెక్ట్"
+
+msgid "No products available yet."
+msgstr "ఇప్పటివరకు ఉత్పత్తులు లేవు."
+
+msgid "Buy"
+msgstr "కొనండి"
+
+msgid "₹{{ product.price if product.price else \"Not specified\" }}"
+msgstr "₹{{ product.price if product.price else \"స్పష్టంగా ఇవ్వలేదు\" }}"
+
+msgid "{{ product.name }}"
+msgstr "{{ product.name }}"
+
+msgid "{{ product.description }}"
+msgstr "{{ product.description }}"
+
+msgid "Price:"
+msgstr "ధర:"
+
+msgid "SOLD"
+msgstr "అమ్మబడింది"
+
+msgid "🛒 Your Purchase History"
+msgstr "🛒 మీ కొనుగోలు చరిత్ర"
+
+msgid "Status:"
+msgstr "స్థితి:"
+
+msgid "Purchased"
+msgstr "కొనుగోలు చేయబడింది"
+
+msgid "Seller:"
+msgstr "అమ్మేవారు:"
+
+msgid "You haven’t purchased any products yet."
+msgstr "మీరు ఇంకా ఏ ఉత్పత్తులు కొనలేదు."
+
+msgid "Welcome, {{ current_user.username }}!"
+msgstr "స్వాగతం, {{ current_user.username }}!"
+
+msgid "This is your "
+msgstr "ఇది మీ "
+
+msgid "dashboard."
+msgstr "డ్యాష్‌బోర్డు."
+
+msgid "👤 Profile"
+msgstr "👤 ప్రొఫైలు"
+
+msgid "View and manage your profile details."
+msgstr "మీ ప్రొఫైలు వివరాలు చూడండి మరియు సవరించండి."
+
+msgid "Go to Profile"
+msgstr "ప్రొఫైల్‌కి వెళ్ళండి"
+
+msgid "🛒 Sell a Product"
+msgstr "🛒 ఉత్పత్తి అమ్మండి"
+
+msgid "Post your handmade or local product for sale."
+msgstr "మీ చేతితో చేసిన లేదా స్థానిక ఉత్పత్తిని అమ్మకానికి పోస్ట్ చేయండి."
+
+msgid "Sell Now"
+msgstr "ఇప్పుడు అమ్మండి"
+
+msgid "🛍 Buy Products"
+msgstr "🛍 ఉత్పత్తులు కొనండి"
+
+msgid "Browse and buy available local products."
+msgstr "ఉపలభ్యమైన స్థానిక ఉత్పత్తులను బ్రౌజ్ చేసి కొనండి."
+
+msgid "View Products"
+msgstr "ఉత్పత్తులు చూడండి"
