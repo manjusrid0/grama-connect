@@ -168,7 +168,7 @@ class JoinedJob(db.Model):
     job_ref = db.Column(db.Integer, db.ForeignKey('job.id'))
 
 class ClassPost(db.Model):
-<<<<<<< HEAD
+
     __tablename__ = "class_post"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -197,29 +197,7 @@ class JoinedClass(db.Model):
 
 
 
-=======
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
-    description = db.Column(db.Text)
-    delivery_mode = db.Column(db.String(20))  # 'video_link', 'upload_video', 'offline'
-    video_link = db.Column(db.String(200))
-    file_name = db.Column(db.String(200))
-    location = db.Column(db.String(100))
-    date_time = db.Column(db.String(100))
 
-    # ✅ Add owner link
-    owner_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    owner = db.relationship("User", backref="classes")
-
-
-class JoinedClass(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String(100))
-    email = db.Column(db.String(100))
-    phone = db.Column(db.String(20))
-    class_ref = db.Column(db.Integer, db.ForeignKey('class_post.id'))
-    joined_class = db.relationship('ClassPost', backref='joined_users')
->>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
 
 class MentorshipRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -593,103 +571,10 @@ def view_applicants(job_id):
         return redirect(url_for('add_job'))
 
     applicants = job.joined_jobs  # All JoinedJob entries for this job
-    return render_template("view_applicants.html", job=job, applicants=applicants)
+    return render_template("view_applicants.html", job=job, applicants=application)
 
-<<<<<<< HEAD
 
-@app.route('/post_class', methods=['GET', 'POST'])
-def post_class_new():
-    if request.method == 'POST':
-        # Required fields
-        title = request.form.get('title')
-        description = request.form.get('description')
-        class_type = request.form.get('class_type')
 
-        # Optional fields based on class_type
-        video_link = request.form.get('video_link') if class_type == 'video_link' else None
-        offline_details = request.form.get('offline_details') if class_type == 'offline' else None
-        video_file = request.files.get('video_file') if class_type == 'upload_video' else None
-
-        file_name = None
-        location = None
-        date_time = None
-
-        # Handle uploaded video
-        if video_file:
-            filename = secure_filename(video_file.filename)
-            video_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            file_name = filename
-
-        # Parse offline details if provided
-        if offline_details:
-            # You can parse location and date_time if needed
-            location = offline_details  # For now, store all details in 'location'
-
-        # Create ClassPost
-        new_class = ClassPost(
-            title=title,
-            description=description,
-            class_type=class_type,
-            video_link=video_link,
-            file_name=file_name,
-            location=location,
-            date_time=date_time,
-            owner_id=current_user.id
-        )
-        db.session.add(new_class)
-        db.session.commit()
-
-        flash("Class posted successfully!", "success")
-        return redirect(url_for('post_class_new'))
-
-    # For GET, show posted classes
-    classes = ClassPost.query.filter_by(owner_id=current_user.id).all()
-    return render_template('post_class.html', classes=classes)
-
-@app.route('/join_class')
-def join_class_list():
-    classes = ClassPost.query.all()
-    return render_template("join_class_list.html", classes=classes, step='list')
-
-@app.route("/join_class/<int:class_id>", methods=["GET", "POST"])
-def join_class(class_id):
-    cls = ClassPost.query.get_or_404(class_id)
-
-    if request.method == "POST":
-        user_name = request.form["name"]
-        email = request.form["email"]
-        phone = request.form["phone"]
-
-        joined = JoinedClass(
-            user_name=user_name,
-            email=email,
-            phone=phone,
-            class_ref=class_id
-        )
-        db.session.add(joined)
-        db.session.commit()
-
-        # Decide which video to show
-        video_link = None
-        video_file = None
-        if cls.class_type == "video_link" and cls.video_link:
-            video_link = cls.video_link
-        elif cls.class_type == "upload_video" and cls.file_name:
-            video_file = cls.file_name
-
-        return render_template(
-            "join_class_list.html",
-             step='video',
-            selected_class=cls,
-            video_link=video_link,
-            video_file=video_file
-        )
-
-    # For GET: show confirmation form
-    return render_template("join_class_list.html", step="confirm", selected_class=cls)
-
-@app.route("/delete_class/<int:class_id>")
-=======
 # ---------- Classes ----------
 @app.route('/post_class', methods=['GET', 'POST'])
 def post_class():
@@ -739,7 +624,7 @@ def join_class():
     return render_template('join_class.html', step='list', classes=classes)
 
 
-@app.route('/confirm_join/<int:class_id>', methods=['GET', 'POST'])
+@app.route('/confirm_join_class/<int:class_id>', methods=['GET', 'POST'])
 @login_required
 def confirm_join_class(class_id):
     selected_class = ClassPost.query.get_or_404(class_id)
@@ -792,32 +677,17 @@ def edit_class(class_id):
     return render_template('edit_class.html', cls=cls)
 
 @app.route('/delete_class/<int:class_id>')
->>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
+
 def delete_class(class_id):
     cls = ClassPost.query.get_or_404(class_id)
     db.session.delete(cls)
     db.session.commit()
-<<<<<<< HEAD
-    return redirect(url_for("post_class_new"))
+    flash("class deleted successfully!")
+    return redirect(url_for("post_class"))
 
 
-@app.route("/edit_class/<int:class_id>", methods=["GET", "POST"])
-def edit_class(class_id):
-    cls = ClassPost.query.get_or_404(class_id)
-    if request.method == "POST":
-        cls.title = request.form["title"]
-        cls.description = request.form["description"]
-        cls.class_type = request.form["delivery_mode"]
-        cls.video_link = request.form.get("video_link")
-        cls.location = request.form.get("offline_details")
-        db.session.commit()
-        return redirect(url_for("post_class_new"))
 
-    return render_template("edit_class.html", cls=cls)
 
-=======
-    return redirect(url_for('post_class'))
->>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
 
 @app.route('/video/<filename>')
 def uploaded_video(filename):
@@ -894,7 +764,7 @@ def self_employment_board():
     ]
     return render_template('self_employment_board.html', ideas=ideas)
 
-# ---------- Free Courses ----------
+
 # ---------- Free Courses ----------
 @app.route('/free_courses')
 def free_courses():
@@ -919,9 +789,7 @@ def free_courses():
 def page_not_found(e):
     return render_template('404.html'), 404
 
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('500.html'), 500
+
 
 # ---------- Run App ----------
 if __name__ == '__main__':

@@ -1,18 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<<<<<<< HEAD
 
-<style>
-body {
-  background: linear-gradient(120deg, #d1fae5 0%, #f0fff4 100%);
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  color: #234e2e;
-  min-height: 100vh;
-  overflow-y: scroll;
-}
 
-=======
 <style>
 body {
   background-image: url("{{ url_for('static', filename='uploads/field3.jpg') }}");
@@ -26,164 +16,9 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
+/*custom scrollbar */
+body::-webkit-scrollbar{
 
->>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
-body::-webkit-scrollbar {
-  width: 10px;
-}
-body::-webkit-scrollbar-thumb {
-<<<<<<< HEAD
-  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 100%);
-  border-radius: 6px;
-}
-body::-webkit-scrollbar-thumb:hover {
-  background: #059669;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 2rem;
-  margin-top: 2.5rem;
-  padding: 0 2vw;
-}
-
-.card {
-  background: rgba(255,255,255,0.82);
-  border-radius: 22px;
-  box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.13), 0 1.5px 4px #b3b3b3;
-  backdrop-filter: blur(8px);
-  border: 1.5px solid rgba(16, 185, 129, 0.13);
-  padding: 2rem 1.3rem 1.3rem 1.3rem;
-  text-align: center;
-  transition: box-shadow 0.22s, transform 0.18s;
-  position: relative;
-  overflow: hidden;
-}
-.card::before {
-  content: "";
-  position: absolute;
-  top: -35px; right: -35px;
-  width: 70px; height: 70px;
-  background: linear-gradient(135deg, rgb(5, 248, 90) 0%, #6ee7b7 100%);
-  opacity: 0.13;
-  border-radius: 50%;
-  z-index: 0;
-}
-.card:hover {
-  box-shadow: 0 16px 48px 0 rgba(16, 185, 129, 0.18), 0 3px 12px #0f12c4;
-  transform: translateY(-6px) scale(1.025);
-}
-
-.card h3, .card h5 {
-  margin-bottom: 10px;
-  font-weight: 700;
-  color: #059672;
-  letter-spacing: 0.01em;
-  font-size: 1.18rem;
-  z-index: 1;
-  position: relative;
-}
-.card p {
-  color: #2a7c3e;
-  font-size: 1.01rem;
-  margin-bottom: 1.1rem;
-  z-index: 1;
-  position: relative;
-}
-.btn {
-  display: inline-block;
-  padding: 0.7rem 1.5rem;
-  background: linear-gradient(90deg, #34d399 0%, #059669 100%);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 1.03rem;
-  cursor: pointer;
-  box-shadow: 0 2px 8px #bbf7d0;
-  transition: background 0.18s, box-shadow 0.18s, transform 0.13s;
-  margin-top: 0.5rem;
-  letter-spacing: 0.01em;
-  border: none;
-}
-.btn:hover {
-  background: linear-gradient(90deg, #059669 0%, #34d399 100%);
-  box-shadow: 0 4px 16px #6ee7b7;
-  transform: scale(1.04);
-  color: #fff;
-}
-
-.uploads-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  justify-content: center;
-  margin-top: 30px;
-}
-.uploads-container .card {
-  width: 320px;
-  background: rgba(16, 185, 129, 0.92);
-  color: #f1f5f9;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.18), 0 3px 12px #cfc7c7;
-  border: 1.5px solid rgba(16,185,129,0.18);
-  padding: 1.2rem 1rem 1rem 1rem;
-}
-.uploads-container .card h5 {
-  color: rgb(107, 185, 130);
-}
-.uploads-container .card p {
-  color: #e0f2f1;
-}
-.uploads-container .btn {
-  background: linear-gradient(90deg, #059669 0%, #34d399 100%);
-  color: #fff;
-  margin-top: 0.7rem;
-  font-size: 0.98rem;
-  box-shadow: 0 2px 8px #0aca7d;
-}
-.uploads-container .btn:hover {
-  background: linear-gradient(90deg, #065f46 0%, #059669 100%);
-  color: #fff;
-}
-.uploads-container video,
-.uploads-container img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 0.7rem;
-  box-shadow: 0 2px 8px #6ee7b7;
-}
-
-h2 {
-  margin-top: 2.5rem;
-  color: #059669;
-  font-weight: 800;
-  letter-spacing: 0.01em;
-  text-shadow: 0 2px 8px #bbf7d0;
-}
-@media (max-width: 900px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-  }
-}
-@media (max-width: 700px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-    padding: 0 1vw;
-  }
-  .uploads-container .card {
-    width: 98vw;
-    min-width: 0;
-  }
-  .card {
-    padding: 1.2rem 0.7rem 0.7rem 0.7rem;
-  }
-}
-</style>
-=======
   background-color: #888;
   border-radius: 6px;
 }
@@ -230,7 +65,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 </style>
 
->>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
+
 <h2>Welcome,{{ current_user.username }}</h2>
 <p>{{_("This is your ")}}<strong>{{_("Grama Connect")}}</strong> {{_("dashboard.")}}</p>
 
@@ -259,23 +94,17 @@ body::-webkit-scrollbar-thumb:hover {
 
   <div class="card">
     <h3>{{_("📚 Post a Training / Class")}}</h3>
-    <p>{{_("Share educational or vocational training sessions.")}}</p>
-<<<<<<< HEAD
-    <a href="{{ url_for('post_class_new') }}" class="btn voice-action">{{_("Post Class")}}</a>
-=======
+    <p>{{_("Share educational or vocational training sessions.")}}</p>    
     <a href="{{ url_for('post_class') }}" class="btn voice-action">{{_("Post Class")}}</a>
->>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
+
   </div>
 
 
   <div class="card">
     <h3>{{_("🎓 Join Available Classes")}}</h3>
     <p>{{_("Find and join classes posted by other users.")}}</p>
-<<<<<<< HEAD
-    <a href="{{ url_for('join_class_list') }}" class="btn voice-action">{{_("Join Class")}}</a>
-=======
     <a href="{{ url_for('join_class') }}" class="btn voice-action">{{_("Join Class")}}</a>
->>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
+
   </div>
 
 
@@ -287,11 +116,11 @@ body::-webkit-scrollbar-thumb:hover {
   </div>
 
   <div class="card">
-<<<<<<< HEAD
+
     <h3>{{_("📝 apply jobs")}}</h3>
-=======
+
     <h3>{{_("apply jobs")}}</h3>
->>>>>>> a6576c51c1a1237b599dd8a15cc2c3df7929b838
+
     <p>{{_("Explore local job opportunities.")}}</p>
     <a href="{{ url_for('user_view_jobs') }}" class="btn voice-action">{{_("Apply job")}}</a>
   </div>
