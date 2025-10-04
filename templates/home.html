@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Hidden images used as sources for background slider -->
+
 <div class="hidden-slides">
   <img class="slide" src="{{ url_for('static', filename='uploads/bb.jpg') }}">
   <img class="slide" src="{{ url_for('static', filename='uploads/a2.jpg') }}">
@@ -16,27 +16,56 @@
   <img class="slide" src="{{ url_for('static', filename='uploads/a13.jpg') }}">
 </div>
 
+<div id="moving-background"></div>
+
 <script>
-  const slides = document.querySelectorAll('.slide');
-  let index = 0;
+const slides = document.querySelectorAll('.slide');
+const bgDiv = document.getElementById('moving-background');
+let index = 0;
 
-  function showSlide() {
-    const body = document.body;
-    if (slides[index]) {
-      body.style.backgroundImage = `url(${slides[index].src})`;
-      body.style.backgroundSize = "cover";         // Fill whole screen
-      body.style.backgroundPosition = "center";    // Center the image
-      body.style.backgroundRepeat = "no-repeat";   // Prevent repeating
-      body.style.transition = "background-image 1s ease-in-out"; // Smooth fade
-    }
-    index = (index + 1) % slides.length;
+function showSlide() {
+  if (slides[index]) {
+    const imgSrc = slides[index].src;
+    bgDiv.style.backgroundImage = `url(${imgSrc})`;
+    bgDiv.style.opacity = 0;
+    setTimeout(() => {
+      bgDiv.style.opacity = 1;
+    }, 50);
   }
+  index = (index + 1) % slides.length;
+}
 
-  showSlide();
-  setInterval(showSlide, 4000);
+// Initialize first slide
+showSlide();
+setInterval(showSlide, 4000);
 </script>
 
 <style>
+/* Fullscreen moving background */
+#moving-background {
+  position: fixed;
+  top: 10;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;       /* Resize while keeping content */
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity 1.5s ease, transform 8s ease-in-out;
+  z-index: -1;
+  opacity: 1;
+}
+
+/* Add subtle zoom effect for modern feel */
+#moving-background {
+  animation: zoomEffect 8s infinite alternate;
+}
+
+@keyframes zoomEffect {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
 /* Force vertical scrollbar */
 body {
   overflow-y: scroll;
@@ -62,4 +91,5 @@ body::-webkit-scrollbar-thumb:hover {
   display: none;
 }
 </style>
+
 {% endblock %}
