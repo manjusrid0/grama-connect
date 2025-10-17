@@ -1,0 +1,265 @@
+<!-- templates/post_class.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ _("Post Class - Grama Connect") }}</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* Body & Background */
+    body {
+        background: #e6f7ff; /* soft blue */
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 30px 10px;
+        color: #065f46;
+    }
+
+    /* Container */
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px;
+        border-radius: 15px;
+        background: #ffffff;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 26px;
+        font-weight: 700;
+        color: #0ea5e9;
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    h2::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: #34d399;
+        margin: 6px auto 0;
+        border-radius: 2px;
+    }
+
+    /* Form Card */
+    .form-card {
+        background: #f0fdf4;
+        border-radius: 15px;
+        padding: 25px 20px;
+        margin-bottom: 30px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .form-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    /* Labels and Inputs */
+    label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        display: block;
+        color: #065f46;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 18px;
+        border-radius: 8px;
+        border: 1px solid #a7f3d0;
+        font-size: 15px;
+        transition: 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: #34d399;
+        box-shadow: 0 0 6px rgba(52,211,153,0.3);
+    }
+
+    /* Submit Button */
+    button {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(90deg, #34d399, #0ea5e9);
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    button:hover {
+        transform: scale(1.03);
+    }
+
+    /* Posted Classes Grid */
+    .classes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+    }
+
+    .class-card {
+        background: #f0f9ff;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .class-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .class-card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+        color: #065f46;
+    }
+
+    .class-card p {
+        font-size: 14px;
+        color: #0f172a;
+        margin-bottom: 12px;
+    }
+
+    .class-card .mode {
+        font-weight: 600;
+        font-size: 13px;
+        color: #0ea5e9;
+        margin-bottom: 10px;
+    }
+
+    .class-card .actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .class-card .actions button {
+        flex: 1;
+        padding: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+    }
+
+    .class-card .actions button.edit {
+        background: #34d399;
+        color: #fff;
+    }
+
+    .class-card .actions button.delete {
+        background: #ef4444;
+        color: #fff;
+    }
+
+    .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>{{ _("Post a New Class") }}</h2>
+
+    <form action="/post_class" method="POST" enctype="multipart/form-data">
+        <div class="form-card">
+            <label for="title">{{ _("Class Title") }}</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="description">{{ _("Description") }}</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <label for="delivery_mode">{{ _("Delivery Mode") }}</label>
+            <select id="delivery_mode" name="delivery_mode" onchange="showInputField()" required>
+                <option value="">{{ _("-- Select Mode --") }}</option>
+                <option value="video_link">{{ _("Video Link (YouTube/DIKSHA)") }}</option>
+                <option value="upload_video">{{ _("Upload Video File") }}</option>
+                <option value="offline">{{ _("Offline / Live Class") }}</option>
+            </select>
+
+            <!-- Video Link -->
+            <div id="video_link_div" class="hidden">
+                <label for="video_link">{{ _("Enter Video Link") }}</label>
+                <input type="url" id="video_link" name="video_link" placeholder="https://www.youtube.com/watch?v=...">
+            </div>
+
+            <!-- Upload Video -->
+            <div id="video_file_div" class="hidden">
+                <label for="video_file">{{ _("Upload Video File") }}</label>
+                <input type="file" id="video_file" name="video_file" accept="video/*">
+            </div>
+
+            <!-- Offline Class -->
+            <!-- Offline / Live Class Details -->
+<div id="offline_details_div" class="hidden">
+    <label for="offline_place">Class Location</label>
+    <input type="text" id="offline_place" name="offline_place" placeholder="Enter place">
+
+    <label for="offline_date">Date</label>
+    <input type="date" id="offline_date" name="offline_date">
+
+    <label for="offline_time">Time</label>
+    <input type="time" id="offline_time" name="offline_time">
+
+    <label for="offline_contact">Contact Info</label>
+    <input type="text" id="offline_contact" name="offline_contact" placeholder="e.g. +91 98765 43210">
+
+    <label for="offline_duration">Duration</label>
+    <input type="text" id="offline_duration" name="offline_duration" placeholder="e.g. 2 hours, 3 days">
+</div>
+<button type ="submit">{{_("Post Class")}}</button>
+</div>
+             
+    </form>
+
+    <h2>{{ _("Posted Class History") }}</h2>
+
+    <div class="classes-grid">
+        {% for cls in classes %}
+        <div class="class-card">
+            <h3>{{ cls.title }}</h3>
+            <div class="mode">
+                {% if cls.video_link %} Video Link
+                {% elif cls.file_name %} Uploaded Video
+                {% elif cls.location %} Offline
+                {% else %} N/A
+                {% endif %}
+            </div>
+            <p>{{ cls.description }}</p>
+            <div class="actions">
+                <a href="{{ url_for('edit_class', class_id=cls.id) }}"><button type="button" class="edit"><i class="fas fa-edit"></i> Edit</button></a>
+                <a href="{{ url_for('delete_class', class_id=cls.id) }}" onclick="return confirm('Are you sure?');"><button type="button" class="delete"><i class="fas fa-trash"></i> Delete</button></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+function showInputField() {
+    document.getElementById("video_link_div").classList.add("hidden");
+    document.getElementById("video_file_div").classList.add("hidden");
+    document.getElementById("offline_details_div").classList.add("hidden");
+
+    const mode = document.getElementById("delivery_mode").value;
+    if(mode === "video_link") document.getElementById("video_link_div").classList.remove("hidden");
+    else if(mode === "upload_video") document.getElementById("video_file_div").classList.remove("hidden");
+    else if(mode === "offline") document.getElementById("offline_details_div").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>

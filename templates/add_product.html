@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div style="max-width:800px; margin:auto; padding:20px;">
+
+  <!-- Add Product Form -->
+  <div style="background: linear-gradient(145deg, #e0f2ff, #d0f5e0); padding:25px; border-radius:15px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-bottom:30px;">
+    <h2 style="color:#045d99; font-weight:700; margin-bottom:20px;">🛒 Add Product</h2>
+    <form method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:15px;">
+      <input type="text" name="name" placeholder="Product Name" required style="padding:10px; border-radius:8px; border:1px solid #ccc;">
+      <textarea name="description" placeholder="Description" required style="padding:10px; border-radius:8px; border:1px solid #ccc;"></textarea>
+      <input type="text" name="price" placeholder="Price" required style="padding:10px; border-radius:8px; border:1px solid #ccc;">
+      <input type="file" name="image" accept="image/*" required style="padding:5px;">
+      <button type="submit" style="background:#045d99; color:white; padding:10px; border:none; border-radius:10px; font-weight:600; cursor:pointer; transition:0.3s;">Post Product</button>
+    </form>
+  </div>
+
+  <!-- My Products & Buyers -->
+  <h2 style="color:#045d99; font-weight:700; margin-bottom:15px;">📦 My Products & Buyers</h2>
+  <div style="display:flex; flex-wrap:wrap; gap:20px;">
+    {% for product in products %}
+      <div style="background:white; border-radius:15px; box-shadow:0 4px 15px rgba(0,0,0,0.1); padding:15px; width:240px; display:flex; flex-direction:column; align-items:center;">
+        
+        {% if product.image_filename %}
+          <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}" alt="{{ product.name }}" style="width:100%; height:180px; object-fit:cover; border-radius:12px;">
+        {% endif %}
+        
+        <h3 style="color:#045d99; margin:10px 0 5px 0; text-align:center;">{{ product.name }}</h3>
+        <p style="font-size:14px; text-align:center; color:#333;">{{ product.description }}</p>
+        <p style="font-weight:600; color:#028a0f;">₹{{ product.price }}</p>
+
+        <div style="margin-top:10px; width:100%;">
+          <span style="background:#d0f5e0; color:#028a0f; padding:3px 8px; border-radius:12px; font-size:12px;">Buyers</span>
+          <div style="margin-top:5px; font-size:13px;">
+            {% if buyers_dict[product.id] %}
+              {% for buyer in buyers_dict[product.id] %}
+                <div style="background:#e6f7ff; padding:4px 6px; border-radius:8px; margin-bottom:3px;">{{ buyer }}</div>
+              {% endfor %}
+            {% else %}
+              <span style="color:#999;">No buyers yet</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

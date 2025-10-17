@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 700px; margin: 50px auto; background: #e0f2f1; padding: 30px; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
+  <h2 style="color:#00796b;">{{ class_info.title }}</h2>
+
+  <p><strong>Description:</strong></p>
+  <p>{{ class_info.description.split('\n')[0] }}</p>
+
+  {% set offline_lines = class_info.description.split('\n')[1:] %}
+  {% if offline_lines %}
+    <div style="margin-top:15px; padding: 15px; background:#b2dfdb; border-radius:8px;">
+      {% for line in offline_lines %}
+        <p>{{ line }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+/* ---------------- Page Basics ---------------- */
+html, body { height: 100%; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+body {
+  background: linear-gradient(135deg, #a0f0ff, #60c5ff 70%, #2b8ee2);
+  color: #0a1f2e;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: auto;
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+/* Scrollbar Styling */
+* { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.28) rgba(255,255,255,0.12); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,0.12); border-radius: 8px; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 8px; border: 2px solid rgba(255,255,255,0.08); }
+
+/* ---------------- Container ---------------- */
+.container { max-width: 1100px; margin: 0 auto; display: block; gap: 24px; }
+
+/* ---------------- Post Job Card ---------------- */
+.post-card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  margin-bottom: 28px;
+  border-left: 5px solid #0b6fa4;
+}
+
+.post-card h2 { margin: 0 0 18px 0; color: #03406e; font-size: 22px; }
+
+/* ---------------- Form: Floating Labels ---------------- */
+.form-group { position: relative; flex: 1; margin-bottom: 16px; }
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 14px 14px 14px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.08);
+  font-size: 14px;
+  background: rgba(255,255,255,0.95);
+  box-sizing: border-box;
+}
+.form-group label {
+  position: absolute;
+  top: 14px;
+  left: 12px;
+  font-size: 14px;
+  color: rgba(0,0,0,0.5);
+  pointer-events: none;
+  transition: 0.2s ease all;
+  background: transparent;
+  padding: 0 4px;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label,
+.form-group select:focus + label,
+.form-group select:not([value=""]) + label {
+  top: -8px;
+  left: 8px;
+  font-size: 12px;
+  color: #0b6fa4;
+  background: rgba(255,255,255,0.95);
+}
+
+/* Row Alignment */
+.row { display: flex; gap: 14px; flex-wrap: wrap; }
+@media (max-width: 680px) { .row { flex-direction: column; } }
+
+/* ---------------- Buttons ---------------- */
+.post-btn {
+  display: inline-block;
+  background: linear-gradient(135deg,#16c79a,#0b9fdd);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.post-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+
+.view-btn {
+  background: rgba(255,255,255,0.2);
+  color: #03406e;
+  border: 2px solid rgba(255,255,255,0.4);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.view-btn:hover { background: rgba(255,255,255,0.35); }
+
+/* ---------------- Job Listings ---------------- */
+.jobs-list { display: flex; flex-direction: column; gap: 18px; }
+
+.job-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background: rgba(255,255,255,0.95);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.job-card:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,0,0,0.12); }
+
+.job-logo {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  background: linear-gradient(135deg,#16c79a,#0b9fdd);
+  color: #fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:20px;
+  flex-shrink:0;
+}
+
+.job-body { flex:1; min-width:0; }
+.job-title { font-size:17px; color:#03406e; margin:0 0 6px 0; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.job-desc { font-size:14px; color:#0b4e72; margin:0 0 8px 0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+.meta-row { display:flex; gap:16px; align-items:center; font-size:13px; color:#056d8c; flex-wrap:wrap; }
+.meta-item { display:flex; gap:6px; align-items:center; }
+
+.job-actions {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:stretch;
+  width:180px;
+  flex-shrink:0;
+}
+.apply-btn {
+  background: linear-gradient(135deg,#16c79a,#0b9fdd);
+  color:#fff;
+  border:none;
+  padding:10px;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition: transform 0.12s ease;
+  width:100%;
+}
+.apply-btn:hover { transform: translateY(-2px); }
+.view-btn { 
+  background: transparent; 
+  color:#03406e; 
+  border: 2px solid rgba(3,64,110,0.2); 
+  padding:8px; 
+  border-radius:12px; 
+  font-weight:600;
+  text-align:center;
+  text-decoration:none;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 860px) {
+  .job-card { flex-direction: column; align-items: stretch; }
+  .job-logo { width:100%; height:90px; border-radius:12px; }
+  .job-actions { width:100%; flex-direction:row; gap:10px; }
+}
+</style>
+
+<div class="container">
+
+  <!-- Post job form -->
+  <div class="post-card" role="region" aria-labelledby="post-job-heading">
+    <h2 id="post-job-heading">Post a Job</h2>
+    <form method="POST" action="{{ url_for('view_jobs') }}">
+      <div class="row">
+        <div class="form-group">
+          <input type="text" name="title" id="title" placeholder=" " required>
+          <label for="title">Job Title</label>
+        </div>
+        <div class="form-group">
+          <input type="text" name="job_type" id="job_type" placeholder=" ">
+          <label for="job_type">Job Type (Full/Part time)</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <input type="text" name="location" id="location" placeholder=" " required>
+          <label for="location">Location</label>
+        </div>
+        <div class="form-group">
+          <input type="text" name="salary" id="salary" placeholder=" ">
+          <label for="salary">Salary</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" name="contact" id="contact" placeholder=" " required>
+        <label for="contact">Contact Info</label>
+      </div>
+
+      <div class="form-group">
+        <textarea name="description" id="description" placeholder=" " required></textarea>
+        <label for="description">Job Description (Responsibilities)</label>
+      </div>
+
+      <div style="margin-top:10px; display:flex; gap:12px;">
+        <button type="submit" class="post-btn">Post Job</button>
+        <a href="{{ url_for('dashboard') }}" class="view-btn" style="align-self:center; padding:10px 12px; border-radius:10px;">Back to Dashboard</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Job listings -->
+  {% if jobs %}
+  <div class="jobs-list" aria-live="polite">
+    {% for job in jobs %}
+    <div class="job-card" role="article" aria-label="Job: {{ job.title }}">
+      <div class="job-logo" title="{{ job.title }}">
+        {{ job.title[:2] | upper }}
+      </div>
+
+      <div class="job-body">
+        <div class="job-title">{{ job.title }}</div>
+        <div class="job-desc">{{ job.description }}</div>
+
+        <div class="meta-row" aria-hidden="false">
+          <div class="meta-item"><strong>Location:</strong>&nbsp;<span>{{ job.location }}</span></div>
+          <div class="meta-item"><strong>Salary:</strong>&nbsp;<span>{{ job.salary or '—' }}</span></div>
+          <div class="meta-item"><strong>Type:</strong>&nbsp;<span>{{ job.job_type or '—' }}</span></div>
+        </div>
+      </div>
+
+      <div class="job-actions">
+        <form method="POST" action="{{ url_for('user_view_jobs') }}" style="margin:0;">
+          <input type="hidden" name="job_id" value="{{ job.id }}">
+          <input type="hidden" name="name" value="{{ current_user.name }}">
+          <input type="hidden" name="email" value="{{ current_user.email }}">
+          <input type="hidden" name="phone" value="{{ current_user.phone }}">
+          <button type="submit" class="apply-btn">Apply</button>
+        </form>
+
+        {% if current_user.is_authenticated and current_user.id == job.user_id %}
+          <a class="view-btn" href="{{ url_for('view_applicants', job_id=job.id) }}">View Applicants</a>
+        {% else %}
+          <a class="view-btn" href="{{ url_for('view_applicants', job_id=job.id) }}" style="opacity:0.95;">Poster only</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <p style="text-align:center; color:#0b3f17; font-weight:700; margin-top:40px;">No jobs posted yet.</p>
+  {% endif %}
+
+</div>
+
+<script>
+document.addEventListener('submit', function(e){
+  const btn = e.target.querySelector('button[type="submit"]');
+  if (btn) {
+    btn.disabled = true;
+    setTimeout(()=>btn.disabled=false, 1200);
+  }
+});
+</script>
+
+{% endblock %}

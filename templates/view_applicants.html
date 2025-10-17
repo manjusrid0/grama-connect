@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #d9fdd3, #a8e063);
+    margin: 0;
+    padding: 20px;
+}
+
+.applicants-container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.page-title {
+    text-align: center;
+    color: #1b4332;
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.applicant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.applicant-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.applicant-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.applicant-card h3 {
+    margin: 0;
+    color: #05693c;
+    font-size: 20px;
+}
+
+.applicant-card p {
+    margin: 6px 0;
+    color: #333;
+    font-size: 15px;
+}
+
+.applicant-card p strong {
+    color: #2d6a4f;
+}
+
+.no-applicants {
+    text-align: center;
+    color: #444;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.back-btn {
+    display: inline-block;
+    background: #2d6a4f;
+    color: white;
+    padding: 12px 26px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+    margin-top: 30px;
+}
+
+.back-btn:hover {
+    background: #1b4332;
+}
+</style>
+
+<div class="applicants-container">
+    <h2 class="page-title">Applicants for "{{ job.title }}"</h2>
+
+    {% if applicants %}
+    <div class="applicant-grid">
+        {% for a in applicants %}
+        <div class="applicant-card">
+            <h3>{{ loop.index }}. {{ a.user_name }}</h3>
+            <p><strong>📧 Email:</strong> {{ a.email }}</p>
+            <p><strong>📱 Phone:</strong> {{ a.phone }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-applicants">No one has applied for this job yet.</p>
+    {% endif %}
+
+    <div style="text-align:center;">
+        <a href="{{ url_for('add_jobs') }}" class="back-btn">← Back to Jobs</a>
+    </div>
+</div>
+
+{% endblock %}

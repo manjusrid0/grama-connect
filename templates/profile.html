@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #f7fdfc, #89d9db, #0be9e9);
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .profile-container {
+        max-width: 700px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        text-align: center;
+    }
+
+    .profile-pic {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #7d2e76;
+        margin-bottom: 15px;
+    }
+
+    .profile-header h2 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #710d91;
+        margin-bottom: 10px;
+    }
+
+    .profile-details {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .profile-details label {
+        font-weight: bold;
+        color: #2e367d;
+        display: block;
+        margin-top: 12px;
+    }
+
+    .profile-details p {
+        background: #f1f8e9;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 5px 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .edit-btn {
+        display: inline-block;
+        background: #b820ab;
+        color: #fff;
+        padding: 12px 25px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 16px;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
+
+    .edit-btn:hover {
+        background: #b60767;
+        transform: scale(1.05);
+    }
+
+    .activities {
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    .activities h3 {
+        color: #045891;
+        border-bottom: 2px solid #0be9e9;
+        padding-bottom: 8px;
+    }
+
+    .activities ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .activities li {
+        background: #f3faff;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 8px 0;
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-header">
+        
+
+        <img src="{{ url_for('static', filename=user.profile_pic or 'uploads/default.png') }}" class="profile-pic">
+        <h2>{{ user.name }}</h2>
+        <p><strong>Status:</strong> {{ user.status or "Active learner" }}</p>
+        <p><strong>Profession:</strong> {{ user.profession or "Student" }}</p>
+    </div>
+
+    <div class="profile-details">
+        <label>Email:</label>
+        <p>{{ user.email }}</p>
+
+        <label>Phone:</label>
+        <p>{{ user.phone or "Not provided" }}</p>
+
+        <label>Location:</label>
+        <p>{{ user.location or "Not provided" }}</p>
+
+        <label>Skills:</label>
+        <p>{{ user.skills or "No skills added yet" }}</p>
+
+        <label>Courses:</label>
+        <p>{{ user.courses or "No courses enrolled yet" }}</p>
+    </div>
+
+    {% if user.id == current_user.id %}
+        <a href="{{ url_for('edit_profile') }}" class="edit-btn">Edit Profile</a>
+    {% endif %}
+
+    <div class="activities">
+        <h3>Recent Activities</h3>
+        {% if activities %}
+            <ul>
+            {% for act in activities %}
+                <li>{{ act.action }} — <small>{{ act.timestamp.strftime('%Y-%m-%d %H:%M') }}</small></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No activities yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

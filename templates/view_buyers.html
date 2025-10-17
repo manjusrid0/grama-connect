@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Buyers for {{ product.name }}</h2>
+{% if buyers %}
+  <table border="1" style="width:80%; margin:auto; background:white; color:black;">
+    <tr>
+      <th>Buyer Name</th>
+      <th>Email</th>
+      <th>Purchase Date</th>
+    </tr>
+    {% for b in buyers %}
+    <tr>
+      <td>{{ b.buyer.username }}</td>
+      <td>{{ b.buyer.email }}</td>
+      <td>{{ b.purchase_date.strftime('%Y-%m-%d %H:%M') }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p style="text-align:center;">No one has purchased this product yet.</p>
+{% endif %}
+{% endblock %}

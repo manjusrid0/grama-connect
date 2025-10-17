@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="text-align: center; margin-top: 30px; font-size: 32px; font-weight: bold; color: #fff; text-shadow: 2px 2px 6px #000;">
+  {{_("Login")}}
+</h2>
+
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='uploads/yellow2.gif') }}");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: rgb(240, 248, 240);
+  font-family: "Segoe UI", sans-serif;
+}
+/* Enable vertical scroll for body */
+body {
+    overflow-y: auto; /* allows vertical scroll */
+}
+
+/* Custom scrollbar for Webkit browsers (Chrome, Edge, Safari) */
+body::-webkit-scrollbar {
+    width: 12px; /* width of scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3); /* track color */
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #2e7d32; /* thumb color (green) */
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #1b5e20; /* darker green on hover */
+}
+
+/* Firefox scrollbar */
+body {
+    scrollbar-width: thin;
+    scrollbar-color: #2e7d32 rgba(0,0,0,0.3);
+}
+
+/* Container */
+.login-form {
+  width: 500px;
+  margin: 50px auto;
+  padding: 35px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+/* Labels */
+.login-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffeb3b; /* yellow */
+  text-shadow: 1px 1px 3px #000;
+}
+
+/* Inputs */
+.login-form input {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  letter-spacing: 1px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+  color: #333;
+}
+
+/* Button */
+.login-form button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.login-form button:hover {
+  background: linear-gradient(135deg, #388e3c, #2e7d32);
+}
+
+/* Link */
+.login-form a {
+  color: #ffeb3b;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.login-form a:hover {
+  color: #fff176;
+}
+</style>
+
+
+<div class="login-form">
+  <form method="POST">
+      <!-- Username or Email -->
+      <label for="username_or_email">{{_("Email")}}</label>
+      <input id="username_or_email" name="username_or_email" type="text" placeholder="{{_('Enter your username or email')}}" required>
+
+      <!-- Password -->
+      <label for="password">{{_("Password")}}</label>
+      <input id="password" name="password" type="password" placeholder="{{_('Enter your password')}}" required>
+
+      <!-- Submit -->
+      <button type="submit">{{_("Login")}}</button>
+  </form>
+  <p style="text-align: center; margin-top: 20px;">
+    {{_("New here?")}} <a href="{{ url_for('register') }}">{{_("Register here")}}</a>
+  </p>
+</div>
+
+{% endblock %}

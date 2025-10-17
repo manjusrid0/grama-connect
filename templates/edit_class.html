@@ -1,0 +1,161 @@
+<!-- templates/edit_class.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ _("Edit Class") }}</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #a7f3d0 0%, #d1fae5 100%);
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      color: #064e3b;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .edit-container {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 650px;
+      padding: 40px 50px;
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      text-align: center;
+      color: #065f46;
+      margin-bottom: 30px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    form label {
+      display: block;
+      font-weight: 600;
+      color: #064e3b;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    input[type="text"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1.5px solid #a7f3d0;
+      font-size: 15px;
+      background: #f9fafb;
+      margin-bottom: 18px;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #34d399;
+      box-shadow: 0 0 6px rgba(52, 211, 153, 0.3);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      background: linear-gradient(90deg, #34d399 0%, #059669 100%);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 0;
+      font-size: 17px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #059669 0%, #34d399 100%);
+      transform: scale(1.03);
+    }
+
+    .field-group {
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .edit-container {
+        padding: 25px 20px;
+      }
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="edit-container">
+    <h2>Edit Class: {{ cls.title }}</h2>
+    <form method="POST" enctype="multipart/form-data">
+      <div class="field-group">
+        <label>Title</label>
+        <input type="text" name="title" value="{{ cls.title }}" required>
+      </div>
+
+      <div class="field-group">
+        <label>Description</label>
+        <textarea name="description" required>{{ cls.description }}</textarea>
+      </div>
+
+      <div class="field-group">
+        <label>Delivery Mode</label>
+        <select name="delivery_mode" required onchange="toggleFields(this.value)">
+          <option value="video_link" {% if cls.class_type == 'video_link' %}selected{% endif %}>Video Link</option>
+          <option value="upload_video" {% if cls.class_type == 'upload_video' %}selected{% endif %}>Upload Video</option>
+          <option value="offline" {% if cls.class_type == 'offline' %}selected{% endif %}>Offline</option>
+        </select>
+      </div>
+
+      <div id="video_link_input" class="field-group" style="display: none;">
+        <label>Video Link</label>
+        <input type="url" name="video_link" value="{{ cls.video_url }}">
+      </div>
+
+      <div id="video_file_input" class="field-group" style="display: none;">
+        <label>Upload New Video</label>
+        <input type="file" name="video_file">
+      </div>
+
+      <div id="offline_input" class="field-group" style="display: none;">
+        <label>Offline Details</label>
+        <textarea name="offline_details">{{ cls.location }}</textarea>
+      </div>
+
+      <button type="submit">Update Class</button>
+    </form>
+  </div>
+
+  <script>
+    function toggleFields(mode) {
+      document.getElementById('video_link_input').style.display = (mode === 'video_link') ? 'block' : 'none';
+      document.getElementById('video_file_input').style.display = (mode === 'upload_video') ? 'block' : 'none';
+      document.getElementById('offline_input').style.display = (mode === 'offline') ? 'block' : 'none';
+    }
+
+    // Initialize correct field visibility on load
+    toggleFields("{{ cls.class_type }}");
+  </script>
+</body>
+</html>

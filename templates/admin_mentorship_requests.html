@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+}
+.request-card {
+    background: #f9f9f9;
+    color: #333;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.request-card h4 {
+    margin-bottom: 10px;
+}
+.request-card p {
+    margin: 4px 0;
+}
+</style>
+
+<div class="container">
+    <h2>📋 Mentorship Requests</h2>
+    {% if requests %}
+        {% for req in requests %}
+        <div class="request-card">
+            <h4>{{ req.name }} ({{ req.email }})</h4>
+            {% if req.phone %}<p>📞 {{ req.phone }}</p>{% endif %}
+            <p>💡 Request Details: {{ req.need }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No mentorship requests yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

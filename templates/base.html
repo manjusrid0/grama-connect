@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="{{ get_locale() }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ _("Grama Connect") }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== GLOBAL STYLES ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5faf5;
+      color: #2f4f2f;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; }
+
+    /* ===== HEADER ===== */
+    header {
+      position: sticky;
+      top: 0;
+      background: #e6f4ea; /* soft green background */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      z-index: 100;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #2f7a2f;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #2f7a2f;
+      font-weight: 700;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    nav a {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      color: #2f7a2f;
+      transition: all 0.3s ease;
+      background: #ffffffcc; /* subtle translucent white */
+    }
+
+    nav a:hover {
+      background-color: #2f7a2f;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #2f7a2f;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .menu-toggle { display: block; }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #e6f4ea;
+        border-radius: 8px;
+        padding: 10px 0;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      nav a {
+        width: 100%;
+        text-align: center;
+        margin: 2px 0;
+      }
+    }
+
+    /* ===== LANGUAGE SELECTOR ===== */
+    .language-selector select {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid #2f7a2f;
+      font-weight: 500;
+      background: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .language-selector select:hover {
+      background: #f0f7f2;
+    }
+
+    /* ===== FLASH MESSAGES ===== */
+    .alert {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #dff0d8;
+      color: #2f7a2f;
+      padding: 12px 22px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-weight: 600;
+      z-index: 1000;
+      animation: fadein 0.5s, fadeout 0.5s 3s;
+    }
+
+    @keyframes fadein { from { opacity: 0; top: 60px; } to { opacity: 1; top: 80px; } }
+    @keyframes fadeout { from { opacity: 1; top: 80px; } to { opacity: 0; top: 60px; } }
+
+    /* ===== ASSISTANT ===== */
+    #assistant-box {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background: #fff;
+      border: 2px solid #2f7a2f;
+      border-radius: 15px;
+      padding: 14px;
+      width: 320px;
+      max-height: 260px;
+      overflow-y: auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      font-size: 14px;
+      display: none;
+      z-index: 9999;
+    }
+
+    #assistant-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #2f7a2f;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    #assistant-btn:hover { transform: scale(1.1); }
+
+    #assistant-log div { margin-bottom: 6px; line-height: 1.4; }
+
+  </style>
+</head>
+<body onload="greetUser(); addVoiceToAllElements();">
+
+  <!-- Header -->
+  <header>
+  <h1>{{ _("Grama Connect") }}</h1>
+
+  <div style="display:flex; align-items:center; gap:12px; width:100%; justify-content:flex-end;">
+    
+    <!-- Mobile Menu Toggle -->
+    <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+
+    <!-- Navigation Links -->
+    <nav class="nav-links d-flex align-items-center gap-2">
+      <a href="{{ url_for('home') }}">
+        <i class="bi bi-house-fill"></i> {{ _("Home") }}
+      </a>
+      <a href="{{ url_for('user_login') }}">
+        <i class="bi bi-box-arrow-in-right"></i> {{ _("Login") }}
+      </a>
+      <a href="{{ url_for('register') }}">
+        <i class="bi bi-person-plus-fill"></i> {{ _("Register") }}
+      </a>
+      <a href="{{ url_for('admin_login') }}">
+        <i class="bi bi-shield-lock-fill"></i> {{ _("Admin") }}
+      </a>
+      <a href="{{ url_for('about') }}">
+        <i class="bi bi-info-circle-fill"></i> {{ _("About Us") }}
+      </a>
+
+      <!-- Profile Icon -->
+      <a href="{{ url_for('profile') }}" title="Profile">
+        <i class="bi bi-person-circle fs-5"></i>
+      </a>
+
+      <!-- Search Icon (toggles search input on mobile) -->
+      <div class="search-wrapper position-relative">
+        <a href="search_result.html" onclick="toggleSearch()" title="Search">
+          <i class="bi bi-search fs-5"></i>
+        </a>
+        <form class="search-bar position-absolute end-0" action="{{ url_for('search') }}" method="get">
+          <input type="text" name="q" placeholder="Search people or features..." class="form-control form-control-sm">
+          <button type="submit" class="btn btn-sm btn-success">Go</button>
+        </form>
+      </div>
+
+      <!-- Language Selector -->
+      <div class="language-selector ms-2">
+        <form>
+          <select onchange="location = this.value;" class="form-select form-select-sm">
+            {% for code, name in config['LANGUAGES'].items() %}
+              <option value="{{ url_for('set_language', language=code) }}" {% if code == get_locale() %} selected {% endif %}>{{ name }}</option>
+            {% endfor %}
+          </select>
+        </form>
+      </div>
+
+      <a href="{{ url_for('logout') }}" class="btn btn-outline-success btn-sm ms-2 d-none d-md-inline">
+        <i class="bi bi-box-arrow-right"></i> {{ _("Logout") }}
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</header>
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('show');
+  }
+
+  function toggleSearch() {
+    const searchForm = document.querySelector('.search-bar');
+    if (searchForm) {
+      searchForm.classList.toggle('d-block');
+      searchForm.classList.toggle('d-none');
+    }
+  }
+</script>
+
+<style>
+  .nav-links a { display:flex; align-items:center; gap:4px; padding:6px 10px; border-radius:6px; transition:0.3s; }
+  .nav-links a:hover { background-color:#2f7a2f; color:#fff; }
+  
+  /* Mobile search hidden by default */
+  .search-bar { display:none; top:100%; right:0; z-index:2000; background:#e6f4ea; padding:6px; border-radius:8px; }
+  @media (min-width:768px) {
+    .search-bar { display:flex !important; position:static; background:none; padding:0; }
+    .search-wrapper a { display:none; }
+  }
+</style>
+
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert">{{ msg }}</div>
+        <script> speak("{{ msg }}"); </script>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Main Content -->
+  {% block content %}{% endblock %}
+
+  <!-- Assistant -->
+ 
+
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('show');
+    }
+    // Assistant JS remains unchanged
+  </script>
+
+</body>
+</html>

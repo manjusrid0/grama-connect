@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Orders for Your Products</h2>
+
+{% for product in products %}
+<div class="card mb-3">
+  <div class="card-header">
+    {{ product.name }} | Quantity left: {{ product.quantity }}
+  </div>
+  <div class="card-body">
+    <h5>Buyers:</h5>
+    <ul>
+      {% for purchase in product.purchases %}
+        <li>{{ purchase.buyer.name }} | Email: {{ purchase.buyer.email }} | Phone: {{ purchase.buyer.phone }}</li>
+      {% else %}
+        <li>No buyers yet</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

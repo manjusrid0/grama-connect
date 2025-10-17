@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+body {
+  background-image: url("{{ url_for('static', filename='uploads/field2.jpg') }}");
+  background-size: cover;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: rgba(0,0,0,0.75);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  color: #fff;
+}
+
+.dashboard-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.request-card {
+  background: rgba(255,255,255,0.1);
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  transition: 0.3s;
+}
+
+.request-card:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.request-card h4 {
+  color: #a8e063;
+  margin-bottom: 8px;
+}
+
+.request-card p {
+  margin: 4px 0;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.menu-buttons a {
+  display: block;
+  padding: 12px;
+  background-color: #36c712fa;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.menu-buttons a:hover {
+  background-color: #2d7e14a6;
+}
+</style>
+
+<div class="dashboard-container">
+  <h2>{{ _("Welcome, Admin!") }}</h2>
+
+  <div class="menu-buttons">
+    <a href="{{ url_for('admin_add_job') }}">{{ _("Add New Job") }}</a>
+    <a href="{{ url_for('admin_view_jobs') }}">{{ _("View All Jobs") }}</a>
+    <a href="{{ url_for('post_class') }}">Post Class</a>
+    <a href="{{ url_for('join_class') }}">View Class</a>
+    <a href="{{ url_for('admin_logout') }}">{{ _("Logout") }}</a>
+  </div>
+
+  <hr style="margin: 30px 0; border-color:#a8e063;">
+
+  <h2>{{ _("Mentorship Requests") }}</h2>
+
+  {% if mentorship_requests %}
+    {% for req in mentorship_requests %}
+      <div class="request-card">
+        <h4>{{ req.name }} ({{ req.email }})</h4>
+        {% if req.phone %}<p><strong>Phone:</strong> {{ req.phone }}</p>{% endif %}
+        {% if req.topic %}<p><strong>Topic:</strong> {{ req.topic }}</p>{% endif %}
+        {% if req.need %}<p><strong>Other Requests:</strong> {{ req.need }}</p>{% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No mentorship requests yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
