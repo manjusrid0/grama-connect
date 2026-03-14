@@ -1,58 +1,277 @@
- 🌾 Grama Connect – Empowering Rural Communities with Digital Solutions
+🌾 **Grama Connect – Empowering Rural Communities with Digital Solutions**
 
-Grama Connect is a web-based platform built using **Flask** and **SQLite** to bridge the gap between rural talents and digital opportunities. This project focuses on empowering self-employed individuals, students, and local communities with features that promote growth, education, and income.
+Grama Connect is a **Flask-based digital platform** designed to bridge the gap between rural talent and modern digital opportunities.
+The platform helps **students, self-employed individuals, and rural communities** access jobs, education, mentorship, and local commerce in one unified system.
 
+The goal of this project is simple: **connect rural skills to real opportunities using technology.**
 
- 🚀 Features
+---
 
- ✅ **Job Portal** – Post and join local job opportunities
- 🎓 **Online/Offline Class System** – Share and join educational classes with auto-play videos or offline details
- 🛒 **Product Selling & Buying** – Showcase and buy handmade or traditional items
- 📚 **Free Course Suggestions** – Connect users with Skill India, NPTEL, etc.
- 📈 **Income Estimator** – Helps self-employed users predict income
- 🆘 **Mentorship Requests** – Users can request help or guidance
- 🛡️ **Skill Rating Badges** – Badges based on user participation
+## 🚀 Features
 
+### 👤 User System
 
+* User registration and login
+* Profile management with skills and profession
+* Profile picture upload
+* Activity tracking
 
- 🛠️ Tech Stack
+### 💼 Job Portal
 
- 💻 **Frontend**: HTML, CSS, Bootstrap
- ⚙️ **Backend**: Flask (Python)
- 🗃️ **Database**: SQLite
- 🌐 **Deployment**: Render / Cloudflare Tunnel
+* Post local job opportunities
+* Join available jobs
+* Employer can view applicants
+* Email notification when someone applies
 
-📦 How to Run Locally
+### 🛒 Local Marketplace
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/manjusrid0/grama-connect.git
-   cd grama-connect
+* Users can post products for sale
+* Buy products from other users
+* Sellers receive email notifications when a product is purchased
+* Buyer list visible to sellers
 
-2. Install dependencies:
-    pip install -r requirements.txt
+### 🎓 Learning & Classes
 
-3. Run the app:
-    python app.py
+* Post educational classes
+* Join online or offline classes
+* Support for:
 
-4. visit in browser:
-    http://localhost:5000
-    
+  * Video link classes
+  * Uploaded video classes
+  * Offline training sessions
+* Automatic redirect to class content after joining
 
-  🌟 Highlights
-Designed for students, villagers, and self-employed individuals
+### 📚 Free Course Suggestions
 
-Simple, clean interface for real users
+Connects users with free government learning platforms like:
 
-Built with love and vision for rural empowerment 💖
+* Skill India
+* NPTEL
+* SWAYAM
+* DIKSHA
 
-**Common Link**
+### 🧠 Mentorship Requests
+
+Users can request guidance or support from mentors.
+
+Admin receives email notifications when a mentorship request is submitted.
+
+### 📈 Income Estimator
+
+Helps self-employed users estimate monthly income based on:
+
+* Skill type
+* Working hours
+* Days worked
+
+### 🛠️ Self Employment Ideas
+
+Provides business ideas for rural communities such as:
+
+* Goat farming
+* Tailoring
+* Pickle business
+* Paper bag manufacturing
+* Mobile recharge services
+
+### 🌐 Multi-Language Support
+
+Users can switch between languages:
+
+* English
+* Tamil
+* Hindi
+* Malayalam
+* Telugu
+
+### 🔔 Notification System
+
+Automatic notifications for:
+
+* Job applications
+* Product purchases
+* Class enrollments
+* Mentorship requests
+
+### 🛡️ Admin Dashboard
+
+Admin can manage:
+
+* Job postings
+* Mentorship requests
+* Uploaded learning content
+* Platform activity
+
+---
+
+## 🛠️ Tech Stack
+
+💻 **Frontend**
+
+* HTML
+* CSS
+* Bootstrap
+* Jinja2 Templates
+
+⚙️ **Backend**
+
+* Python
+* Flask Framework
+
+🗃️ **Database**
+
+* SQLite
+* SQLAlchemy ORM
+
+🔐 **Authentication**
+
+* Flask-Login
+
+🌍 **Localization**
+
+* Flask-Babel (Multi-language support)
+
+📧 **Email Notifications**
+
+* SMTP (Gmail)
+
+📂 **File Upload**
+
+* Image uploads
+* Video uploads
+* Profile picture uploads
+
+---
+
+## 📦 Project Structure
+
+```
+grama_connect/
+│
+├── app.py
+│
+├── database/
+│   └── grama_main.db
+│
+├── static/
+│   ├── uploads/
+│   ├── profile_pic/
+│   └── css/
+│
+├── templates/
+│   ├── home.html
+│   ├── dashboard.html
+│   ├── login.html
+│   ├── register.html
+│   ├── profile.html
+│   ├── jobs.html
+│   ├── join_job.html
+│   ├── add_product.html
+│   ├── buy.html
+│   ├── post_class.html
+│   ├── join_class.html
+│   ├── request_mentorship.html
+│   ├── income_estimator.html
+│   └── admin_dashboard.html
+│
+└── README.md
+```
+
+---
+
+## ⚙️ How to Run Locally
+
+### 1️⃣ Clone the Repository
+
+```
+git clone https://github.com/yourusername/grama-connect.git
+cd grama-connect
+```
+
+### 2️⃣ Create Virtual Environment
+
+Windows
+
+```
+python -m venv venv
+venv\Scripts\activate
+```
+
+Mac/Linux
+
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3️⃣ Install Dependencies
+
+```
+pip install -r requirements.txt
+```
+
+### 4️⃣ Run the Application
+
+```
+python app.py
+```
+
+### 5️⃣ Open in Browser
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+## 🔑 Admin Login
+
+Username
+
+```
+admin
+```
+
+Password
+
+```
+admin123
+```
+
+Admin Panel URL
+
+```
+http://127.0.0.1:5000/admin
+```
+
+---
+
+## 🌟 Project Highlights
+
+✔ Built specifically for **rural empowerment**
+✔ Supports **jobs, education, commerce, and mentorship** in one platform
+✔ **Multi-language interface** for accessibility
+✔ Designed for **students, villagers, and self-employed individuals**
+✔ Simple and practical UI for real-world users
+
+---
+
+## 🌐 Live Project
+
 https://grama-connect.onrender.com/
 
- 🔗 Connect with Me
+---
+
+## 👩‍💻 Developer
+
+**Manjusri D**
+
+📍 Cuddalore, Tamil Nadu
+📧 [manjusrid0@gmail.com](mailto:manjusrid0@gmail.com)
 💼 LinkedIn: https://www.linkedin.com/in/manjusri-d
 
-✉️ manjusrid0@gmail.com
+---
 
-🌍 Cuddalore, Tamilnadu
+## 📜 License
 
+This project is developed for educational and community development purposes.
