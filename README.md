@@ -46,7 +46,7 @@ Simple, clean interface for real users
 
 Built with love and vision for rural empowerment 💖
 
-**Comman Link**
+**Common Link**
 https://grama-connect.onrender.com/
 
  🔗 Connect with Me
