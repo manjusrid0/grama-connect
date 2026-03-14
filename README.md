@@ -22,19 +22,6 @@ Grama Connect is a web-based platform built using **Flask** and **SQLite** to br
  🗃️ **Database**: SQLite
  🌐 **Deployment**: Render / Cloudflare Tunnel
 
-
-
-📸 Screenshots
-
-![Homepage Screenshot](uploads/screenshot(59).png)
-![loginpage Screenshot](uploads/screenshot60.png)
-![adminpage Screenshot](uploads/screenshot61.png)
-![aboutuspage Screenshot](uploads/screenshot62.png)
-![aboutuspage Screenshot](uploads/screenshot63.png)
-
-
-
-
 📦 How to Run Locally
 
 1. Clone the repository:
@@ -58,6 +45,9 @@ Designed for students, villagers, and self-employed individuals
 Simple, clean interface for real users
 
 Built with love and vision for rural empowerment 💖
+
+**Comman Link**
+https://grama-connect.onrender.com/
 
  🔗 Connect with Me
 💼 LinkedIn: https://www.linkedin.com/in/manjusri-d
